@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundLightTwo"
+    android:orientation="vertical">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.github.florent37.arclayout.ArcLayout
+            android:id="@+id/diagonalLayout"
+            android:layout_width="match_parent"
+            android:layout_height="380dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:elevation="8dip"
+            app:arc_cropDirection="cropOutside"
+            app:arc_height="50dp">
+
+            <!-- <com.flaviofaria.kenburnsview.KenBurnsView
+                 android:layout_width="match_parent"
+                 android:transitionName="profile"
+                 android:layout_height="match_parent"
+                 android:id="@+id/item_poster"
+                 android:scaleType="centerCrop"
+                 />-->
+            <ImageView
+                android:id="@+id/item_poster"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:transitionName="profile" />
+
+        </com.github.florent37.arclayout.ArcLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="325dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_play"
+            android:background="@color/colorAccent"
+            app:elevation="8dip"
+            app:fabSize="normal"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/diagonalLayout"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/id_detailed_overview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</ScrollView>
