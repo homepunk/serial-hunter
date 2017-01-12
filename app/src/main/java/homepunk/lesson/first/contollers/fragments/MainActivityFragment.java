@@ -62,7 +62,9 @@ public class MainActivityFragment extends Fragment {
             }
         });
 
-        task.execute("http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=" + Constants.API_KEY);
+//        task.execute("http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=" + Constants.API_KEY);
+//        task.execute("https://api.themoviedb.org/3/discover/tv?sort_by=popularity.desc&api_key=" + Constants.API_KEY);
+        task.execute("https://api.themoviedb.org/3/tv/top_rated?page=1&language=en-US&api_key=" + Constants.API_KEY);
         return root;
     }
 

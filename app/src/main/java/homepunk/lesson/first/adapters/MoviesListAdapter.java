@@ -18,11 +18,12 @@ import java.util.List;
 
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.contollers.activity.DetailedPageActivity;
+import homepunk.lesson.first.db.Constants;
 import homepunk.lesson.first.models.Film;
 
 public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.ViewHolder> {
     protected static List<Film> filmsList;
-    private static Film film;
+    private Film film;
     private Context context;
 
     public MoviesListAdapter(List<Film> films, Context context) {
@@ -32,14 +33,9 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Vi
 
     @Override
     public MoviesListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext()); // ???
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View root = layoutInflater.inflate(R.layout.list_item_film, parent, false);
 
-       /* TextView myTextView = (TextView) root.findViewById(R.id.item_title);
-
-        Typeface typeFace = Typeface.createFromAsset(context.getAssets(), "fonts/Quicksand-Regular.ttf");
-        myTextView.setTypeface(typeFace);
-       */
         return new ViewHolder(root);
     }
 
@@ -63,23 +59,25 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Vi
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView poster;
-       // public TextView title;
+        private Film film;
 
         public ViewHolder(View itemView) {
             super(itemView);
             poster = (ImageView) itemView.findViewById(R.id.item_poster);
-           // title = (TextView) itemView.findViewById(R.id.item_title);
+            // title = (TextView) itemView.findViewById(R.id.item_title);
             poster.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(), DetailedPageActivity.class);
-            Film film = filmsList.get(getLayoutPosition());
+            final Context context = v.getContext();
+            Intent intent = new Intent(context, DetailedPageActivity.class);
+            film = filmsList.get(getAdapterPosition());
+
             ActivityOptionsCompat options = ActivityOptionsCompat.
                     makeSceneTransitionAnimation((Activity) v.getContext(), poster, "profile");
-            intent.putExtra("desc", film);
-            v.getContext().startActivity(intent, options.toBundle());
+            intent.putExtra(Constants.TV_ID, film.id);
+            context.startActivity(intent, options.toBundle());
 
         }
     }

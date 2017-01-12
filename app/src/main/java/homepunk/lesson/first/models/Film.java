@@ -10,8 +10,9 @@ public class Film implements Serializable{
     private static final String KEY_OVERVIEW = "key_overview";
     private static final String KEY_RELEASE = "key_release";
     private static final String KEY_RATE = "key_rate";
-    public long id;
+    public int id;
     public String title;
+    public String titleOriginal;
     public String posterPath;
     public String overview;
     public String release;
