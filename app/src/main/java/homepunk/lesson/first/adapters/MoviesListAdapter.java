@@ -19,14 +19,14 @@ import java.util.List;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.contollers.activity.DetailedPageActivity;
 import homepunk.lesson.first.db.Constants;
-import homepunk.lesson.first.models.Film;
+import homepunk.lesson.first.models.TVSeries;
 
 public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.ViewHolder> {
-    protected static List<Film> filmsList;
-    private Film film;
+    protected static List<TVSeries> filmsList;
+    private TVSeries film;
     private Context context;
 
-    public MoviesListAdapter(List<Film> films, Context context) {
+    public MoviesListAdapter(List<TVSeries> films, Context context) {
         this.filmsList = films;
         this.context = context;
     }
@@ -43,9 +43,9 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, int position) {
         film = filmsList.get(position);
 
-        if (!TextUtils.isEmpty(film.getFullPosterPath(Film.WIDTH_500)))
+        if (!TextUtils.isEmpty(film.getFullPosterPath(TVSeries.WIDTH_500)))
             Picasso.with(context)
-                    .load(film.getFullPosterPath(Film.WIDTH_500))
+                    .load(film.getFullPosterPath(TVSeries.WIDTH_500))
                     .placeholder(R.drawable.placeholder_image)
                     .into(holder.poster);
 //             holder.title.setText(film.title);
@@ -59,7 +59,7 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Vi
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView poster;
-        private Film film;
+        private TVSeries film;
 
         public ViewHolder(View itemView) {
             super(itemView);

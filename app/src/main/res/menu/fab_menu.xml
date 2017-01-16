@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_call"
+        android:icon="@drawable/ic_top_twenty"
+        android:title="TOP 20" />
+    <item
+        android:id="@+id/action_text"
+        android:icon="@drawable/ic_new_1"
+        android:title="NEW"/>
+    <item
+        android:id="@+id/action_email"
+        android:icon="@drawable/ic_film"
+        android:title="ALL TV SHOW" />
+</menu>

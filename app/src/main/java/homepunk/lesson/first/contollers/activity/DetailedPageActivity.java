@@ -2,17 +2,19 @@ package homepunk.lesson.first.contollers.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import homepunk.lesson.first.contollers.R;
+import homepunk.lesson.first.contollers.fragments.DetailedPageActivityFragment;
+import homepunk.lesson.first.db.Constants;
 
 
 public class DetailedPageActivity extends AppCompatActivity {
     public static Intent intent;
-//  Переменная, в которую сохраняю полученый айди из адаптера
-    private static int tv_id;
+    private int tv_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +24,13 @@ public class DetailedPageActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         intent = getIntent();
-        tv_id = (int) intent.getSerializableExtra("desc");
+        tv_id = (int) intent.getSerializableExtra(Constants.TV_ID);
+
+            DetailedPageActivityFragment fragmentDetailed = DetailedPageActivityFragment.newInstance(tv_id);
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.add(R.id.content_fragment_id, fragmentDetailed);
+            ft.commit();
+
 
     }
 
@@ -36,9 +44,4 @@ public class DetailedPageActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public static int getDetailedValue(){
-        return tv_id;
-    }
-
 }

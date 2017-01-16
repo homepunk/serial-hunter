@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorBackgroundLightTwo"
-    android:orientation="vertical">
+    xmlns:fab="http://schemas.android.com/tools"
+    android:id="@+id/fragment_scroll_id"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    android:background="@color/colorBackgroundLightTwo">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/activity_main"
+        android:id="@+id/fragment_main_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <com.github.florent37.arclayout.ArcLayout
+        <!--<com.github.florent37.arclayout.ArcLayout
             android:id="@+id/diagonalLayout"
             android:layout_width="match_parent"
             android:layout_height="380dp"
@@ -22,7 +23,7 @@
             android:layout_alignParentTop="true"
             android:elevation="8dip"
             app:arc_cropDirection="cropOutside"
-            app:arc_height="50dp">
+            app:arc_height="50dp">-->
 
             <!-- <com.flaviofaria.kenburnsview.KenBurnsView
                  android:layout_width="match_parent"
@@ -32,44 +33,55 @@
                  android:scaleType="centerCrop"
                  />-->
             <ImageView
-                android:id="@+id/item_poster"
+                android:id="@+id/item_detailed_poster"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:transitionName="profile" />
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY" />
+<!--
+        </com.github.florent37.arclayout.ArcLayout>-->
 
-        </com.github.florent37.arclayout.ArcLayout>
+        <!--    <android.support.design.widget.FloatingActionButton
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:id="@+id/fab"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="325dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_play"
+                android:background="@color/colorAccent"
+                app:elevation="8dip"
+                app:fabSize="normal">
+            </android.support.design.widget.FloatingActionButton>
+    -->
+
+        <TextView
+            android:id="@+id/id_detailed_overview"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:fontFamily="sans-serif"
+            android:layout_below="@+id/item_detailed_poster"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <android.support.design.widget.FloatingActionButton
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="325dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fab"
+            android:layout_alignParentLeft="true"
+            android:background="@color/colorAccentTwo"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_play"
-            android:background="@color/colorAccent"
             app:elevation="8dip"
-            app:fabSize="normal"/>
+            app:fabSize="normal" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <include
+            layout="@layout/fab_layout"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/diagonalLayout"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            android:padding="20dp">
-
-            <TextView
-                android:id="@+id/id_detailed_overview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="18dp"
-                android:fontFamily="sans-serif"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-        </LinearLayout>
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="300dp" />
 
     </RelativeLayout>
 

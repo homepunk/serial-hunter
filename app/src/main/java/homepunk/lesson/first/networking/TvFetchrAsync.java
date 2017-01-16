@@ -7,12 +7,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
-public class MovieFetchrAsync extends AsyncTask<String, Integer, String> {
+public class TvFetchrAsync extends AsyncTask<String, Integer, String> {
     public IResultListener listener;
 
-    public MovieFetchrAsync(IResultListener listener) {
+    public TvFetchrAsync(IResultListener listener) {
         this.listener = listener;
     }
 
@@ -46,16 +47,16 @@ public class MovieFetchrAsync extends AsyncTask<String, Integer, String> {
             }
             json = stringBuffer.toString();
         } catch (IOException e) {
+            listener.onError("ERROR");
             e.printStackTrace();
-            listener.onError(e.getMessage());
         } finally {
             if (urlConnection != null) urlConnection.disconnect();
             if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException e) {
+                    listener.onError("ERROR");
                     e.printStackTrace();
-                    listener.onError(e.getMessage());
                 }
             }
         }
@@ -72,9 +73,65 @@ public class MovieFetchrAsync extends AsyncTask<String, Integer, String> {
         listener.onResult(result);
     }
 
+    private URL createUrl(String stringUrl){
+        URL url;
+        try {
+            url = new URL(stringUrl);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return url;
+    }
+
+    private InputStream makeHttpRequest(URL url){
+        HttpURLConnection urlConnection = null;
+        InputStream inputStream = null;
+        try{
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
+            inputStream = urlConnection.getInputStream();
+        } catch (IOException e) {
+            listener.onError(e.getMessage());
+        } finally {
+            if (urlConnection != null){
+                urlConnection.disconnect();
+            } if (inputStream != null){
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    listener.onError(e.getMessage());
+                }
+            }
+        }
+        return inputStream;
+    }
+
+    private String extractFromJson(InputStream inputStream){
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        StringBuffer stringBuffer = new StringBuffer();
+
+        String line = null;
+        try {
+            line = reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        while (line != null)
+            stringBuffer.append(line + "\n");
+
+        if (stringBuffer == null) {
+            listener.onError("Server response is empty");
+            return null;
+        }
+        return stringBuffer.toString();
+    }
+
     public interface IResultListener {
         void onResult(String result);
 
         void onError(String error);
     }
 }
+

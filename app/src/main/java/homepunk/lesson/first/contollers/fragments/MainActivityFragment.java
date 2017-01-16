@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 import homepunk.lesson.first.adapters.MoviesListAdapter;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.db.Constants;
-import homepunk.lesson.first.models.Film;
+import homepunk.lesson.first.models.TVSeries;
 import homepunk.lesson.first.networking.MovieFetchrAsync;
 import homepunk.lesson.first.networking.MovieNetworkParser;
 
@@ -29,7 +29,7 @@ public class MainActivityFragment extends Fragment {
 
     private RecyclerView MoviesRV;
     private MoviesListAdapter adapter;
-    private List<Film> filmsList;
+    private List<TVSeries> filmsList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,6 +60,7 @@ public class MainActivityFragment extends Fragment {
             public void onError(String error) {
                 Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
             }
+
         });
 
 //        task.execute("http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=" + Constants.API_KEY);
@@ -80,6 +81,7 @@ public class MainActivityFragment extends Fragment {
         MoviesRV.setLayoutManager(new GridLayoutManager(getContext(), getResources().getConfiguration().orientation ==
                 Configuration.ORIENTATION_LANDSCAPE ? 3 : 2));
     }
+
 
 }
 

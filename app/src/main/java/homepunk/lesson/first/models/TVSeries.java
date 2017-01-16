@@ -3,7 +3,22 @@ package homepunk.lesson.first.models;
 
 import java.io.Serializable;
 
-public class Film implements Serializable{
+public class TVSeries implements Serializable, Cloneable{
+    public TVSeries(TVSeries original) {
+        this.id = original.id;
+        this.title = original.title;
+        this.overview = original.overview;
+    }
+
+    public TVSeries() {
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+
+    }
+
     // keys for packing/unpacking intent
     private static final String KEY_TITLE = "key_title";
     private static final String KEY_THUMB_PATH = "key_path";
