@@ -7,9 +7,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import homepunk.lesson.first.db.Constants;
-import homepunk.lesson.first.models.TVSeries;
-public class MovieNetworkParser {
+import homepunk.lesson.first.database.Constants;
+import homepunk.lesson.first.model.TVSeries;
+
+public class TVNetworkParser {
     private static final String KEY_RESULTS = "results";
     private static final String KEY_ORIGINAL_TITLE = "original_name";
     private static final String KEY_TITLE = "name";
@@ -40,17 +41,13 @@ public class MovieNetworkParser {
         return filmsList;
     }
 
-    public static TVSeries getDetailedByJsonId(String json) {
+    public static TVSeries getDetailedByJsonId(String json) throws JSONException {
         TVSeries tv = new TVSeries();
-        try {
-            JSONObject root = new JSONObject(json);
-            tv.overview = root.getString(KEY_OVERVIEW);
-            tv.id = root.getInt(KEY_ID);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return new TVSeries(tv);
+        JSONObject root = new JSONObject(json);
+        tv.overview = root.getString(KEY_OVERVIEW);
+        tv.id = root.getInt(KEY_ID);
+        tv.posterPath = root.getString(KEY_POSTER_PATH);
+        return tv;
     }
 
 }

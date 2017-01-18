@@ -9,10 +9,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class MovieFetchrAsync extends AsyncTask<String, Integer, String> {
+public class TVFetchrAsync extends AsyncTask<String, Integer, String> {
     public IResultListener listener;
 
-    public MovieFetchrAsync(IResultListener listener) {
+    public TVFetchrAsync(IResultListener listener) {
         this.listener = listener;
     }
 

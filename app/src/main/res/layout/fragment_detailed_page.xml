@@ -58,10 +58,9 @@
         <TextView
             android:id="@+id/id_detailed_overview"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:fontFamily="sans-serif"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/item_detailed_poster"
-            android:textColor="@color/black"
+            android:textColor="@color/colorAccentTwo"
             android:textSize="20sp" />
 
         <android.support.design.widget.FloatingActionButton

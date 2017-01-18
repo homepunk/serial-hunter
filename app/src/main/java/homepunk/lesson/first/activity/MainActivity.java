@@ -1,4 +1,4 @@
-package homepunk.lesson.first.contollers.activity;
+package homepunk.lesson.first.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -13,53 +13,52 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
-import homepunk.lesson.first.adapters.TabsAdapter;
+import butterknife.Bind;
+import butterknife.BindString;
+import butterknife.ButterKnife;
+import homepunk.lesson.first.adapter.TabsAdapter;
 import homepunk.lesson.first.contollers.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private Toolbar toolbar;
-    private TabLayout tabs;
-    private ViewPager pager;
-    private ImageView header;
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
-    TabsAdapter adapter;
-    CharSequence titles[] = {"TOP RATING", "WATCH LATER"};
+
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.tabs)
+    TabLayout tabs;
+    @Bind(R.id.pager)
+    ViewPager pager;
+    @Bind(R.id.header)
+    ImageView header;
+    @Bind(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+    @Bind(R.id.nav_view)
+    NavigationView navigationView;
+
+    @BindString(R.string.tab_top)
+    String tabTop;
+    @BindString(R.string.tab_watch_later)
+    String tabWatchLater;
+
+    public ActionBarDrawerToggle drawerToggle;
+    public TabsAdapter adapter;
+    public CharSequence titles[] = {tabTop, tabWatchLater};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        tabs = (TabLayout) findViewById(R.id.tabs);
-        pager = (ViewPager) findViewById(R.id.pager);
-        header = (ImageView) findViewById(R.id.header);
+        ButterKnife.bind(this);
         setUpTabs();
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        drawerToggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.setDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+
         navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    private void setTabIcons() {
-        tabs.getTabAt(0).setIcon(R.drawable.ic_star_5);
-        tabs.getTabAt(1).setIcon(R.drawable.ic_watch_later);
-
-    }
-
-    void setUpTabs() {
-        adapter = new TabsAdapter(this.getSupportFragmentManager(), titles, titles.length);
-        pager.setAdapter(adapter);
-        tabs.setupWithViewPager(pager);
-        setTabIcons();
     }
 
     @Override
@@ -117,5 +116,19 @@ public class MainActivity extends AppCompatActivity
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    private void setTabIcons() {
+        tabs.getTabAt(0).setIcon(R.drawable.ic_star_5);
+        tabs.getTabAt(1).setIcon(R.drawable.ic_watch_later);
+
+    }
+
+    public void setUpTabs() {
+        adapter = new TabsAdapter(this.getSupportFragmentManager(), titles, titles.length);
+        pager.setAdapter(adapter);
+        tabs.setupWithViewPager(pager);
+        setTabIcons();
     }
 }

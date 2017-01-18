@@ -1,4 +1,4 @@
-package homepunk.lesson.first.contollers.fragments;
+package homepunk.lesson.first.activity;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -17,30 +17,30 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import homepunk.lesson.first.adapters.MoviesListAdapter;
+import homepunk.lesson.first.adapter.TVListAdapter;
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.db.Constants;
-import homepunk.lesson.first.models.TVSeries;
-import homepunk.lesson.first.networking.MovieFetchrAsync;
-import homepunk.lesson.first.networking.MovieNetworkParser;
+import homepunk.lesson.first.database.Constants;
+import homepunk.lesson.first.model.TVSeries;
+import homepunk.lesson.first.networking.TVFetchrAsync;
+import homepunk.lesson.first.networking.TVNetworkParser;
 
 public class MainActivityFragment extends Fragment {
+    @Bind(R.id.movies_rv)
+    RecyclerView TVRecycleView;
 
-    private RecyclerView MoviesRV;
-    private MoviesListAdapter adapter;
-    private List<TVSeries> filmsList;
+    private TVListAdapter TVAdapter;
+    private List<TVSeries> TVList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_main_movies, container, false);
 
-        filmsList = new ArrayList<>();
-        MoviesRV = (RecyclerView) root.findViewById(R.id.movies_rv);
         setUpView(root);
 
-        MovieFetchrAsync task = new MovieFetchrAsync(new MovieFetchrAsync.IResultListener() {
+        TVFetchrAsync task = new TVFetchrAsync(new TVFetchrAsync.IResultListener() {
 
             @Override
             public void onResult(String result) {
@@ -48,12 +48,12 @@ public class MainActivityFragment extends Fragment {
                     return;
 
                 try {
-                    filmsList.addAll(MovieNetworkParser.getFilmsFromJson(result));
+                    TVList.addAll(TVNetworkParser.getFilmsFromJson(result));
                 } catch (JSONException e) {
                     e.printStackTrace();
                     return;
                 }
-                adapter.notifyDataSetChanged();
+                TVAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -63,22 +63,22 @@ public class MainActivityFragment extends Fragment {
 
         });
 
-//        task.execute("http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=" + Constants.API_KEY);
-//        task.execute("https://api.themoviedb.org/3/discover/tv?sort_by=popularity.desc&api_key=" + Constants.API_KEY);
-        task.execute("https://api.themoviedb.org/3/tv/top_rated?page=1&language=en-US&api_key=" + Constants.API_KEY);
+        task.execute(Constants.TV_REFENECE + Constants.TV_TOP20 + Constants.LANGUAGE_EN + Constants.API_KEY);
         return root;
     }
 
-    void setUpView(ViewGroup root){
+    void setUpView(ViewGroup root) {
         ButterKnife.bind(this, root);
         setUpList();
     }
 
     void setUpList() {
-        adapter = new MoviesListAdapter(filmsList, getContext());
-        MoviesRV.setLayoutManager(new LinearLayoutManager(getActivity()));
-        MoviesRV.setAdapter(adapter);
-        MoviesRV.setLayoutManager(new GridLayoutManager(getContext(), getResources().getConfiguration().orientation ==
+        TVList = new ArrayList<>();
+
+        TVAdapter = new TVListAdapter(TVList, getContext());
+        TVRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        TVRecycleView.setAdapter(TVAdapter);
+        TVRecycleView.setLayoutManager(new GridLayoutManager(getContext(), getResources().getConfiguration().orientation ==
                 Configuration.ORIENTATION_LANDSCAPE ? 3 : 2));
     }
 

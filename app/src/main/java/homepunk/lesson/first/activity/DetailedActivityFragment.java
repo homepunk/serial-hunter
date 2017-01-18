@@ -1,4 +1,4 @@
-package homepunk.lesson.first.contollers.fragments;
+package homepunk.lesson.first.activity;
 
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -25,16 +25,16 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.contollers.view.CustomShadedView;
-import homepunk.lesson.first.db.Constants;
-import homepunk.lesson.first.models.TVSeries;
-import homepunk.lesson.first.networking.MovieFetchrAsync;
-import homepunk.lesson.first.networking.MovieNetworkParser;
+import homepunk.lesson.first.database.Constants;
+import homepunk.lesson.first.model.TVSeries;
+import homepunk.lesson.first.networking.TVFetchrAsync;
+import homepunk.lesson.first.networking.TVNetworkParser;
 
-public class DetailedPageActivityFragment extends Fragment {
-
-    private static TVSeries tvShow = null;
+public class DetailedActivityFragment extends Fragment {
+    public TVSeries tvShow;
     private int tvId;
     ImageView imagePoster;
     FloatingActionButton fab;
@@ -52,8 +52,8 @@ public class DetailedPageActivityFragment extends Fragment {
     Animation hide_fab_3;
     private boolean FAB_Status = false;
     int width, height, fabSize, marginTopFab, marginLeftFab;
-
-    public DetailedPageActivityFragment() {
+    public Listener listener;
+    public DetailedActivityFragment() {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -70,23 +70,31 @@ public class DetailedPageActivityFragment extends Fragment {
         fab3 = (FloatingActionButton) root.findViewById(R.id.fab_3);
 
         tvId = getValuesFromBundle();
-        MovieFetchrAsync task = (MovieFetchrAsync) new MovieFetchrAsync(new MovieFetchrAsync.IResultListener() {
+
+        TVFetchrAsync task = (TVFetchrAsync) new TVFetchrAsync(new TVFetchrAsync.IResultListener() {
+
             @Override
             public void onResult(String result) {
-//               tvShow = MovieNetworkParser.getDetailedByJsonId(result);
-//               setTvShow(MovieNetworkParser.getDetailedByJsonId(result));
-                DetailedPageActivityFragment.this.tvShow = MovieNetworkParser.getDetailedByJsonId(result); //не сохраняет)
-                textDescription.setText(DetailedPageActivityFragment.this.tvShow.overview);
+                try {
+//                    listener = new Listener();
+                    tvShow = TVNetworkParser.getDetailedByJsonId(result);
+                    textDescription.setText(tvShow.overview);
+//                    listener.update(tvResult);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onError(String error) {
+//            Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+             }
+        }).execute(Constants.TV_REFENECE + tvId + Constants.LANGUAGE_EN  + Constants.API_KEY);
 
-            }
-
-        }).execute("https://api.themoviedb.org/3/tv/" + tvId + "?language=" + Constants.LANGUAGE_RU + "&api_key=" + Constants.API_KEY);
-
-//        textDescription.setText(this.tvShow.overview);
+//        if (tvShow != null) {
+//            textDescription.setText(tvShow.overview);
+//        }
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fab.getLayoutParams();
         Display display = getActivity().getWindowManager().getDefaultDisplay();
@@ -102,11 +110,11 @@ public class DetailedPageActivityFragment extends Fragment {
         marginLeftFab = backgroudView.getFabLeftMargin(fabSize);
         params.setMargins(marginLeftFab, marginTopFab, 0, 0);
         fab.setLayoutParams(params);
-
-        Picasso.with(getContext()).load("https://image.tmdb.org/t/p/original/1yeVJox3rjo2jBKrrihIMj7uoS9.jpg")
-                .resize(width, height)
-                .into(imagePoster);
-
+        if (tvShow != null){
+            Picasso.with(getContext()).load(tvShow.getFullPosterPath(TVSeries.WIDTH_780))
+                    .resize(width, height)
+                    .into(imagePoster);
+        }
         Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Quicksand-Regular.ttf");
         View.OnClickListener clickListener;
         clickListener = new View.OnClickListener() {
@@ -168,7 +176,7 @@ public class DetailedPageActivityFragment extends Fragment {
         });
 
 
-//        textDescription.setTypeface(typeFace);
+        textDescription.setTypeface(typeFace);
         return root;
     }
 
@@ -248,8 +256,8 @@ public class DetailedPageActivityFragment extends Fragment {
         fab3.setClickable(false);
     }
 
-    public static DetailedPageActivityFragment newInstance(int id) {
-        DetailedPageActivityFragment fragment = new DetailedPageActivityFragment();
+    public static DetailedActivityFragment newInstance(int id) {
+        DetailedActivityFragment fragment = new DetailedActivityFragment();
 
         Bundle arguments = new Bundle();
         arguments.putInt(Constants.TV_ID, id);
@@ -261,6 +269,12 @@ public class DetailedPageActivityFragment extends Fragment {
     public int getValuesFromBundle() {
         Bundle bundle = getArguments();
         return bundle != null ? bundle.getInt(Constants.TV_ID) : 0;
+    }
+
+    public class Listener{
+        public void update(TVSeries tvSeries) {
+            tvShow = tvSeries;
+        }
     }
 }
 

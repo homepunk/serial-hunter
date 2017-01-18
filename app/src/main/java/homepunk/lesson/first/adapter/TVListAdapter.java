@@ -1,4 +1,4 @@
-package homepunk.lesson.first.adapters;
+package homepunk.lesson.first.adapter;
 
 
 import android.app.Activity;
@@ -16,23 +16,25 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.contollers.activity.DetailedPageActivity;
-import homepunk.lesson.first.db.Constants;
-import homepunk.lesson.first.models.TVSeries;
+import homepunk.lesson.first.activity.DetailedActivity;
+import homepunk.lesson.first.database.Constants;
+import homepunk.lesson.first.model.TVSeries;
 
-public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.ViewHolder> {
-    protected static List<TVSeries> filmsList;
-    private TVSeries film;
+public class TVListAdapter extends RecyclerView.Adapter<TVListAdapter.ViewHolder> {
+    private TVSeries tvItem;
     private Context context;
+    protected static List<TVSeries> tvList;
 
-    public MoviesListAdapter(List<TVSeries> films, Context context) {
-        this.filmsList = films;
+    public TVListAdapter(Context context, List<TVSeries> tvList) {
+        this.tvList = tvList;
         this.context = context;
     }
 
     @Override
-    public MoviesListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TVListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View root = layoutInflater.inflate(R.layout.list_item_film, parent, false);
 
@@ -41,44 +43,42 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        film = filmsList.get(position);
+        tvItem = tvList.get(position);
 
-        if (!TextUtils.isEmpty(film.getFullPosterPath(TVSeries.WIDTH_500)))
+        if (!TextUtils.isEmpty(tvItem.getFullPosterPath(TVSeries.WIDTH_500)))
             Picasso.with(context)
-                    .load(film.getFullPosterPath(TVSeries.WIDTH_500))
+                    .load(tvItem.getFullPosterPath(TVSeries.WIDTH_500))
                     .placeholder(R.drawable.placeholder_image)
                     .into(holder.poster);
-//             holder.title.setText(film.title);
+//             holder.title.setText(tvItem.title);
 
     }
 
     @Override
     public int getItemCount() {
-        return filmsList.size();
+        return tvList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ImageView poster;
-        private TVSeries film;
+        @Bind(R.id.item_poster) ImageView poster;
+        private TVSeries tvItem;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            poster = (ImageView) itemView.findViewById(R.id.item_poster);
-            // title = (TextView) itemView.findViewById(R.id.item_title);
+            ButterKnife.bind(this, itemView);
             poster.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             final Context context = v.getContext();
-            Intent intent = new Intent(context, DetailedPageActivity.class);
-            film = filmsList.get(getAdapterPosition());
+            Intent intent = new Intent(context, DetailedActivity.class);
+            tvItem = tvList.get(getAdapterPosition());
 
             ActivityOptionsCompat options = ActivityOptionsCompat.
                     makeSceneTransitionAnimation((Activity) v.getContext(), poster, "profile");
-            intent.putExtra(Constants.TV_ID, film.id);
+            intent.putExtra(Constants.TV_ID, tvItem.id);
             context.startActivity(intent, options.toBundle());
-
         }
     }
 }
