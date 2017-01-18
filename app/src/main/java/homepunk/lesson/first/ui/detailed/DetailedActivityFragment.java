@@ -1,4 +1,4 @@
-package homepunk.lesson.first.activity;
+package homepunk.lesson.first.ui.detailed;
 
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -32,6 +32,7 @@ import homepunk.lesson.first.database.Constants;
 import homepunk.lesson.first.model.TVSeries;
 import homepunk.lesson.first.networking.TVFetchrAsync;
 import homepunk.lesson.first.networking.TVNetworkParser;
+import homepunk.lesson.first.ui.CustomShadedView;
 
 public class DetailedActivityFragment extends Fragment {
     public TVSeries tvShow;

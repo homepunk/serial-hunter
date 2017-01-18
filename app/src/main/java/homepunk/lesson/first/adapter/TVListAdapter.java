@@ -19,7 +19,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.activity.DetailedActivity;
+import homepunk.lesson.first.ui.detailed.DetailedActivity;
 import homepunk.lesson.first.database.Constants;
 import homepunk.lesson.first.model.TVSeries;
 

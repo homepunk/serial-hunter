@@ -1,4 +1,4 @@
-package homepunk.lesson.first.activity;
+package homepunk.lesson.first.ui;
 
 import android.content.Context;
 import android.graphics.Canvas;

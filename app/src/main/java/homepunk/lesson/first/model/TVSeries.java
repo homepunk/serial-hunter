@@ -21,15 +21,6 @@ public class TVSeries implements Serializable {
     public boolean favorite;
 
 
-    public TVSeries() {
-    }
-
-    public TVSeries(TVSeries original) {
-        this.id = original.id;
-        this.title = original.title;
-        this.overview = original.overview;
-    }
-
     public String getFullPosterPath(String preferedWidth) {
         StringBuilder sb = new StringBuilder();
         sb.append(URL_IMAGE_TMDB_DEFAULT);

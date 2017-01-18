@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import homepunk.lesson.first.activity.DetailedActivityFragment;
-import homepunk.lesson.first.activity.MainActivityFragment;
+import homepunk.lesson.first.ui.detailed.DetailedActivityFragment;
+import homepunk.lesson.first.ui.main.MainActivityFragment;
 
 public class TabsAdapter extends FragmentStatePagerAdapter {
 

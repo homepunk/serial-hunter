@@ -1,4 +1,4 @@
-package homepunk.lesson.first.activity;
+package homepunk.lesson.first.ui.detailed;
 
 import android.content.Intent;
 import android.os.Bundle;
