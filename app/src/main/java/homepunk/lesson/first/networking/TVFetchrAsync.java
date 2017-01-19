@@ -69,6 +69,7 @@ public class TVFetchrAsync extends AsyncTask<String, Integer, String> {
         if (result == null) {
             return;
         }
+
         listener.onResult(result);
     }
 
