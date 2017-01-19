@@ -1,4 +1,4 @@
-package homepunk.lesson.first.ui.detailed;
+package homepunk.lesson.first.view.detailed;
 
 import android.graphics.Typeface;
 import android.os.Build;
@@ -10,7 +10,6 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,9 +33,9 @@ public class DetailedActivityFragment extends Fragment implements homepunk.lesso
     @Bind(R.id.fab_2) FloatingActionButton fab2;
     @Bind(R.id.fab_3) FloatingActionButton fab3;
 
-    private DetailedFragmentPresenter mainPresenter;
-    private FabPresenter fabPresenter;
-    private CustomShadedPresenter shadedPresenter;
+    private DetailedFragmentPresenter mainP;
+    private FabPresenter fabP;
+    private CustomShadedPresenter shadedP;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -46,63 +45,54 @@ public class DetailedActivityFragment extends Fragment implements homepunk.lesso
 
         ButterKnife.bind(this, root);
 
-        mainPresenter = new DetailedFragmentPresenter(this);
-        mainPresenter.getDetailedFromNetwork();
+        mainP = new DetailedFragmentPresenter(this);
+        mainP.startNetworkConnection();
+        mainP.setDetails();
 
-        shadedPresenter = new CustomShadedPresenter(this);
-        shadedPresenter.addView(relativeLayout);
+        shadedP = new CustomShadedPresenter(this);
+        shadedP.addView(relativeLayout);
 
-        fabPresenter = new FabPresenter(this);
-        fabPresenter.loadFabAnimation();
-        fabPresenter.setMainFabClickListener(fab);
-        fabPresenter.setFabsClickListeners(fab1, fab2, fab3);
+        fabP = new FabPresenter(this);
+        fabP.setMainFabClickListener(fab);
+        fabP.setFabsClickListeners(fab1, fab2, fab3);
+        fabP.loadFabAnimation();
+
         return root;
     }
 
     @Override
-    public int getDataFromBundle() {
+    public int getFromBundle() {
         Bundle bundle = getArguments();
         return bundle != null ? bundle.getInt(Constants.TV_ID) : 0;
     }
 
     @Override
     public void setOverview(String o) {
-        setFont("fonts/Quicksand-Regular.ttf");
+        Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Quicksand-Regular.ttf");
+        tvDescription.setTypeface(typeFace);
         this.tvDescription.setText(o);
     }
 
     @Override
     public void setPosterImage(String path) {
         Picasso.with(getContext()).load(path)
-                .resize(shadedPresenter.width, shadedPresenter.height)
+                .resize(shadedP.width, shadedP.height)
                 .into(ivPoster);
     }
 
     @Override
     public int getFabMarginTop() {
-        return shadedPresenter.getMarginTop();
+        return shadedP.getMarginTop();
     }
 
     @Override
     public int getFabMarginLeft() {
-        return shadedPresenter.getMarginRight();
+        return shadedP.getMarginRight();
     }
 
     @Override
-    public RelativeLayout.LayoutParams getLayoutParams() {
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fab.getLayoutParams();
-        return params;
-    }
-
-    void setFont(String font) {
-        Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), font);
-        tvDescription.setTypeface(typeFace);
-    }
-
     public int getDisplayContentHeight() {
         int statusBarHeight;
-        Window win = getActivity().getWindow();
-        // Get the height of Status Bar
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0)
             statusBarHeight = getResources().getDimensionPixelSize(resourceId);
@@ -114,14 +104,10 @@ public class DetailedActivityFragment extends Fragment implements homepunk.lesso
         return screenHeight - statusBarHeight;
     }
 
-    public static DetailedActivityFragment newInstance(int id) {
-        DetailedActivityFragment fragment = new DetailedActivityFragment();
-
-        Bundle arguments = new Bundle();
-        arguments.putInt(Constants.TV_ID, id);
-        fragment.setArguments(arguments);
-
-        return fragment;
+    @Override
+    public RelativeLayout.LayoutParams getLayoutParams() {
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fab.getLayoutParams();
+        return params;
     }
 
 }

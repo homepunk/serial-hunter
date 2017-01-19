@@ -4,7 +4,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
 import butterknife.BindString;
-import homepunk.lesson.first.ui.main.MainActivity;
+import homepunk.lesson.first.view.main.MainActivity;
 import homepunk.lesson.first.adapter.TabsAdapter;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.presenter.Presenter;

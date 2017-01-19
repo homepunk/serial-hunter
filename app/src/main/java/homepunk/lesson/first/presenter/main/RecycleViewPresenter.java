@@ -14,7 +14,7 @@ import homepunk.lesson.first.database.Constants;
 import homepunk.lesson.first.model.TVFetchrAsyncModel;
 import homepunk.lesson.first.model.TVSeries;
 import homepunk.lesson.first.presenter.Presenter;
-import homepunk.lesson.first.ui.main.MainActivityFragment;
+import homepunk.lesson.first.view.main.MainActivityFragment;
 
 
 public class RecycleViewPresenter implements Presenter.RecycleViewPresenter {
@@ -43,7 +43,7 @@ public class RecycleViewPresenter implements Presenter.RecycleViewPresenter {
 
     @Override
     public void setUpPosters() {
-        task = new TVFetchrAsyncModel(context);
+        task = new TVFetchrAsyncModel();
         task.setAdapter(adapter);
         task.setTVList(tvList);
         task.makeHttpConnection();

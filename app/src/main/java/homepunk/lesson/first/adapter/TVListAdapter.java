@@ -19,12 +19,12 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.ui.detailed.DetailedActivity;
 import homepunk.lesson.first.database.Constants;
 import homepunk.lesson.first.model.TVSeries;
+import homepunk.lesson.first.view.detailed.DetailedActivity;
 
 public class TVListAdapter extends RecyclerView.Adapter<TVListAdapter.ViewHolder> {
-    private TVSeries tvItem;
+    private TVSeries tvSeries;
     private Context context;
     protected static List<TVSeries> tvList;
 
@@ -43,14 +43,13 @@ public class TVListAdapter extends RecyclerView.Adapter<TVListAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        tvItem = tvList.get(position);
+        tvSeries = tvList.get(position);
 
-        if (!TextUtils.isEmpty(tvItem.getFullPosterPath(TVSeries.WIDTH_500)))
+        if (!TextUtils.isEmpty(tvSeries.getFullPosterPath(TVSeries.WIDTH_500)))
             Picasso.with(context)
-                    .load(tvItem.getFullPosterPath(TVSeries.WIDTH_500))
+                    .load(tvSeries.getFullPosterPath(TVSeries.WIDTH_500))
                     .placeholder(R.drawable.placeholder_image)
                     .into(holder.poster);
-//             holder.title.setText(tvItem.title);
 
     }
 
@@ -60,7 +59,8 @@ public class TVListAdapter extends RecyclerView.Adapter<TVListAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.item_poster) ImageView poster;
+        @Bind(R.id.item_poster)
+        ImageView poster;
         private TVSeries tvItem;
 
         public ViewHolder(View itemView) {

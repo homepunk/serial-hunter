@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.presenter.Presenter;
-import homepunk.lesson.first.ui.detailed.DetailedActivityFragment;
+import homepunk.lesson.first.view.detailed.DetailedActivityFragment;
 
 public class FabPresenter implements Presenter.FabPresenter {
     Animation show_fab_1;

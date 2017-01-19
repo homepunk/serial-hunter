@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="homepunk.lesson.first.ui.main.MainActivity"
+            android:name="homepunk.lesson.first.view.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="homepunk.lesson.first.ui.detailed.DetailedActivity"
+            android:name="homepunk.lesson.first.view.detailed.DetailedActivity"
             android:label="@string/title_activity_detailed_page"
             android:theme="@style/AppTheme" />
 

@@ -1,4 +1,4 @@
-package homepunk.lesson.first.ui.main;
+package homepunk.lesson.first.view.main;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -19,12 +19,13 @@ import homepunk.lesson.first.view.View;
 public class MainActivity extends AppCompatActivity
         implements  View.MainActivityView {
 
-    @Bind (R.id.toolbar) Toolbar toolbar;
+
     @Bind (R.id.tabs) TabLayout tabs;
     @Bind (R.id.pager) ViewPager pager;
+    @Bind (R.id.toolbar) Toolbar toolbar;
     @Bind (R.id.header) ImageView header;
-    @Bind (R.id.drawer_layout) DrawerLayout drawerLayout;
     @Bind (R.id.nav_view) NavigationView navigationView;
+    @Bind (R.id.drawer_layout) DrawerLayout drawerLayout;
 
     private NavDrawerPresenter drawerPresenter;
     private TabsPresenter tabsPresenter;
@@ -43,20 +44,9 @@ public class MainActivity extends AppCompatActivity
         tabsPresenter.setUpTabs();
     }
 
-
     @Override
-    public Toolbar getToolbar() {
-        return this.toolbar;
-    }
-
-    @Override
-    public DrawerLayout getDrawerLayout() {
-        return drawerLayout;
-    }
-
-    @Override
-    public NavigationView getNavigationView() {
-        return navigationView;
+    public TabLayout getTabs() {
+        return tabs;
     }
 
     @Override
@@ -65,7 +55,22 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public TabLayout getTabs() {
-        return tabs;
+    public Toolbar getToolbar() {
+        return this.toolbar;
     }
+
+    @Override
+    public NavigationView getNavigationView() {
+        return navigationView;
+    }
+
+    @Override
+    public DrawerLayout getDrawerLayout() {
+        return drawerLayout;
+    }
+
+
+
+
+
 }

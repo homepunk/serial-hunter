@@ -1,6 +1,5 @@
 package homepunk.lesson.first.model;
 
-import android.content.Context;
 import android.text.TextUtils;
 
 import org.json.JSONException;
@@ -13,20 +12,17 @@ import homepunk.lesson.first.networking.TVNetworkParser;
 import homepunk.lesson.first.presenter.detailed.DetailedFragmentPresenter;
 
 public class TVFetchrAsyncModel implements Model.TVFetchrAsyncModel {
-    private Context context;
     private TVListAdapter adapter;
     private List<TVSeries> tvList;
     private TVSeries tvSeries;
     private DetailedFragmentPresenter presenter;
     private TVFetchrAsync task;
 
-    public TVFetchrAsyncModel(Context context, DetailedFragmentPresenter presenter) {
-        this.context = context;
+    public TVFetchrAsyncModel(DetailedFragmentPresenter presenter) {
         this.presenter = presenter;
     }
 
-    public TVFetchrAsyncModel(Context context) {
-        this.context = context;
+    public TVFetchrAsyncModel() {
     }
 
     @Override

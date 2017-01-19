@@ -11,8 +11,14 @@ import android.widget.RelativeLayout;
 
 import homepunk.lesson.first.presenter.main.NavDrawerPresenter;
 import homepunk.lesson.first.presenter.main.TabsPresenter;
+import homepunk.lesson.first.view.detailed.DetailedActivityFragment;
 
 public interface View {
+
+    DetailedActivityFragment newInstance(int id);
+
+    int getFromIntent();
+
 
     interface MainActivityView {
         NavDrawerPresenter drawerPresenter = null;
@@ -37,7 +43,7 @@ public interface View {
 
     interface DetailedFragmentView{
 
-        int getDataFromBundle();
+        int getFromBundle();
 
         void setOverview(String o);
 
@@ -46,6 +52,8 @@ public interface View {
         int getFabMarginTop();
 
         int getFabMarginLeft();
+
+        int getDisplayContentHeight();
 
         RelativeLayout.LayoutParams getLayoutParams();
     }

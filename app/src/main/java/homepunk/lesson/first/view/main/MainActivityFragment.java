@@ -1,4 +1,4 @@
-package homepunk.lesson.first.ui.main;
+package homepunk.lesson.first.view.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,24 +15,24 @@ import homepunk.lesson.first.presenter.main.RecycleViewPresenter;
 
 public class MainActivityFragment extends Fragment implements homepunk.lesson.first.view.View.MainFragmentView {
     @Bind(R.id.movies_rv)
-    RecyclerView TVRecycleView;
-    private Presenter.RecycleViewPresenter rvPresenter;
+    RecyclerView recycler;
+    private Presenter.RecycleViewPresenter recyclerP;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_main_movies, container, false);
         ButterKnife.bind(this, root);
-        rvPresenter = new RecycleViewPresenter(this);
-        rvPresenter.setUpRecycleView();
-        rvPresenter.setUpPosters();
+        recyclerP = new RecycleViewPresenter(this);
+        recyclerP.setUpRecycleView();
+        recyclerP.setUpPosters();
 
         return root;
     }
 
     @Override
     public RecyclerView getRecycleView() {
-        return TVRecycleView;
+        return recycler;
     }
 }
 

@@ -4,48 +4,44 @@ import homepunk.lesson.first.database.Constants;
 import homepunk.lesson.first.model.TVFetchrAsyncModel;
 import homepunk.lesson.first.model.TVSeries;
 import homepunk.lesson.first.presenter.Presenter;
-import homepunk.lesson.first.ui.detailed.DetailedActivityFragment;
+import homepunk.lesson.first.view.detailed.DetailedActivityFragment;
 
 public class DetailedFragmentPresenter implements Presenter.DetailedFragmentPresenter {
 
     private DetailedActivityFragment view;
     private int id;
+    private boolean update;
 
     private TVSeries tvSeries;
     private TVFetchrAsyncModel task;
 
     public DetailedFragmentPresenter(DetailedActivityFragment view) {
         this.view = view;
-        this.id = view.getDataFromBundle();
+        this.id = view.getFromBundle();
     }
 
+
     @Override
-    public void getDetailedFromNetwork() {
-        task = new TVFetchrAsyncModel(view.getContext(), this);
+    public void startNetworkConnection() {
+        task = new TVFetchrAsyncModel(this);
         task.makeHttpConnection();
         task.execute(Constants.TV_REFENECE + id + Constants.LANGUAGE_EN + Constants.API_KEY);
     }
 
     @Override
-    public void notifyDataChanged() {
-
-    }
-
-    public void setTvSeries(TVSeries tvSeries) {
-        this.tvSeries = tvSeries;
-    }
-
-    @Override
     public void update(TVSeries tvSeries) {
-        setTvSeries(tvSeries);
-        setDetailedInfo();
+        this.tvSeries = tvSeries;
+        if(update != true) {
+            return;
+        } else {
+            view.setOverview(tvSeries.overview);
+            view.setPosterImage(tvSeries.getFullPosterPath(TVSeries.WIDTH_780));
+        }
     }
 
     @Override
-    public void setDetailedInfo() {
-            view.setOverview(tvSeries.overview);
-
-            view.setPosterImage(tvSeries.getFullPosterPath(TVSeries.WIDTH_780));
+    public void setDetails() {
+            update = true;
     }
 }
 

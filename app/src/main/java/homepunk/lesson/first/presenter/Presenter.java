@@ -7,7 +7,7 @@ import android.widget.RelativeLayout;
 
 import homepunk.lesson.first.adapter.TVListAdapter;
 import homepunk.lesson.first.model.TVSeries;
-import homepunk.lesson.first.ui.main.MainActivity;
+import homepunk.lesson.first.view.main.MainActivity;
 
 public interface Presenter {
 
@@ -41,21 +41,19 @@ public interface Presenter {
     }
 
     interface DetailedActivityPresenter {
-        int getDataFromIntent();
-
-        void putDataFromIntentToBundle();
-
-        void sendDataToFragment(int id);
 
         void sendDataToFragment();
     }
 
     interface DetailedFragmentPresenter {
-        void getDetailedFromNetwork();
+
+        void startNetworkConnection();
+
+        void setDetails();
 
         void update(TVSeries tvSeries);
 
-        void setDetailedInfo();
+
 
     }
 

@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import homepunk.lesson.first.ui.main.MainActivity;
+import homepunk.lesson.first.view.main.MainActivity;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.presenter.Presenter;
 
