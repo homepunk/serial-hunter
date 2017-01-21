@@ -24,8 +24,8 @@ public class MainActivityFragment extends Fragment implements homepunk.lesson.fi
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_main_movies, container, false);
         ButterKnife.bind(this, root);
         recyclerP = new RecycleViewPresenter(this);
-        recyclerP.setUpRecycleView();
-        recyclerP.setUpPosters();
+        recyclerP.attachRecycleView();
+        recyclerP.attachPosters();
 
         return root;
     }

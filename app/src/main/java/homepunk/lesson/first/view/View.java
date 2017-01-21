@@ -1,16 +1,14 @@
 package homepunk.lesson.first.view;
 
 import android.content.Context;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 
-import homepunk.lesson.first.presenter.main.NavDrawerPresenter;
-import homepunk.lesson.first.presenter.main.TabsPresenter;
 import homepunk.lesson.first.view.detailed.DetailedActivityFragment;
 
 public interface View {
@@ -21,8 +19,6 @@ public interface View {
 
 
     interface MainActivityView {
-        NavDrawerPresenter drawerPresenter = null;
-        TabsPresenter tabsPresenter = null;
 
         Toolbar getToolbar();
 
@@ -30,9 +26,9 @@ public interface View {
 
         NavigationView getNavigationView();
 
-        ViewPager getViewPager();
+        BottomNavigationView getBottomNavigationView();
 
-        TabLayout getTabs();
+        Spinner getSpinnerView();
     }
 
     interface MainFragmentView {

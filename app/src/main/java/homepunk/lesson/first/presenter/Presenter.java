@@ -5,16 +5,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
-import homepunk.lesson.first.adapter.TVListAdapter;
 import homepunk.lesson.first.model.TVSeries;
-import homepunk.lesson.first.view.main.MainActivity;
 
 public interface Presenter {
 
     interface NavDrawerPresenter {
-        MainActivity view = null;
 
-        void setUpNavDrawer();
+        void attachNavDrawer();
 
         void onBackPressed();
 
@@ -24,20 +21,17 @@ public interface Presenter {
 
     }
 
-    interface TabsPresenter {
-        MainActivity view = null;
+    interface BottomNavigationTabPresenter {
 
-        void setUpTabs();
+        void attachBottomNavigattionBar();
 
-        void setUpTabIcons();
+        void setBackgroundColor(int color);
     }
 
     interface RecycleViewPresenter {
-        void setUpRecycleView();
+        void attachRecycleView();
 
-        void setUpPosters();
-
-        TVListAdapter getAdapter();
+        void attachPosters();
     }
 
     interface DetailedActivityPresenter {
@@ -72,5 +66,11 @@ public interface Presenter {
         int getMarginTop();
 
         int getMarginRight();
+    }
+
+    interface SpinnerPresenter{
+        void attachSpinner();
+
+        void setSpinnerArrowColor(int color);
     }
 }

@@ -8,7 +8,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="tab_top">TOP RATING</string>
-    <string name="tab_watch_later">WATCH LATER</string>
+    <string name="tab_top">Top</string>
+    <string name="tab_watch_later">Watchlist</string>
+    <string name="tab_new">New</string>
 
 </resources>

@@ -8,9 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import homepunk.lesson.first.view.main.MainActivity;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.presenter.Presenter;
+import homepunk.lesson.first.view.main.MainActivity;
 
 public class NavDrawerPresenter implements NavigationView.OnNavigationItemSelectedListener, Presenter.NavDrawerPresenter {
     private Toolbar toolbar;
@@ -27,7 +27,7 @@ public class NavDrawerPresenter implements NavigationView.OnNavigationItemSelect
     }
 
     @Override
-    public void setUpNavDrawer() {
+    public void attachNavDrawer() {
         drawerToggle = new ActionBarDrawerToggle(
                 view, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(drawerToggle);
@@ -92,6 +92,5 @@ public class NavDrawerPresenter implements NavigationView.OnNavigationItemSelect
 */
         return view.onOptionsItemSelected(item);
     }
-
 
 }

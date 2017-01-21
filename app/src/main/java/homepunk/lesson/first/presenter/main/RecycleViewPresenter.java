@@ -33,7 +33,7 @@ public class RecycleViewPresenter implements Presenter.RecycleViewPresenter {
     }
 
     @Override
-    public void setUpRecycleView() {
+    public void attachRecycleView() {
         adapter = new TVListAdapter(context, tvList);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
@@ -42,16 +42,11 @@ public class RecycleViewPresenter implements Presenter.RecycleViewPresenter {
     }
 
     @Override
-    public void setUpPosters() {
+    public void attachPosters() {
         task = new TVFetchrAsyncModel();
         task.setAdapter(adapter);
         task.setTVList(tvList);
         task.makeHttpConnection();
         task.execute(Constants.TV_REFENECE + Constants.TV_TOP20 + Constants.LANGUAGE_EN + Constants.API_KEY);
-    }
-
-    @Override
-    public TVListAdapter getAdapter() {
-        return this.adapter;
     }
 }
