@@ -7,6 +7,7 @@ import org.json.JSONException;
 import java.util.List;
 
 import homepunk.lesson.first.adapter.TVListAdapter;
+import homepunk.lesson.first.database.Constants;
 import homepunk.lesson.first.networking.TVFetchrAsync;
 import homepunk.lesson.first.networking.TVNetworkParser;
 import homepunk.lesson.first.presenter.detailed.DetailedFragmentPresenter;
@@ -66,6 +67,10 @@ public class TVFetchrAsyncModel implements Model.TVFetchrAsyncModel {
     @Override
     public void setAdapter(TVListAdapter adapter) {
         this.adapter = adapter;
+    }
+
+    public void searchByTitle(String title){
+        execute(Constants.TV_SERCH + title + Constants.LANGUAGE_EN + Constants.API_KEY);
     }
 
     @Override

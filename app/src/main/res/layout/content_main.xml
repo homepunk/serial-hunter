@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:pp="http://schemas.android.com/tools"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:id="@+id/main_relative_layout">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -13,7 +15,11 @@
         android:minHeight="?attr/actionBarSize"
         app:layout_collapseMode="pin"
         app:popupTheme="@style/AppTheme"
-        app:titleMarginTop="15dp" />
+        app:titleMarginTop="15dp">
+
+       <include layout="@layout/list_item_spinner"/>
+
+    </android.support.v7.widget.Toolbar>
 
     <Spinner
         android:id="@+id/spinner"
@@ -39,8 +45,8 @@
             <FrameLayout
                 android:id="@+id/contentContainer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/bottomBar" />
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/bottomBar"/>
 
         </android.support.v4.widget.NestedScrollView>
 
@@ -54,7 +60,7 @@
             app:bb_inActiveTabColor="@color/colorBackgroundLightTwo"
             app:bb_activeTabColor="@color/colorPrimary"
             app:bb_showShadow="false"
-            app:bb_behavior="shifting"
+            app:bb_behavior="shy|shifting"
             app:bb_tabXmlResource="@xml/bottombar_tabs" />
     </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

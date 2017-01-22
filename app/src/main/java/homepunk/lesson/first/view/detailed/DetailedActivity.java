@@ -17,7 +17,7 @@ public class DetailedActivity extends AppCompatActivity implements View{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detailed_page);
+        setContentView(R.layout.activity_detailed);
 
         activityPresenter = new DetailedActivityPresenter(this);
         activityPresenter.sendDataToFragment();
@@ -30,8 +30,8 @@ public class DetailedActivity extends AppCompatActivity implements View{
     }
 
     @Override
-    public DetailedActivityFragment newInstance(int id) {
-        DetailedActivityFragment fragment = new DetailedActivityFragment();
+    public DetailedFragment newInstance(int id) {
+        DetailedFragment fragment = new DetailedFragment();
 
         Bundle arguments = new Bundle();
         arguments.putInt(Constants.TV_ID, id);

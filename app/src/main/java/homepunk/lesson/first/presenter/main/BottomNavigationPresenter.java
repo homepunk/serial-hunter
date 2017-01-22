@@ -8,24 +8,23 @@ import android.support.v4.app.FragmentTransaction;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
-import butterknife.BindString;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.presenter.Presenter;
-import homepunk.lesson.first.view.detailed.DetailedActivityFragment;
 import homepunk.lesson.first.view.main.MainActivity;
-import homepunk.lesson.first.view.main.MainActivityFragment;
+import homepunk.lesson.first.view.main.MainFragment;
+import homepunk.lesson.first.view.main.SearchFragment;
 
 public class BottomNavigationPresenter implements Presenter.BottomNavigationTabPresenter {
-    @BindString(R.string.tab_top) String tab_top;
-    @BindString(R.string.tab_watch_later) String tab_watch_later;
-    private Fragment fragment;
-    private FragmentManager fragmentManager;
     private MainActivity view;
+    private Fragment fragment;
     private BottomBar bottomBar;
+    private SpinnerPresenter spinnerView;
+    private FragmentManager fragmentManager;
 
     public BottomNavigationPresenter(MainActivity view) {
         this.view = view;
-        this.bottomBar = view.getBottomBar();
+        this.bottomBar = view.getBoottomBar();
+        this.spinnerView = view.getSpinnerPresenter();
     }
 
     @Override
@@ -34,15 +33,25 @@ public class BottomNavigationPresenter implements Presenter.BottomNavigationTabP
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
-                switch (tabId){
+                switch (tabId) {
                     case R.id.action_hot_updates:
-                        fragment = new MainActivityFragment();
+                        if (spinnerView != null) {
+                            if (!spinnerView.getSpinnerAttachState())
+                                spinnerView.attachSpinner();
+                        }
+                        fragment = new MainFragment();
                         break;
                     case R.id.action_watchlist:
-                        fragment = new MainActivityFragment();
+                        if (spinnerView != null) {
+                            if (!spinnerView.getSpinnerAttachState())
+                                spinnerView.attachSpinner();
+                        }
+                        fragment = new MainFragment();
                         break;
                     case R.id.action_search:
-                        fragment = new DetailedActivityFragment();
+                        if(spinnerView != null)
+                            spinnerView.detachSpinner();
+                        fragment = new SearchFragment();
                         break;
                 }
                 final FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -57,7 +66,7 @@ public class BottomNavigationPresenter implements Presenter.BottomNavigationTabP
         bottomBar.setDrawingCacheBackgroundColor(color);
     }
 
-    public void serDefaultTab(int id){
+    public void serDefaultTab(int id) {
         bottomBar.setDefaultTab(id);
     }
 }

@@ -7,14 +7,14 @@ import android.widget.RelativeLayout;
 
 import homepunk.lesson.first.presenter.Presenter;
 import homepunk.lesson.first.view.custom.CustomShadedView;
-import homepunk.lesson.first.view.detailed.DetailedActivityFragment;
+import homepunk.lesson.first.view.detailed.DetailedFragment;
 
 public class CustomShadedPresenter implements Presenter.CustomShadedPresenter {
     public int width, height, fabSize, marginTopFab, marginLeftFab;
-    private DetailedActivityFragment view;
+    private DetailedFragment view;
     private CustomShadedView backgroudView;
 
-    public CustomShadedPresenter(DetailedActivityFragment view) {
+    public CustomShadedPresenter(DetailedFragment view) {
         this.view = view;
     }
 

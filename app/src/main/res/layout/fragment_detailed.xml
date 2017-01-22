@@ -41,7 +41,7 @@
             app:fabSize="normal" />
 
         <include
-            layout="@layout/fab_layout"
+            layout="@xml/fab_layout"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

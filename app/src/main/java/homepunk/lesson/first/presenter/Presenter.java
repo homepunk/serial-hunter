@@ -1,8 +1,6 @@
 package homepunk.lesson.first.presenter;
 
 import android.support.design.widget.FloatingActionButton;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
 import homepunk.lesson.first.model.TVSeries;
@@ -14,10 +12,6 @@ public interface Presenter {
         void attachNavDrawer();
 
         void onBackPressed();
-
-        boolean onCreateOptionsMenu(Menu menu);
-
-        public boolean onOptionsItemSelected(MenuItem item);
 
     }
 
@@ -68,9 +62,17 @@ public interface Presenter {
         int getMarginRight();
     }
 
-    interface SpinnerPresenter{
+    interface SpinnerPresenter {
         void attachSpinner();
 
+        void detachSpinner();
+
+        boolean getSpinnerAttachState();
+
         void setSpinnerArrowColor(int color);
+    }
+
+    interface SearchPresenter {
+        void attachSearch();
     }
 }

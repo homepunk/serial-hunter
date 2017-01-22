@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.presenter.Presenter;
-import homepunk.lesson.first.view.detailed.DetailedActivityFragment;
+import homepunk.lesson.first.view.detailed.DetailedFragment;
 
 public class FabPresenter implements Presenter.FabPresenter {
     Animation show_fab_1;
@@ -21,11 +21,11 @@ public class FabPresenter implements Presenter.FabPresenter {
     Animation hide_fab_3;
     private boolean FAB_Status = false;
     private RelativeLayout.LayoutParams params;
-    private DetailedActivityFragment view;
+    private DetailedFragment view;
     private FloatingActionButton fab1, fab2, fab3;
 
 
-    public FabPresenter(DetailedActivityFragment view) {
+    public FabPresenter(DetailedFragment view) {
         this.view = view;
     }
 

@@ -10,29 +10,26 @@ import android.view.ViewGroup;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.presenter.Presenter;
-import homepunk.lesson.first.presenter.main.RecycleViewPresenter;
+import homepunk.lesson.first.presenter.main.SearchPresenter;
+import homepunk.lesson.first.view.View.SearchFragmentView;
 
-public class MainActivityFragment extends Fragment implements homepunk.lesson.first.view.View.MainFragmentView {
-    @Bind(R.id.movies_rv)
-    RecyclerView recycler;
-    private Presenter.RecycleViewPresenter recyclerP;
+public class SearchFragment extends Fragment implements SearchFragmentView{
+    @Bind(R.id.search_rv) RecyclerView rvSearch;
+
+    private ViewGroup root;
+    private SearchPresenter searchModule;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_main_movies, container, false);
+        root = (ViewGroup) inflater.inflate(R.layout.fragment_search, container, false);
         ButterKnife.bind(this, root);
-        recyclerP = new RecycleViewPresenter(this);
-        recyclerP.attachRecycleView();
-        recyclerP.attachPosters();
 
         return root;
     }
 
     @Override
     public RecyclerView getRecycleView() {
-        return recycler;
+        return this.rvSearch;
     }
 }
-

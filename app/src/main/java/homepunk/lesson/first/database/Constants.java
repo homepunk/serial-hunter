@@ -8,4 +8,5 @@ public class Constants {
     public static final String LANGUAGE_EN = "?language=en-US";
     public static final String TV_REFENECE = "https://api.themoviedb.org/3/tv/";
     public static final String TV_TOP20 = "top_rated?page=1";
+    public static final String TV_SERCH = "https://api.themoviedb.org/3/search/tv?page=1&query=";
     }

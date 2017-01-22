@@ -8,7 +8,7 @@
     android:background="@color/colorBackgroundLight"
     tools:context="homepunk.lesson.first.contollers.homepunk.lesson.first.activity.DetailedPageActivity">
 
-    <include layout="@layout/content_detailed_page" />
+    <include layout="@layout/content_detailed" />
 
 
 </android.support.design.widget.CoordinatorLayout>

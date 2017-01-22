@@ -1,11 +1,13 @@
 package homepunk.lesson.first.view.main;
 
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import com.roughike.bottombar.BottomBar;
@@ -26,11 +28,11 @@ public class MainActivity extends AppCompatActivity
     @Bind(R.id.drawer_layout) DrawerLayout drawerLayout;
     @Bind(R.id.spinner) Spinner spinner;
     @Bind(R.id.bottomBar) BottomBar bottomBar;
+    @Bind(R.id.main_relative_layout) RelativeLayout layout;
 
     private NavDrawerPresenter navDrawer;
     private BottomNavigationPresenter bottomNavBar;
     private SpinnerPresenter spinnerView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +54,39 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        return onOptionsItemSelected(item);
+    }
+    @Override
     public Toolbar getToolbar() {
         return this.toolbar;
+    }
+
+    @Override
+    public Spinner getSpinnerView() {
+        return this.spinner;
+    }
+
+    @Override
+    public SpinnerPresenter getSpinnerPresenter() {
+        return this.spinnerView;
+    }
+
+    @Override
+    public BottomBar getBoottomBar() {
+        return this.bottomBar;
+    }
+
+    @Override
+    public DrawerLayout getDrawerLayout() {
+        return drawerLayout;
     }
 
     @Override
@@ -62,20 +95,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public BottomNavigationView getBottomNavigationView() {
-        return null;
+    public void addSpinner(Spinner view) {
+        this.layout.removeView(spinner);
+        this.layout.addView(view);
     }
 
-    public Spinner getSpinnerView() {
-        return this.spinner;
-    }
 
-    @Override
-    public DrawerLayout getDrawerLayout() {
-        return drawerLayout;
-    }
-
-    public BottomBar getBottomBar(){
-        return this.bottomBar;
-    }
 }

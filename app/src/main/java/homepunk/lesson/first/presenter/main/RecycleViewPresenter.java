@@ -14,7 +14,7 @@ import homepunk.lesson.first.database.Constants;
 import homepunk.lesson.first.model.TVFetchrAsyncModel;
 import homepunk.lesson.first.model.TVSeries;
 import homepunk.lesson.first.presenter.Presenter;
-import homepunk.lesson.first.view.main.MainActivityFragment;
+import homepunk.lesson.first.view.main.MainFragment;
 
 
 public class RecycleViewPresenter implements Presenter.RecycleViewPresenter {
@@ -22,10 +22,10 @@ public class RecycleViewPresenter implements Presenter.RecycleViewPresenter {
     private TVFetchrAsyncModel task;
     private List<TVSeries> tvList;
     private Context context;
-    private MainActivityFragment view;
+    private MainFragment view;
     private RecyclerView recyclerView;
 
-    public RecycleViewPresenter(MainActivityFragment f) {
+    public RecycleViewPresenter(MainFragment f) {
         this.view = f;
         this.context = view.getContext();
         this.recyclerView = view.getRecycleView();

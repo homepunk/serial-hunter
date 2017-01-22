@@ -36,7 +36,7 @@ public class TVListAdapter extends RecyclerView.Adapter<TVListAdapter.ViewHolder
     @Override
     public TVListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View root = layoutInflater.inflate(R.layout.list_item_film, parent, false);
+        View root = layoutInflater.inflate(R.layout.list_item_tvseries, parent, false);
 
         return new ViewHolder(root);
     }
@@ -59,8 +59,7 @@ public class TVListAdapter extends RecyclerView.Adapter<TVListAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.item_poster)
-        ImageView poster;
+        @Bind(R.id.item_poster) ImageView poster;
         private TVSeries tvItem;
 
         public ViewHolder(View itemView) {

@@ -24,7 +24,7 @@ import homepunk.lesson.first.presenter.detailed.CustomShadedPresenter;
 import homepunk.lesson.first.presenter.detailed.DetailedFragmentPresenter;
 import homepunk.lesson.first.presenter.detailed.FabPresenter;
 
-public class DetailedActivityFragment extends Fragment implements homepunk.lesson.first.view.View.DetailedFragmentView {
+public class DetailedFragment extends Fragment implements homepunk.lesson.first.view.View.DetailedFragmentView {
     @Bind(R.id.fragment_main_id) RelativeLayout relativeLayout;
     @Bind(R.id.id_detailed_overview) TextView tvDescription;
     @Bind(R.id.item_detailed_poster) ImageView ivPoster;
@@ -41,7 +41,7 @@ public class DetailedActivityFragment extends Fragment implements homepunk.lesso
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_detailed_page, container, false);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_detailed, container, false);
 
         ButterKnife.bind(this, root);
 

@@ -4,18 +4,18 @@ import homepunk.lesson.first.database.Constants;
 import homepunk.lesson.first.model.TVFetchrAsyncModel;
 import homepunk.lesson.first.model.TVSeries;
 import homepunk.lesson.first.presenter.Presenter;
-import homepunk.lesson.first.view.detailed.DetailedActivityFragment;
+import homepunk.lesson.first.view.detailed.DetailedFragment;
 
 public class DetailedFragmentPresenter implements Presenter.DetailedFragmentPresenter {
 
-    private DetailedActivityFragment view;
+    private DetailedFragment view;
     private int id;
     private boolean update;
 
     private TVSeries tvSeries;
     private TVFetchrAsyncModel task;
 
-    public DetailedFragmentPresenter(DetailedActivityFragment view) {
+    public DetailedFragmentPresenter(DetailedFragment view) {
         this.view = view;
         this.id = view.getFromBundle();
     }
