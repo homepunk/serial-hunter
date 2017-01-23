@@ -28,9 +28,9 @@ public class MainActivity extends AppCompatActivity
     @Bind(R.id.bottomBar) BottomBar bottomBar;
     @Bind(R.id.main_relative_layout) RelativeLayout layout;
 
-    private NavDrawerPresenter navDrawer;
-    private BottomNavigationPresenter bottomNavBar;
-    private SpinnerPresenter spinnerView;
+    private NavDrawerPresenter navDrawerModule;
+    private BottomNavigationPresenter bottomNavBarModule;
+    private SpinnerPresenter spinnerViewModule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +39,17 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        navDrawer = new NavDrawerPresenter(this);
-        navDrawer.attachNavDrawer();
+        navDrawerModule = new NavDrawerPresenter(this);
+        navDrawerModule.attachNavDrawer();
 
-        spinnerView = new SpinnerPresenter(this);
-        spinnerView.attachSpinner();
-        spinnerView.setSpinnerArrowColor(R.color.colorText);
+        spinnerViewModule = new SpinnerPresenter(this);
+        spinnerViewModule.attachSpinner();
+        spinnerViewModule.setSpinnerArrowColor(R.color.colorText);
 
-        bottomNavBar = new BottomNavigationPresenter(this);
-        bottomNavBar.attachBottomNavigattionBar();
-        bottomNavBar.serDefaultTab(R.id.tab_watchlist);
-        bottomNavBar.setBackgroundColor(R.color.colorAccent);
+        bottomNavBarModule = new BottomNavigationPresenter(this);
+        bottomNavBarModule.attachBottomNavigattionBar();
+        bottomNavBarModule.serDefaultTab(R.id.tab_watchlist);
+        bottomNavBarModule.setBackgroundColor(R.color.colorAccent);
     }
 
     @Override
@@ -57,14 +57,13 @@ public class MainActivity extends AppCompatActivity
         return this.toolbar;
     }
 
-    @Override
     public Spinner getSpinnerView() {
         return this.spinner;
     }
 
     @Override
     public SpinnerPresenter getSpinnerPresenter() {
-        return this.spinnerView;
+        return this.spinnerViewModule;
     }
 
     @Override

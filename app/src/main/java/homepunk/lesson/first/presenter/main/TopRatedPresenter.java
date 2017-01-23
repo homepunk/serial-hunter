@@ -16,7 +16,7 @@ import homepunk.lesson.first.presenter.Presenter;
 import homepunk.lesson.first.view.main.MainFragment;
 
 
-public class RecycleViewPresenter implements Presenter.RecycleViewPresenter {
+public class TopRatedPresenter implements Presenter.RecycleViewPresenter {
     private TVListAdapter adapter;
     private TVFetchrAsyncModel task;
     private List<TVSeries> tvList;
@@ -24,7 +24,7 @@ public class RecycleViewPresenter implements Presenter.RecycleViewPresenter {
     private MainFragment view;
     private RecyclerView recyclerView;
 
-    public RecycleViewPresenter(MainFragment f) {
+    public TopRatedPresenter(MainFragment f) {
         this.view = f;
         this.context = view.getContext();
         this.recyclerView = view.getRecycleView();
