@@ -25,7 +25,7 @@ public class DetailedFragmentPresenter implements Presenter.DetailedFragmentPres
     public void startNetworkConnection() {
         task = new TVFetchrAsyncModel(this);
         task.makeHttpConnection();
-        task.execute(Constants.TV_REFENECE + id + Constants.LANGUAGE_EN + Constants.API_KEY);
+        task.execute(Constants.TV_REFENECE + id + Constants.LANGUAGE_RU + Constants.API_KEY);
     }
 
     @Override

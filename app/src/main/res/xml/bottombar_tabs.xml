@@ -2,19 +2,19 @@
 <tabs xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:textSize="http://schemas.android.com/apk/res-auto">
     <tab
-        id="@+id/action_hot_updates"
+        id="@+id/tab_hot_updates"
         icon="@drawable/ic_hot"
         textAlignment="center"
         showAsAction="always"
         title="Обновления" />
     <tab
-        id="@+id/action_watchlist"
+        id="@+id/tab_watchlist"
         icon="@drawable/ic_popcorn"
         showAsAction="always"
         textAlignment="center"
         title="Смотрю" />
     <tab
-        id="@+id/action_search"
+        id="@+id/tab_search"
         textAlignment="center"
         showAsAction="always"
         textSize="14sp"

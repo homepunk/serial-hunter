@@ -34,23 +34,25 @@ public class BottomNavigationPresenter implements Presenter.BottomNavigationTabP
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 switch (tabId) {
-                    case R.id.action_hot_updates:
+                    case R.id.tab_hot_updates:
                         if (spinnerView != null) {
-                            if (!spinnerView.getSpinnerAttachState())
-                                spinnerView.attachSpinner();
+                            if (!spinnerView.getSpinnerVisibility())
+                                spinnerView.setSpinnerVisibility(true);
                         }
                         fragment = new MainFragment();
                         break;
-                    case R.id.action_watchlist:
+                    case R.id.tab_watchlist:
                         if (spinnerView != null) {
-                            if (!spinnerView.getSpinnerAttachState())
-                                spinnerView.attachSpinner();
+                            if (!spinnerView.getSpinnerVisibility())
+                                spinnerView.setSpinnerVisibility(true);
                         }
                         fragment = new MainFragment();
                         break;
-                    case R.id.action_search:
-                        if(spinnerView != null)
-                            spinnerView.detachSpinner();
+                    case R.id.tab_search:
+                        if(spinnerView != null) {
+                            spinnerView.setSpinnerVisibility(false);
+
+                        }
                         fragment = new SearchFragment();
                         break;
                 }

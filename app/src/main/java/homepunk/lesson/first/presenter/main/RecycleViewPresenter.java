@@ -3,7 +3,6 @@ package homepunk.lesson.first.presenter.main;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -35,7 +34,6 @@ public class RecycleViewPresenter implements Presenter.RecycleViewPresenter {
     @Override
     public void attachRecycleView() {
         adapter = new TVListAdapter(context, tvList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(context, view.getResources().getConfiguration().orientation ==
                 Configuration.ORIENTATION_LANDSCAPE ? 3 : 2));

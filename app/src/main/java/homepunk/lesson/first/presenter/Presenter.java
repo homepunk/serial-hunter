@@ -67,12 +67,22 @@ public interface Presenter {
 
         void detachSpinner();
 
-        boolean getSpinnerAttachState();
+        boolean getSpinnerVisibility();
 
         void setSpinnerArrowColor(int color);
+
+        void setSpinnerVisibility(boolean visibility);
     }
 
     interface SearchPresenter {
-        void attachSearch();
+        void attachSearchRecycleView();
+
+        void search(String newText);
+    }
+
+    interface RecommendtationsPresenter{
+        void attachRecommendRecycleView();
+
+        void setRecommendtations();
     }
 }

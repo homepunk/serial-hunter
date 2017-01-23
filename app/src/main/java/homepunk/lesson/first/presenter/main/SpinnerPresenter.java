@@ -2,6 +2,7 @@ package homepunk.lesson.first.presenter.main;
 
 import android.graphics.PorterDuff;
 import android.view.Display;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,7 +16,7 @@ import homepunk.lesson.first.view.main.MainActivity;
 public class SpinnerPresenter implements Presenter.SpinnerPresenter {
     private MainActivity view;
     private Spinner spinner;
-    private boolean attached;
+    private boolean visibility;
     private String[] data = {"Комедии", "Приколючения", "Детективы", "Драмы", "Ужасы"};
     private ViewGroup.LayoutParams params;
 
@@ -23,10 +24,6 @@ public class SpinnerPresenter implements Presenter.SpinnerPresenter {
         this.view = view;
         this.spinner = view.getSpinnerView();
         this.params = spinner.getLayoutParams();
-    }
-
-    private void setAttached(boolean attached) {
-        this.attached = attached;
     }
 
     @Override
@@ -51,18 +48,26 @@ public class SpinnerPresenter implements Presenter.SpinnerPresenter {
             }
         });
         view.addSpinner(spinner);
-        setAttached(true);
+        setSpinnerVisibility(true);
     }
 
     @Override
     public void detachSpinner() {
-        setAttached(false);
         ((ViewGroup) spinner.getParent()).removeView(spinner);
     }
 
     @Override
-    public boolean getSpinnerAttachState() {
-        return attached == true ? true : false;
+    public boolean getSpinnerVisibility() {
+        return visibility == true ? true : false;
+    }
+
+    @Override
+    public void setSpinnerVisibility(boolean visibility) {
+        if(visibility)
+            spinner.setVisibility(View.VISIBLE);
+        else spinner.setVisibility(View.INVISIBLE);
+        this.visibility = visibility;
+
     }
 
     @Override

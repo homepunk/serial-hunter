@@ -61,6 +61,8 @@ public interface View {
     }
 
     interface SearchFragmentView{
-        RecyclerView getRecycleView();
+        RecyclerView getSearchRecycleView();
+
+        RecyclerView getRecommendRecycleView();
     }
 }

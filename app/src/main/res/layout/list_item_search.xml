@@ -11,8 +11,8 @@
 
         <ImageView
             android:id="@+id/item_poster"
-            android:layout_width="match_parent"
-            android:layout_height="270dp"
+            android:layout_width="wrap_content"
+            android:layout_height="230dp"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:cropToPadding="false"

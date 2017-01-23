@@ -5,8 +5,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
@@ -23,7 +21,7 @@ import homepunk.lesson.first.view.View;
 public class MainActivity extends AppCompatActivity
         implements View.MainActivityView {
 
-    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.main_toolbar) Toolbar toolbar;
     @Bind(R.id.nav_view) NavigationView navigationView;
     @Bind(R.id.drawer_layout) DrawerLayout drawerLayout;
     @Bind(R.id.spinner) Spinner spinner;
@@ -33,12 +31,13 @@ public class MainActivity extends AppCompatActivity
     private NavDrawerPresenter navDrawer;
     private BottomNavigationPresenter bottomNavBar;
     private SpinnerPresenter spinnerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setSupportActionBar(toolbar);
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
 
         navDrawer = new NavDrawerPresenter(this);
         navDrawer.attachNavDrawer();
@@ -49,21 +48,10 @@ public class MainActivity extends AppCompatActivity
 
         bottomNavBar = new BottomNavigationPresenter(this);
         bottomNavBar.attachBottomNavigattionBar();
-        bottomNavBar.serDefaultTab(R.id.action_watchlist);
+        bottomNavBar.serDefaultTab(R.id.tab_watchlist);
         bottomNavBar.setBackgroundColor(R.color.colorAccent);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        return onOptionsItemSelected(item);
-    }
     @Override
     public Toolbar getToolbar() {
         return this.toolbar;
