@@ -6,16 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.presenter.Presenter;
 import homepunk.lesson.first.view.main.MainActivity;
 
 
-public class SpinnerPresenter implements Presenter.SpinnerPresenter {
+public class SpinnerPresenter implements Presenter.Spinner {
     private MainActivity view;
-    private Spinner spinner;
+    private android.widget.Spinner spinner;
     private boolean visibility;
     private String[] data = {"Комедии", "Приколючения", "Детективы", "Драмы", "Ужасы"};
     private ViewGroup.LayoutParams params;
@@ -25,6 +24,7 @@ public class SpinnerPresenter implements Presenter.SpinnerPresenter {
         this.spinner = view.getSpinnerView();
         this.params = spinner.getLayoutParams();
     }
+
 
     @Override
     public void attachSpinner() {

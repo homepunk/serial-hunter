@@ -1,4 +1,4 @@
-package homepunk.lesson.first.networking;
+package homepunk.lesson.first.network;
 
 import android.os.AsyncTask;
 

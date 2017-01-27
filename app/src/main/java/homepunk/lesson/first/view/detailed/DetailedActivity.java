@@ -10,7 +10,7 @@ import homepunk.lesson.first.presenter.detailed.DetailedActivityPresenter;
 import homepunk.lesson.first.view.View;
 
 
-public class DetailedActivity extends AppCompatActivity implements View{
+public class DetailedActivity extends AppCompatActivity implements View.DetailedActivityView{
 
     private DetailedActivityPresenter activityPresenter;
 

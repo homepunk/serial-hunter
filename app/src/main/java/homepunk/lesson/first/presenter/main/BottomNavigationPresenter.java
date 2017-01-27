@@ -14,7 +14,7 @@ import homepunk.lesson.first.view.main.MainActivity;
 import homepunk.lesson.first.view.main.MainFragment;
 import homepunk.lesson.first.view.main.SearchFragment;
 
-public class BottomNavigationPresenter implements Presenter.BottomNavigationTabPresenter {
+public class BottomNavigationPresenter implements Presenter.BottomNavigationTab {
     private MainActivity view;
     private Fragment fragment;
     private BottomBar bottomBar;
@@ -49,9 +49,8 @@ public class BottomNavigationPresenter implements Presenter.BottomNavigationTabP
                         fragment = new MainFragment();
                         break;
                     case R.id.tab_search:
-                        if(spinnerView != null) {
+                        if (spinnerView != null) {
                             spinnerView.setSpinnerVisibility(false);
-
                         }
                         fragment = new SearchFragment();
                         break;

@@ -1,4 +1,4 @@
-package homepunk.lesson.first.networking;
+package homepunk.lesson.first.network;
 
 import org.json.JSONArray;
 import org.json.JSONException;

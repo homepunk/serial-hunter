@@ -26,6 +26,9 @@ import homepunk.lesson.first.view.detailed.DetailedActivity;
 public class TVListAdapter extends RecyclerView.Adapter<TVListAdapter.ViewHolder> {
     private TVSeries tvSeries;
     private Context context;
+    private LayoutInflater layoutInflater;
+    private View root;
+
     protected static List<TVSeries> tvList;
 
     public TVListAdapter(Context context, List<TVSeries> tvList) {
@@ -35,9 +38,13 @@ public class TVListAdapter extends RecyclerView.Adapter<TVListAdapter.ViewHolder
 
     @Override
     public TVListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View root = layoutInflater.inflate(R.layout.list_item_tvseries, parent, false);
-
+        if (tvList.size() > 10) {
+            layoutInflater = LayoutInflater.from(parent.getContext());
+            root = layoutInflater.inflate(R.layout.list_item_tvseries, parent, false);
+        } else {
+            layoutInflater = LayoutInflater.from(parent.getContext());
+            root = layoutInflater.inflate(R.layout.list_item_search, parent, false);
+        }
         return new ViewHolder(root);
     }
 

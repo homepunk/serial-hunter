@@ -12,7 +12,7 @@ import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.presenter.Presenter;
 import homepunk.lesson.first.view.detailed.DetailedFragment;
 
-public class FabPresenter implements Presenter.FabPresenter {
+public class FabPresenter implements Presenter.Fab {
     Animation show_fab_1;
     Animation hide_fab_1;
     Animation show_fab_2;

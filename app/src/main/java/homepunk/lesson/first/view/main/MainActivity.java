@@ -14,13 +14,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.presenter.main.BottomNavigationPresenter;
-import homepunk.lesson.first.presenter.main.NavDrawerPresenter;
+import homepunk.lesson.first.presenter.main.NavigationDrawerPresenter;
 import homepunk.lesson.first.presenter.main.SpinnerPresenter;
 import homepunk.lesson.first.view.View;
 
 public class MainActivity extends AppCompatActivity
         implements View.MainActivityView {
-
     @Bind(R.id.main_toolbar) Toolbar toolbar;
     @Bind(R.id.nav_view) NavigationView navigationView;
     @Bind(R.id.drawer_layout) DrawerLayout drawerLayout;
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity
     @Bind(R.id.bottomBar) BottomBar bottomBar;
     @Bind(R.id.main_relative_layout) RelativeLayout layout;
 
-    private NavDrawerPresenter navDrawerModule;
+    private NavigationDrawerPresenter navDrawerModule;
     private BottomNavigationPresenter bottomNavBarModule;
     private SpinnerPresenter spinnerViewModule;
 
@@ -38,15 +37,15 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        spinnerViewModule = new SpinnerPresenter(this);
+        bottomNavBarModule = new BottomNavigationPresenter(this);
+        navDrawerModule = new NavigationDrawerPresenter(this);
 
-        navDrawerModule = new NavDrawerPresenter(this);
         navDrawerModule.attachNavDrawer();
 
-        spinnerViewModule = new SpinnerPresenter(this);
         spinnerViewModule.attachSpinner();
         spinnerViewModule.setSpinnerArrowColor(R.color.colorText);
 
-        bottomNavBarModule = new BottomNavigationPresenter(this);
         bottomNavBarModule.attachBottomNavigattionBar();
         bottomNavBarModule.serDefaultTab(R.id.tab_watchlist);
         bottomNavBarModule.setBackgroundColor(R.color.colorAccent);
@@ -62,11 +61,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public SpinnerPresenter getSpinnerPresenter() {
-        return this.spinnerViewModule;
-    }
-
-    @Override
     public BottomBar getBoottomBar() {
         return this.bottomBar;
     }
@@ -79,6 +73,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public NavigationView getNavigationView() {
         return navigationView;
+    }
+
+    @Override
+    public SpinnerPresenter getSpinnerPresenter() {
+        return spinnerViewModule;
     }
 
     @Override

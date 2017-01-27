@@ -11,7 +11,7 @@ import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.presenter.Presenter;
 import homepunk.lesson.first.view.main.MainActivity;
 
-public class NavDrawerPresenter implements NavigationView.OnNavigationItemSelectedListener, Presenter.NavDrawerPresenter {
+public class NavigationDrawerPresenter implements NavigationView.OnNavigationItemSelectedListener, Presenter.NavDrawer {
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -19,7 +19,7 @@ public class NavDrawerPresenter implements NavigationView.OnNavigationItemSelect
     public MainActivity view;
     public ActionBarDrawerToggle drawerToggle;
 
-    public NavDrawerPresenter(MainActivity view) {
+    public NavigationDrawerPresenter(MainActivity view) {
         this.view = view;
         this.drawer = view.getDrawerLayout();
         this.toolbar = view.getToolbar();
@@ -56,7 +56,6 @@ public class NavDrawerPresenter implements NavigationView.OnNavigationItemSelect
         } else if (id == R.id.nav_send) {
 
         }
-
 
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -1,6 +1,7 @@
 package homepunk.lesson.first.view;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
@@ -14,11 +15,9 @@ import homepunk.lesson.first.presenter.main.SpinnerPresenter;
 import homepunk.lesson.first.view.detailed.DetailedFragment;
 
 public interface View {
+    Context getContext();
 
-    DetailedFragment newInstance(int id);
-
-    int getFromIntent();
-
+    Resources getResources();
 
     interface MainActivityView {
 
@@ -26,21 +25,25 @@ public interface View {
 
         Spinner getSpinnerView();
 
-        SpinnerPresenter getSpinnerPresenter();
-
         BottomBar getBoottomBar();
 
         DrawerLayout getDrawerLayout();
 
         NavigationView getNavigationView();
 
+        SpinnerPresenter getSpinnerPresenter();
+
         void addSpinner(Spinner view);
     }
 
-    interface MainFragmentView {
-        Context getContext();
-
+    interface MainFragmentView extends View{
         RecyclerView getRecycleView();
+    }
+
+    interface DetailedActivityView{
+        DetailedFragment newInstance(int id);
+
+        int getFromIntent();
     }
 
     interface DetailedFragmentView{
@@ -60,9 +63,4 @@ public interface View {
         RelativeLayout.LayoutParams getLayoutParams();
     }
 
-    interface SearchFragmentView{
-        RecyclerView getSearchRecycleView();
-
-        RecyclerView getRecommendRecycleView();
-    }
 }

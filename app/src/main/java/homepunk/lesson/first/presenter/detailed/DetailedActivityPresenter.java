@@ -4,14 +4,13 @@ import android.support.v4.app.FragmentTransaction;
 
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.presenter.Presenter;
-import homepunk.lesson.first.view.detailed.DetailedActivity;
 import homepunk.lesson.first.view.detailed.DetailedFragment;
 
-public class DetailedActivityPresenter implements Presenter.DetailedActivityPresenter {
+public class DetailedActivityPresenter implements Presenter.DetailedActivity {
     private int id;
-    private DetailedActivity view;
+    private homepunk.lesson.first.view.detailed.DetailedActivity view;
 
-    public DetailedActivityPresenter(DetailedActivity view) {
+    public DetailedActivityPresenter(homepunk.lesson.first.view.detailed.DetailedActivity view) {
         this.view = view;
     }
 

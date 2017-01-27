@@ -14,16 +14,15 @@ import android.view.ViewGroup;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.presenter.main.RecommendPresenter;
-import homepunk.lesson.first.presenter.main.SearchPresenter;
-import homepunk.lesson.first.view.View.SearchFragmentView;
+import homepunk.lesson.first.presenter.search.SearchPresenter;
+import homepunk.lesson.first.presenter.search.SimilarTVPresenter;
 
-public class SearchFragment extends Fragment implements SearchFragmentView{
+public class SearchFragment extends Fragment implements homepunk.lesson.first.view.View{
     @Bind(R.id.search_rv) RecyclerView rvSearch;
     @Bind(R.id.search_recomendations_rv) RecyclerView rvRecommend;
     private ViewGroup root;
     private SearchPresenter searchModule;
-    private RecommendPresenter recommendModule;
+    private SimilarTVPresenter recommendModule;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,10 +32,13 @@ public class SearchFragment extends Fragment implements SearchFragmentView{
         setHasOptionsMenu(true);
 
         searchModule = new SearchPresenter(this);
+        searchModule.addView(rvSearch);
+        searchModule.attachAllViews();
 
-        recommendModule = new RecommendPresenter(this);
-        recommendModule.attachRecommendRecycleView();
-        recommendModule.setRecommendtations();
+        recommendModule = new SimilarTVPresenter(this);
+        recommendModule.addView(rvRecommend);
+        recommendModule.attachAllViews();
+        recommendModule.updateContent();
 
         return root;
     }
@@ -58,20 +60,9 @@ public class SearchFragment extends Fragment implements SearchFragmentView{
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchModule.attachSearchRecycleView();
                 searchModule.search(newText);
                 return true;
             }
         });
-    }
-
-    @Override
-    public RecyclerView getSearchRecycleView() {
-        return this.rvSearch;
-    }
-
-    @Override
-    public RecyclerView getRecommendRecycleView() {
-        return this.rvRecommend;
     }
 }

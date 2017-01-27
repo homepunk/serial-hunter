@@ -9,7 +9,7 @@ import homepunk.lesson.first.presenter.Presenter;
 import homepunk.lesson.first.view.custom.CustomShadedView;
 import homepunk.lesson.first.view.detailed.DetailedFragment;
 
-public class CustomShadedPresenter implements Presenter.CustomShadedPresenter {
+public class CustomShadedPresenter implements Presenter.CustomShaded {
     public int width, height, fabSize, marginTopFab, marginLeftFab;
     private DetailedFragment view;
     private CustomShadedView backgroudView;

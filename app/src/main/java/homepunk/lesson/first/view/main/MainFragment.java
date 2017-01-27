@@ -11,20 +11,22 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.presenter.Presenter;
-import homepunk.lesson.first.presenter.main.TopRatedPresenter;
+import homepunk.lesson.first.presenter.main.MainFragmentPresenter;
 
 public class MainFragment extends Fragment implements homepunk.lesson.first.view.View.MainFragmentView {
     @Bind(R.id.movies_rv) RecyclerView recycler;
-    private Presenter.RecycleViewPresenter topRatingModule;
+    private Presenter topRatingModule;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, root);
-        topRatingModule = new TopRatedPresenter(this);
-        topRatingModule.attachRecycleView();
-        topRatingModule.attachPosters();
+
+        topRatingModule = new MainFragmentPresenter(this);
+        topRatingModule.addView(recycler);
+        topRatingModule.attachAllViews();
+        topRatingModule.updateContent();
 
         return root;
     }
