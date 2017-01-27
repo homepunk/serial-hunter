@@ -9,17 +9,14 @@ import homepunk.lesson.first.model.TVSeries;
 import homepunk.lesson.first.network.TVFetchrAsync;
 import homepunk.lesson.first.network.TVNetworkParser;
 import homepunk.lesson.first.presenter.Presenter;
-import homepunk.lesson.first.presenter.detailed.DetailedFragmentPresenter;
 
-public class TVObjectFetchrModel implements Model.TVObjectFetchrModel {
+import static homepunk.lesson.first.model.Model.Observerable;
+
+public class TVObjectFetchrModel implements Model.TVObjectFetchrModel, Observerable {
     private TVFetchrAsync task;
     private String ref;
     private TVSeries tvSeries;
-    private DetailedFragmentPresenter viewPresenter;
-
-    public TVObjectFetchrModel(Presenter viewPresenter) {
-        this.viewPresenter = (DetailedFragmentPresenter) viewPresenter;
-    }
+    private Presenter.Observer listener;
 
     @Override
     public void openHttpConnection() {
@@ -30,7 +27,7 @@ public class TVObjectFetchrModel implements Model.TVObjectFetchrModel {
                     return;
                 try {
                         tvSeries = TVNetworkParser.getDetailedByJsonId(result);
-                        viewPresenter.update(tvSeries);
+                        notifyObservers();
                     } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -46,5 +43,15 @@ public class TVObjectFetchrModel implements Model.TVObjectFetchrModel {
     @Override
     public void setExecuteRef(String ref) {
         this.ref = ref;
+    }
+
+    @Override
+    public void registerObserver(Presenter.Observer listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void notifyObservers() {
+        listener.update(tvSeries);
     }
 }

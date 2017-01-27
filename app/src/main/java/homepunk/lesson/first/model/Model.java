@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import homepunk.lesson.first.adapter.TVListAdapter;
+import homepunk.lesson.first.presenter.Presenter;
 
 public interface Model {
 
@@ -28,5 +29,11 @@ public interface Model {
         List<T> getAll();
 
         void saveAll(List<T> series);
+    }
+
+    interface Observerable {
+        void registerObserver(Presenter.Observer listener);
+
+        void notifyObservers();
     }
 }

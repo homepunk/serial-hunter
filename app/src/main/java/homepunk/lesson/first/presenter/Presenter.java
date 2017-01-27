@@ -20,12 +20,6 @@ public interface Presenter {
 
     Context getContext();
 
-    interface DetailedFragment extends Presenter{
-        void setDetails();
-
-        void update(TVSeries tvSeries);
-    }
-
     interface Search extends Presenter{
         void search(String newText);
     }
@@ -82,6 +76,11 @@ public interface Presenter {
         void setSpinnerArrowColor(int color);
 
         void setSpinnerVisibility(boolean visibility);
+    }
+
+    interface Observer{
+
+        void update(TVSeries tvSeries);
     }
 
 }

@@ -46,8 +46,7 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.first.
         ButterKnife.bind(this, root);
 
         mainP = new DetailedFragmentPresenter(this);
-        mainP.openNetworkConnection();
-        mainP.setDetails();
+        mainP.attachAllViews();
 
         shadedP = new CustomShadedPresenter(this);
         shadedP.addView(relativeLayout);
