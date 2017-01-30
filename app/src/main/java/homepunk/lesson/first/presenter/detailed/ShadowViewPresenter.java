@@ -5,16 +5,15 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.widget.RelativeLayout;
 
-import homepunk.lesson.first.presenter.Presenter;
-import homepunk.lesson.first.view.custom.CustomShadedView;
+import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.view.detailed.DetailedFragment;
 
-public class CustomShadedPresenter implements Presenter.CustomShaded {
+public class ShadowViewPresenter implements Presenter.CustomShadedView {
     public int width, height, fabSize, marginTopFab, marginLeftFab;
     private DetailedFragment view;
-    private CustomShadedView backgroudView;
+    private homepunk.lesson.first.view.custom.CustomShadowView backgroudView;
 
-    public CustomShadedPresenter(DetailedFragment view) {
+    public ShadowViewPresenter(DetailedFragment view) {
         this.view = view;
     }
 
@@ -25,7 +24,7 @@ public class CustomShadedPresenter implements Presenter.CustomShaded {
         height = view.getDisplayContentHeight();
         fabSize = (int) convertToPx(28);
 
-        backgroudView = new CustomShadedView(view.getContext(), width, height);
+        backgroudView = new homepunk.lesson.first.view.custom.CustomShadowView(view.getContext(), width, height);
 
         backgroudView.setColor(39, 43, 46);
         backgroudView.setAlpha(240);

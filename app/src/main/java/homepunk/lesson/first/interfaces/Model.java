@@ -1,10 +1,10 @@
-package homepunk.lesson.first.model;
+package homepunk.lesson.first.interfaces;
 
 import java.io.IOException;
 import java.util.List;
 
-import homepunk.lesson.first.adapter.TVListAdapter;
-import homepunk.lesson.first.presenter.Presenter;
+import homepunk.lesson.first.adapter.TVSeriesAdapter;
+import homepunk.lesson.first.model.TVSeries;
 
 public interface Model {
 
@@ -19,7 +19,7 @@ public interface Model {
 
         void clearResults();
 
-        void setAdapter(TVListAdapter adapter);
+        void setAdapter(TVSeriesAdapter adapter);
     }
 
     interface SeriesDAO<T>{

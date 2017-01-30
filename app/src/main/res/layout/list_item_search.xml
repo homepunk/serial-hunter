@@ -10,7 +10,7 @@
         app:cardCornerRadius="7dp">
 
         <ImageView
-            android:id="@+id/item_poster"
+            android:id="@+id/item_poster_search"
             android:layout_width="wrap_content"
             android:layout_height="230dp"
             android:layout_gravity="center"

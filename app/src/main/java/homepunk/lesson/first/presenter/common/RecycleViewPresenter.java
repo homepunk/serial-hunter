@@ -9,17 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import homepunk.lesson.first.adapter.TVListAdapter;
+import homepunk.lesson.first.adapter.TVSeriesAdapter;
 import homepunk.lesson.first.database.Constants;
 import homepunk.lesson.first.model.network.TVListFetchrModel;
 import homepunk.lesson.first.model.TVSeries;
-import homepunk.lesson.first.presenter.Presenter;
-import homepunk.lesson.first.view.View;
+import homepunk.lesson.first.interfaces.Presenter;
+import homepunk.lesson.first.interfaces.View;
 
 public class RecycleViewPresenter implements Presenter.RecycleView {
     private View view;
     private RecyclerView recyclerView;
-    private TVListAdapter adapter;
+    private TVSeriesAdapter adapter;
     private Context context;
     private TVListFetchrModel task;
     private RecyclerView.LayoutManager layoutManager;
@@ -41,7 +41,7 @@ public class RecycleViewPresenter implements Presenter.RecycleView {
             tvList = new ArrayList<>(Constants.FILM_COUNT);
         else tvList = new ArrayList<>(quantity);
 
-        adapter = new TVListAdapter(view.getContext(), tvList);
+        adapter = new TVSeriesAdapter(view.getContext(), tvList);
         recyclerView.setAdapter(adapter);
 
         if(layoutManager != null)

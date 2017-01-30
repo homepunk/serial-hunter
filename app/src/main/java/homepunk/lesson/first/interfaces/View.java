@@ -1,17 +1,13 @@
-package homepunk.lesson.first.view;
+package homepunk.lesson.first.interfaces;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
-import com.roughike.bottombar.BottomBar;
-
-import homepunk.lesson.first.presenter.main.SpinnerPresenter;
 import homepunk.lesson.first.view.detailed.DetailedFragment;
 
 public interface View {
@@ -20,20 +16,30 @@ public interface View {
     Resources getResources();
 
     interface MainActivityView {
+        void addSpinnerView(Spinner spinner);
 
-        Toolbar getToolbar();
+        void setSpinnerVisibility(boolean visibility);
 
-        Spinner getSpinnerView();
+        boolean isSpinnerVisible();
 
-        BottomBar getBoottomBar();
+        void setSpinnerDropDownWidth(int width);
 
-        DrawerLayout getDrawerLayout();
+        void setSpinnerLayoutParams(ViewGroup.LayoutParams params);
 
-        NavigationView getNavigationView();
+        void setSpinnerAdapater(SpinnerAdapter adapter);
 
-        SpinnerPresenter getSpinnerPresenter();
+        void setSpinnerPrompt(String title);
 
-        void addSpinner(Spinner view);
+        void setSpinnerSelection(int position);
+
+        void setSpinnerArrowColor(int color);
+
+        void setBottomBarBackgroundColor(int color);
+
+        void setDefaultTab(int id);
+
+
+
     }
 
     interface MainFragmentView extends View{

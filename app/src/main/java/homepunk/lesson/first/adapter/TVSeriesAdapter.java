@@ -23,7 +23,11 @@ import homepunk.lesson.first.database.Constants;
 import homepunk.lesson.first.model.TVSeries;
 import homepunk.lesson.first.view.detailed.DetailedActivity;
 
-public class TVListAdapter extends RecyclerView.Adapter<TVListAdapter.ViewHolder> {
+public class TVSeriesAdapter extends RecyclerView.Adapter<TVSeriesAdapter.GridViewHolder> {
+    public static final int GRID_TYPE = 0;
+    public static final int LIST_TYPE = 1;
+
+
     private TVSeries tvSeries;
     private Context context;
     private LayoutInflater layoutInflater;
@@ -31,25 +35,25 @@ public class TVListAdapter extends RecyclerView.Adapter<TVListAdapter.ViewHolder
 
     protected static List<TVSeries> tvList;
 
-    public TVListAdapter(Context context, List<TVSeries> tvList) {
+    public TVSeriesAdapter(Context context, List<TVSeries> tvList) {
         this.tvList = tvList;
         this.context = context;
     }
 
     @Override
-    public TVListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (tvList.size() > 10) {
+    public GridViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//        if (tvList.size() > 10) {
             layoutInflater = LayoutInflater.from(parent.getContext());
             root = layoutInflater.inflate(R.layout.list_item_tvseries, parent, false);
-        } else {
-            layoutInflater = LayoutInflater.from(parent.getContext());
-            root = layoutInflater.inflate(R.layout.list_item_search, parent, false);
-        }
-        return new ViewHolder(root);
+//        } else {
+//            layoutInflater = LayoutInflater.from(parent.getContext());
+//            root = layoutInflater.inflate(R.layout.list_item_search, parent, false);
+//        }
+        return new GridViewHolder(root);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(GridViewHolder holder, int position) {
         tvSeries = tvList.get(position);
 
         if (!TextUtils.isEmpty(tvSeries.getFullPosterPath(TVSeries.WIDTH_500)))
@@ -57,19 +61,19 @@ public class TVListAdapter extends RecyclerView.Adapter<TVListAdapter.ViewHolder
                     .load(tvSeries.getFullPosterPath(TVSeries.WIDTH_500))
                     .placeholder(R.drawable.placeholder_image)
                     .into(holder.poster);
-
     }
+
 
     @Override
     public int getItemCount() {
         return tvList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class GridViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @Bind(R.id.item_poster) ImageView poster;
         private TVSeries tvItem;
 
-        public ViewHolder(View itemView) {
+        public GridViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             poster.setOnClickListener(this);
@@ -87,4 +91,27 @@ public class TVListAdapter extends RecyclerView.Adapter<TVListAdapter.ViewHolder
             context.startActivity(intent, options.toBundle());
         }
     }
+
+//    public static class LinearViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+//        @Bind(R.id.item_poster_search) ImageView poster;
+//        private TVSeries tvItem;
+//
+//        public LinearViewHolder(View itemView) {
+//            super(itemView);
+//            ButterKnife.bind(this, itemView);
+//            poster.setOnClickListener(this);
+//        }
+//
+//        @Override
+//        public void onClick(View v) {
+//            final Context context = v.getContext();
+//            Intent intent = new Intent(context, DetailedActivity.class);
+//            tvItem = tvList.get(getAdapterPosition());
+//
+//            ActivityOptionsCompat options = ActivityOptionsCompat.
+//                    makeSceneTransitionAnimation((Activity) v.getContext(), poster, "profile");
+//            intent.putExtra(Constants.TV_ID, tvItem.id);
+//            context.startActivity(intent, options.toBundle());
+//        }
+//    }
 }

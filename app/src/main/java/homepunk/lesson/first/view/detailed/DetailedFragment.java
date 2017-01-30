@@ -20,12 +20,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.database.Constants;
-import homepunk.lesson.first.presenter.detailed.CustomShadedPresenter;
+import homepunk.lesson.first.presenter.detailed.ShadowViewPresenter;
 import homepunk.lesson.first.presenter.detailed.DetailedFragmentPresenter;
-import homepunk.lesson.first.presenter.detailed.FabPresenter;
+import homepunk.lesson.first.presenter.detailed.FloatingButtonsPresenter;
 
-public class DetailedFragment extends Fragment implements homepunk.lesson.first.view.View.DetailedFragmentView {
-    @Bind(R.id.fragment_main_id) RelativeLayout relativeLayout;
+public class DetailedFragment extends Fragment implements homepunk.lesson.first.interfaces.View.DetailedFragmentView {
+    @Bind(R.id.fragment_main_id) RelativeLayout rLayout;
     @Bind(R.id.id_detailed_overview) TextView tvDescription;
     @Bind(R.id.item_detailed_poster) ImageView ivPoster;
     @Bind(R.id.fab) FloatingActionButton fab;
@@ -33,9 +33,9 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.first.
     @Bind(R.id.fab_2) FloatingActionButton fab2;
     @Bind(R.id.fab_3) FloatingActionButton fab3;
 
-    private DetailedFragmentPresenter mainP;
-    private FabPresenter fabP;
-    private CustomShadedPresenter shadedP;
+    private DetailedFragmentPresenter detailesModule;
+    private FloatingButtonsPresenter fabModule;
+    private ShadowViewPresenter shadedViewModule;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -45,16 +45,16 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.first.
 
         ButterKnife.bind(this, root);
 
-        mainP = new DetailedFragmentPresenter(this);
-        mainP.attachAllViews();
+        detailesModule = new DetailedFragmentPresenter(this);
+        detailesModule.attachAllViews();
 
-        shadedP = new CustomShadedPresenter(this);
-        shadedP.addView(relativeLayout);
+        shadedViewModule = new ShadowViewPresenter(this);
+        shadedViewModule.addView(rLayout);
 
-        fabP = new FabPresenter(this);
-        fabP.setMainFabClickListener(fab);
-        fabP.setFabsClickListeners(fab1, fab2, fab3);
-        fabP.loadFabAnimation();
+        fabModule = new FloatingButtonsPresenter(this);
+        fabModule.setMainFabClickListener(fab);
+        fabModule.setFabsClickListeners(fab1, fab2, fab3);
+        fabModule.loadFabAnimation();
 
         return root;
     }
@@ -75,28 +75,30 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.first.
     @Override
     public void setPosterImage(String path) {
         Picasso.with(getContext()).load(path)
-                .resize(shadedP.width, shadedP.height)
+                .resize(shadedViewModule.width, shadedViewModule.height)
                 .into(ivPoster);
     }
 
     @Override
     public int getFabMarginTop() {
-        return shadedP.getMarginTop();
+        return shadedViewModule.getMarginTop();
     }
 
     @Override
     public int getFabMarginLeft() {
-        return shadedP.getMarginRight();
+        return shadedViewModule.getMarginRight();
     }
 
     @Override
     public int getDisplayContentHeight() {
         int statusBarHeight;
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+
         if (resourceId > 0)
             statusBarHeight = getResources().getDimensionPixelSize(resourceId);
         else statusBarHeight = 0;
-        // Get the screen size
+
+        // Current screen size
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int screenHeight = metrics.heightPixels;

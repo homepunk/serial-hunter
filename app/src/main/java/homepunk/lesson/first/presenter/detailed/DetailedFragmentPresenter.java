@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import homepunk.lesson.first.database.Constants;
 import homepunk.lesson.first.model.TVSeries;
 import homepunk.lesson.first.model.network.TVObjectFetchrModel;
-import homepunk.lesson.first.presenter.Presenter;
+import homepunk.lesson.first.interfaces.Presenter;
 
 public class DetailedFragmentPresenter implements Presenter {
 

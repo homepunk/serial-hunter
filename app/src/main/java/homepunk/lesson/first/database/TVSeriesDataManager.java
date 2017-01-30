@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import homepunk.lesson.first.model.Model;
+import homepunk.lesson.first.interfaces.Model;
 import homepunk.lesson.first.model.TVSeries;
 
 public class TVSeriesDataManager implements Model.SeriesDAO<TVSeries>{

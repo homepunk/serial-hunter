@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 
 import homepunk.lesson.first.database.Constants;
 import homepunk.lesson.first.model.network.TVListFetchrModel;
-import homepunk.lesson.first.presenter.Presenter;
+import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.presenter.common.RecycleViewPresenter;
 import homepunk.lesson.first.view.main.MainFragment;
 

@@ -52,7 +52,7 @@ public class TVNetworkParser {
         for (int i = 0; i < length; i++) {
             TVSeries film = new TVSeries();
             JSONObject jsonFilm = jsonFilmsArray.getJSONObject(i);
-//            film.title = jsonFilm.getString(KEY_TITLE);
+            film.title = jsonFilm.getString(KEY_TITLE);
 //            film.titleOriginal = jsonFilm.getString(KEY_ORIGINAL_TITLE);
             film.posterPath = jsonFilm.getString(KEY_BACKDROP_PATH);
 //            film.overview = jsonFilm.getString(KEY_OVERVIEW);

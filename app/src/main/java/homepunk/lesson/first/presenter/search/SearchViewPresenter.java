@@ -7,19 +7,19 @@ import android.view.ViewGroup;
 
 import homepunk.lesson.first.database.Constants;
 import homepunk.lesson.first.model.network.TVListFetchrModel;
-import homepunk.lesson.first.presenter.Presenter;
+import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.presenter.common.RecycleViewPresenter;
 import homepunk.lesson.first.view.main.SearchFragment;
 
-public class SearchPresenter implements Presenter.Search {
+public class SearchViewPresenter implements Presenter.Search {
     private Context context;
     private SearchFragment view;
     private TVListFetchrModel task;
     private RecyclerView recyclerView;
     private RecycleViewPresenter rvPresenter;
-    private String newText = "friends";
+    private String newText;
 
-    public SearchPresenter(SearchFragment view) {
+    public SearchViewPresenter(SearchFragment view) {
         this.view = view;
         this.context = view.getContext();
         this.rvPresenter = new RecycleViewPresenter(view);

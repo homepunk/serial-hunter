@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.presenter.Presenter;
+import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.presenter.main.MainFragmentPresenter;
 
-public class MainFragment extends Fragment implements homepunk.lesson.first.view.View.MainFragmentView {
+public class MainFragment extends Fragment implements homepunk.lesson.first.interfaces.View.MainFragmentView {
     @Bind(R.id.movies_rv) RecyclerView recycler;
     private Presenter topRatingModule;
 
@@ -24,8 +24,6 @@ public class MainFragment extends Fragment implements homepunk.lesson.first.view
         ButterKnife.bind(this, root);
 
         topRatingModule = new MainFragmentPresenter(this);
-        topRatingModule.addView(recycler);
-        topRatingModule.attachAllViews();
         topRatingModule.updateContent();
 
         return root;

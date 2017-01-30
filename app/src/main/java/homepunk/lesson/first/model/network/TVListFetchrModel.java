@@ -8,16 +8,16 @@ import org.json.JSONException;
 
 import java.util.List;
 
-import homepunk.lesson.first.adapter.TVListAdapter;
+import homepunk.lesson.first.adapter.TVSeriesAdapter;
 import homepunk.lesson.first.database.TVSeriesDataManager;
-import homepunk.lesson.first.model.Model;
+import homepunk.lesson.first.interfaces.Model;
 import homepunk.lesson.first.model.TVSeries;
 import homepunk.lesson.first.network.TVFetchrAsync;
 import homepunk.lesson.first.network.TVNetworkParser;
-import homepunk.lesson.first.presenter.Presenter;
+import homepunk.lesson.first.interfaces.Presenter;
 
 public class TVListFetchrModel implements Model.TVListFetchrModel {
-    private TVListAdapter adapter;
+    private TVSeriesAdapter adapter;
     private List<TVSeries> tvList;
     private TVFetchrAsync task;
     private Context context;
@@ -42,7 +42,7 @@ public class TVListFetchrModel implements Model.TVListFetchrModel {
     }
 
     @Override
-    public void setAdapter(TVListAdapter adapter) {
+    public void setAdapter(TVSeriesAdapter adapter) {
         if(this.adapter != null)
             return;
 

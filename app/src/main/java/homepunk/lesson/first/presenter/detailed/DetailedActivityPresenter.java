@@ -3,7 +3,7 @@ package homepunk.lesson.first.presenter.detailed;
 import android.support.v4.app.FragmentTransaction;
 
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.presenter.Presenter;
+import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.view.detailed.DetailedFragment;
 
 public class DetailedActivityPresenter implements Presenter.DetailedActivity {

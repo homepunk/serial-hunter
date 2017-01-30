@@ -1,6 +1,7 @@
 package homepunk.lesson.first.presenter.main;
 
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -8,10 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.presenter.Presenter;
+import homepunk.lesson.first.interfaces.Presenter;
+import homepunk.lesson.first.interfaces.View;
 import homepunk.lesson.first.view.main.MainActivity;
 
-public class NavigationDrawerPresenter implements NavigationView.OnNavigationItemSelectedListener, Presenter.NavDrawer {
+public class NavigationDrawerPresenter implements OnNavigationItemSelectedListener, Presenter.NavDrawerPresenter {
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -19,15 +21,29 @@ public class NavigationDrawerPresenter implements NavigationView.OnNavigationIte
     public MainActivity view;
     public ActionBarDrawerToggle drawerToggle;
 
-    public NavigationDrawerPresenter(MainActivity view) {
-        this.view = view;
-        this.drawer = view.getDrawerLayout();
-        this.toolbar = view.getToolbar();
-        this.navigationView = view.getNavigationView();
+
+    @Override
+    public void setView(View.MainActivityView view){
+        this.view = (MainActivity) view;
     }
 
     @Override
-    public void attachNavDrawer() {
+    public void setToolbar(Toolbar toolbar){
+        this.toolbar = toolbar;
+    }
+
+    @Override
+    public void setNavigationView(NavigationView navigationView){
+        this.navigationView = navigationView;
+    }
+
+    @Override
+    public void setDrawerLayout(DrawerLayout drawer){
+        this.drawer = drawer;
+    }
+
+    @Override
+    public void createNavDrawer() {
         drawerToggle = new ActionBarDrawerToggle(
                 view, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(drawerToggle);

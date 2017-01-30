@@ -8,7 +8,7 @@ import android.graphics.Path;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-public class CustomShadedView extends View {
+public class CustomShadowView extends View {
     final int height, width;
     int lineStartY, rightX, leftX, bottomY, lineEndY;
     int koefUp, koefDown;
@@ -17,7 +17,7 @@ public class CustomShadedView extends View {
     Paint paint;
     Path path;
 
-    public CustomShadedView(Context context, int viewWidth, int viewHeight) {
+    public CustomShadowView(Context context, int viewWidth, int viewHeight) {
         super(context);
         width = RelativeLayout.LayoutParams.MATCH_PARENT;
         height = viewHeight;

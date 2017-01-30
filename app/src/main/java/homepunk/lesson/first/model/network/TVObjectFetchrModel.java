@@ -4,13 +4,13 @@ import android.text.TextUtils;
 
 import org.json.JSONException;
 
-import homepunk.lesson.first.model.Model;
+import homepunk.lesson.first.interfaces.Model;
 import homepunk.lesson.first.model.TVSeries;
 import homepunk.lesson.first.network.TVFetchrAsync;
 import homepunk.lesson.first.network.TVNetworkParser;
-import homepunk.lesson.first.presenter.Presenter;
+import homepunk.lesson.first.interfaces.Presenter;
 
-import static homepunk.lesson.first.model.Model.Observerable;
+import static homepunk.lesson.first.interfaces.Model.Observerable;
 
 public class TVObjectFetchrModel implements Model.TVObjectFetchrModel, Observerable {
     private TVFetchrAsync task;
