@@ -10,12 +10,11 @@ import android.view.ViewGroup;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.presenter.main.MainFragmentPresenter;
 
-public class MainFragment extends Fragment implements homepunk.lesson.first.interfaces.View.MainFragmentView {
+public class MainFragment extends Fragment {
     @Bind(R.id.movies_rv) RecyclerView recycler;
-    private Presenter topRatingModule;
+    private MainFragmentPresenter fragmentPresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -23,15 +22,13 @@ public class MainFragment extends Fragment implements homepunk.lesson.first.inte
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, root);
 
-        topRatingModule = new MainFragmentPresenter(this);
-        topRatingModule.updateContent();
+        fragmentPresenter = new MainFragmentPresenter();
+        fragmentPresenter.setView(this);
+        fragmentPresenter.setRecycleView(recycler);
+        fragmentPresenter.getMostPopularTVSeries();
 
         return root;
     }
 
-    @Override
-    public RecyclerView getRecycleView() {
-        return recycler;
-    }
 }
 

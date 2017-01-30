@@ -1,5 +1,7 @@
 package homepunk.lesson.first.interfaces;
 
+import android.content.Context;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -9,17 +11,25 @@ import homepunk.lesson.first.model.TVSeries;
 public interface Model {
 
     interface TVObjectFetchrModel{
-        void openHttpConnection();
+        void fetch();
 
         void setExecuteRef(String ref);
     }
 
-    interface TVListFetchrModel extends TVObjectFetchrModel{
+    interface TVListFetchrModel {
         void setTVList(List<TVSeries> tvList);
+
+        void setExecuteRef(String ref);
+
+        void setAdapter(TVSeriesAdapter adapter);
+
+        void setPresenter(Presenter presenter);
+
+        void setContext(Context context);
 
         void clearResults();
 
-        void setAdapter(TVSeriesAdapter adapter);
+        void fetch();
     }
 
     interface SeriesDAO<T>{

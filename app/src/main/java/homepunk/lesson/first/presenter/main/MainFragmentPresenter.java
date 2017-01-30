@@ -2,46 +2,69 @@ package homepunk.lesson.first.presenter.main;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import homepunk.lesson.first.adapter.TVSeriesAdapter;
 import homepunk.lesson.first.database.Constants;
-import homepunk.lesson.first.model.network.TVListFetchrModel;
 import homepunk.lesson.first.interfaces.Presenter;
+import homepunk.lesson.first.model.TVSeries;
+import homepunk.lesson.first.model.network.TVListFetchrModel;
 import homepunk.lesson.first.presenter.common.RecycleViewPresenter;
 import homepunk.lesson.first.view.main.MainFragment;
 
 
-public class MainFragmentPresenter implements Presenter{
-    private Context context;
+public class MainFragmentPresenter implements Presenter.MainFragmentPresenter, Presenter{
     private MainFragment view;
     private RecyclerView recyclerView;
-    private RecycleViewPresenter rvPresenter;
+    private List<TVSeries> tvList;
+    private Context context;
+    private TVSeriesAdapter adapter;
 
-    public MainFragmentPresenter(MainFragment f) {
-        this.view = f;
-        this.context = view.getContext();
-        this.rvPresenter = new RecycleViewPresenter(view);
+    @Override
+    public void setView(MainFragment view) {
+        this.view = view;
     }
 
     @Override
-    public void addView(ViewGroup view) {
-        this.recyclerView = (RecyclerView) view;
+    public void setRecycleView(RecyclerView view) {
+        this.recyclerView = view;
     }
 
     @Override
-    public void attachAllViews() {
-        rvPresenter.attachRecycleView(recyclerView);
+    public void getMostPopularTVSeries() {
+        TVListFetchrModel tvTask = new TVListFetchrModel();
+        tvList = new ArrayList<>(Constants.FILM_COUNT);
+        adapter = new TVSeriesAdapter(view.getContext(), tvList);
+        setUpRecycleViewPresenter();
+
+        tvTask.setPresenter(this);
+        tvTask.setTVList(tvList);
+        tvTask.setAdapter(adapter);
+        tvTask.setContext(view.getContext());
+        tvTask.setExecuteRef(Constants.TV_REFENECE + Constants.TV_TOP20 + Constants.LANGUAGE_EN + Constants.API_KEY);
+        tvTask.fetch();
     }
 
-    @Override
-    public void updateContent() {
-        TVListFetchrModel task = new TVListFetchrModel(this);
-        task.setExecuteRef(Constants.TV_REFENECE + Constants.TV_TOP20 + Constants.LANGUAGE_EN + Constants.API_KEY);
-        rvPresenter.updateContent(task);
-    }
-
-    @Override
     public Context getContext() {
-        return context;
+        return view.getContext();
+    }
+
+    private void setUpRecycleViewPresenter(){
+        tvList = new ArrayList<>(Constants.FILM_COUNT);
+        adapter = new TVSeriesAdapter(view.getContext(), tvList);
+        RecycleViewPresenter rvPresenter = new RecycleViewPresenter();
+        rvPresenter.setPresenter(this);
+        rvPresenter.setContext(view.getContext());
+        rvPresenter.setTVList(tvList);
+        rvPresenter.setAdapter(adapter);
+        rvPresenter.setResources(view.getResources());
+        rvPresenter.setUpRecycleView(recyclerView);
+    }
+
+    @Override
+    public void setContext(Context context) {
+        this.context = context;
     }
 }

@@ -27,27 +27,32 @@ public class DetailedFragmentPresenter implements Presenter {
         this.tvSeries = tvSeries;
     }
 
-    @Override
+//    @Override
     public void attachAllViews() {
         task = new TVObjectFetchrModel();
         task.registerObserver(listener);
         task.setExecuteRef(Constants.TV_REFENECE + id + Constants.LANGUAGE_RU + Constants.API_KEY);
-        task.openHttpConnection();
+        task.fetch();
     }
 
-    @Override
+//    @Override
     public void updateContent() {
         view.setOverview(tvSeries.overview);
         view.setPosterImage(tvSeries.getFullPosterPath(TVSeries.WIDTH_780));
     }
 
-    @Override
+//    @Override
     public Context getContext() {
         return view.getContext();
     }
 
-    @Override
+//    @Override
     public void addView(ViewGroup view) {
+    }
+
+    @Override
+    public void setContext(Context context) {
+
     }
 
     public class Listener implements Observer {

@@ -32,9 +32,8 @@ public class MainActivityPresenter implements Presenter.MainActivityPresenter, L
     private void attachSpinner() {
         Display display = view.getWindowManager().getDefaultDisplay();
         int spinnerWidth = display.getWidth();
-
         view.setSpinnerDropDownWidth(spinnerWidth);
-        view.setSpinnerLayoutParams(params);
+        view.setSpinnerLayoutParams(spinner.getLayoutParams());
         ArrayAdapter<String> adapter = new ArrayAdapter<>(view, R.layout.list_item_spinner, Constants.data);
         adapter.setDropDownViewResource(R.layout.list_item_spinner_dpordown);
 

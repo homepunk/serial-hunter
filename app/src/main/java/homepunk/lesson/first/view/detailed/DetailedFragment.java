@@ -47,6 +47,7 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.first.
 
         detailesModule = new DetailedFragmentPresenter(this);
         detailesModule.attachAllViews();
+        detailesModule.updateContent();
 
         shadedViewModule = new ShadowViewPresenter(this);
         shadedViewModule.addView(rLayout);

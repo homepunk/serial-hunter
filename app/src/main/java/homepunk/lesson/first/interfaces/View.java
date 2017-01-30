@@ -2,7 +2,6 @@ package homepunk.lesson.first.interfaces;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -40,10 +39,6 @@ public interface View {
 
 
 
-    }
-
-    interface MainFragmentView extends View{
-        RecyclerView getRecycleView();
     }
 
     interface DetailedActivityView{

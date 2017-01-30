@@ -14,15 +14,13 @@ import android.view.ViewGroup;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.presenter.search.SearchViewPresenter;
-import homepunk.lesson.first.presenter.search.SearchSimilarViewPresenter;
+import homepunk.lesson.first.presenter.search.SearchFragmentPresenter;
 
 public class SearchFragment extends Fragment implements homepunk.lesson.first.interfaces.View {
     @Bind(R.id.search_rv) RecyclerView rvSearch;
     @Bind(R.id.search_recomendations_rv) RecyclerView rvRecommend;
     private ViewGroup root;
-    private SearchViewPresenter searchModule;
-    private SearchSimilarViewPresenter recommendModule;
+    private SearchFragmentPresenter searchFragmentPresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,14 +29,11 @@ public class SearchFragment extends Fragment implements homepunk.lesson.first.in
         ButterKnife.bind(this, root);
         setHasOptionsMenu(true);
 
-        searchModule = new SearchViewPresenter(this);
-        searchModule.addView(rvSearch);
-        searchModule.attachAllViews();
-
-        recommendModule = new SearchSimilarViewPresenter(this);
-        recommendModule.addView(rvRecommend);
-        recommendModule.attachAllViews();
-        recommendModule.updateContent();
+        searchFragmentPresenter = new SearchFragmentPresenter();
+        searchFragmentPresenter.setView(this);
+        searchFragmentPresenter.setRecycleView(rvRecommend);
+        searchFragmentPresenter.setContext(getContext());
+        searchFragmentPresenter.getRecommendationTVSeries();
 
         return root;
     }
@@ -54,13 +49,13 @@ public class SearchFragment extends Fragment implements homepunk.lesson.first.in
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchModule.search(query);
+//                searchFragmentPresenter.search(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchModule.search(newText);
+//                searchFragmentPresenter.search(newText);
                 return true;
             }
         });

@@ -19,16 +19,16 @@ public class TVObjectFetchrModel implements Model.TVObjectFetchrModel, Observera
     private Presenter.Observer listener;
 
     @Override
-    public void openHttpConnection() {
+    public void fetch() {
         task = (TVFetchrAsync) new TVFetchrAsync(new TVFetchrAsync.IResultListener() {
             @Override
             public void onResult(String result) {
                 if (TextUtils.isEmpty(result))
                     return;
                 try {
-                        tvSeries = TVNetworkParser.getDetailedByJsonId(result);
-                        notifyObservers();
-                    } catch (JSONException e) {
+                    tvSeries = TVNetworkParser.getDetailedByJsonId(result);
+                    notifyObservers();
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }

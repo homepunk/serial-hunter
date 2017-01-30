@@ -8,18 +8,23 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.roughike.bottombar.BottomBar;
 
+import java.util.List;
+
+import homepunk.lesson.first.adapter.TVSeriesAdapter;
 import homepunk.lesson.first.model.TVSeries;
-import homepunk.lesson.first.model.network.TVListFetchrModel;
 import homepunk.lesson.first.view.main.MainActivity;
+import homepunk.lesson.first.view.main.MainFragment;
+import homepunk.lesson.first.view.main.SearchFragment;
 
 public interface Presenter {
 
-    interface MainActivityPresenter{
+    void setContext(Context context);
+
+    interface MainActivityPresenter {
         void setView(MainActivity view);
 
         void setBottomBar(BottomBar bottomBar);
@@ -33,6 +38,25 @@ public interface Presenter {
         void onTabSelected();
     }
 
+    interface MainFragmentPresenter {
+        void setView(MainFragment view);
+
+        void setRecycleView(RecyclerView view);
+
+        void getMostPopularTVSeries();
+    }
+
+    interface SearchFragmentPresenter{
+        void setView(SearchFragment view);
+
+        void setRecycleView(RecyclerView view);
+
+        void getRecommendationTVSeries();
+
+        void onSearchViewClicked();
+
+    }
+
     interface TVListPresetner {
         void setView(View view);
 
@@ -42,18 +66,18 @@ public interface Presenter {
 
         void updateViewWithSavedList();
     }
+//
+//    void addView(ViewGroup view);
+//
+//    void attachAllViews();
+//
+//    void updateContent();
+//
+////    void openNetworkConnection();
+//
+//    Context getContext();
 
-    void addView(ViewGroup view);
-
-    void attachAllViews();
-
-    void updateContent();
-
-//    void openNetworkConnection();
-
-    Context getContext();
-
-    interface Search extends Presenter{
+    interface Search extends Presenter {
         void search(String newText);
     }
 
@@ -75,13 +99,20 @@ public interface Presenter {
     }
 
     interface RecycleView {
-        void attachRecycleView(RecyclerView rv);
+        void setPresenter(Presenter presenter);
+
+        void setContext(Context context);
+
+        void setTVList(List<TVSeries> tvList);
+
+        void setAdapter(TVSeriesAdapter adapter);
+
+        void setUpRecycleView(RecyclerView rv);
 
         void setLayoutManeger(RecyclerView.LayoutManager layoutManeger);
 
         void setItemsQuantity(int quantity);
-
-        void updateContent(TVListFetchrModel fetchr);
+//        void updateContent(TVListFetchrModel fetchr);
     }
 
     interface DetailedActivity {
@@ -93,6 +124,7 @@ public interface Presenter {
 
         void setFabsClickListeners(FloatingActionButton fab, FloatingActionButton fab1,
                                    FloatingActionButton fab2);
+
         void loadFabAnimation();
     }
 
@@ -104,7 +136,7 @@ public interface Presenter {
         int getMarginRight();
     }
 
-    interface Observer{
+    interface Observer {
 
         void update(TVSeries tvSeries);
     }

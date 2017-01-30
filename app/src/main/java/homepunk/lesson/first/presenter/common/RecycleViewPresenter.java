@@ -3,21 +3,20 @@ package homepunk.lesson.first.presenter.common;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import homepunk.lesson.first.adapter.TVSeriesAdapter;
-import homepunk.lesson.first.database.Constants;
-import homepunk.lesson.first.model.network.TVListFetchrModel;
-import homepunk.lesson.first.model.TVSeries;
 import homepunk.lesson.first.interfaces.Presenter;
-import homepunk.lesson.first.interfaces.View;
+import homepunk.lesson.first.model.TVSeries;
+import homepunk.lesson.first.model.network.TVListFetchrModel;
 
 public class RecycleViewPresenter implements Presenter.RecycleView {
-    private View view;
+    private Resources resources;
+    private Presenter presenter;
     private RecyclerView recyclerView;
     private TVSeriesAdapter adapter;
     private Context context;
@@ -26,28 +25,44 @@ public class RecycleViewPresenter implements Presenter.RecycleView {
     private List<TVSeries> tvList;
     private int quantity = 0;
 
-    public RecycleViewPresenter(View view) {
-        this.view = view;
-        this.context = view.getContext();
+    public void setResources(Resources resources){
+        this.resources = resources;
+    }
+    @Override
+    public void setPresenter(Presenter presenter) {
+        this.presenter = presenter;
     }
 
     @Override
-    public void attachRecycleView(RecyclerView rv) {
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    public void setTVList(List<TVSeries> tvList) {
+        this.tvList = tvList;
+    }
+
+    @Override
+    public void setAdapter(TVSeriesAdapter adapter) {
+        this.adapter = adapter;
+    }
+
+    @Override
+    public void setUpRecycleView(RecyclerView rv) {
         if(rv == null)
             return;
 
         this.recyclerView = rv;
-        if(quantity == 0)
-            tvList = new ArrayList<>(Constants.FILM_COUNT);
-        else tvList = new ArrayList<>(quantity);
+//        if(quantity == 0)
+//        else tvList = new ArrayList<>(quantity);
 
-        adapter = new TVSeriesAdapter(view.getContext(), tvList);
         recyclerView.setAdapter(adapter);
 
         if(layoutManager != null)
             recyclerView.setLayoutManager(layoutManager);
         else
-        recyclerView.setLayoutManager(new GridLayoutManager(context, view.getResources().getConfiguration().orientation ==
+        recyclerView.setLayoutManager(new GridLayoutManager(context, resources.getConfiguration().orientation ==
                 Configuration.ORIENTATION_LANDSCAPE ? 3 : 2));
     }
 
@@ -60,14 +75,4 @@ public class RecycleViewPresenter implements Presenter.RecycleView {
     public void setItemsQuantity(int quantity) {
         this.quantity = quantity;
     }
-
-    @Override
-    public void updateContent(TVListFetchrModel fetchr) {
-        this.task = fetchr;
-        task.setTVList(tvList);
-        task.clearResults();
-        task.setAdapter(adapter);
-        task.openHttpConnection();
-    }
-
 }

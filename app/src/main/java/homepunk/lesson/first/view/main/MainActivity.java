@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity
         mainActivityPresenter.setSpinner(spinner);
         mainActivityPresenter.onSpinnerItemClicked();
         mainActivityPresenter.onTabSelected();
+        mainActivityPresenter.onStart();
     }
 
 
@@ -118,11 +119,5 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void setDefaultTab(int id) {
         bottomBar.setDefaultTab(id);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mainActivityPresenter.onStart();
     }
 }
