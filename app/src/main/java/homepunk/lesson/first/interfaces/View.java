@@ -17,6 +17,12 @@ public interface View {
         void onError(String error);
     }
 
+    interface SearchFragmentView{
+        void onRecommendedSeriesRecieved(List<TVSeries> tvSeries);
+
+        void onError(String error);
+    }
+
     interface DetailedActivityView{
         DetailedFragment newInstance(int id);
 

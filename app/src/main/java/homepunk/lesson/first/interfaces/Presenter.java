@@ -15,7 +15,6 @@ import java.util.List;
 
 import homepunk.lesson.first.adapter.TVSeriesAdapter;
 import homepunk.lesson.first.model.TVSeries;
-import homepunk.lesson.first.view.main.SearchFragment;
 
 public interface Presenter {
 
@@ -38,11 +37,9 @@ public interface Presenter {
     }
 
     interface SearchFragmentPresenter{
-        void setView(SearchFragment view);
+        void setView(View.SearchFragmentView view);
 
-        void setRecycleView(RecyclerView view);
-
-        void getRecommendationTVSeries();
+        void getRecommendedSeries();
 
         void onSearchViewClicked();
 

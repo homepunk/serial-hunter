@@ -42,7 +42,6 @@ public class MainActivityPresenter implements Presenter.MainActivityPresenter {
     @Override
     public void onNavigationItemSelected(int id) {
         if (id == R.id.nav_camera) {
-            // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
