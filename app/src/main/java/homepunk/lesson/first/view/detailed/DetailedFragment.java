@@ -19,7 +19,7 @@ import com.squareup.picasso.Picasso;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.database.Constants;
+import homepunk.lesson.first.data.database.Constants;
 import homepunk.lesson.first.presenter.detailed.ShadowViewPresenter;
 import homepunk.lesson.first.presenter.detailed.DetailedFragmentPresenter;
 import homepunk.lesson.first.presenter.detailed.FloatingButtonsPresenter;

@@ -1,70 +1,49 @@
 package homepunk.lesson.first.presenter.main;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import homepunk.lesson.first.adapter.TVSeriesAdapter;
-import homepunk.lesson.first.database.Constants;
+import homepunk.lesson.first.data.DataRepository;
+import homepunk.lesson.first.interfaces.Listener;
+import homepunk.lesson.first.interfaces.Model;
 import homepunk.lesson.first.interfaces.Presenter;
+import homepunk.lesson.first.interfaces.View;
 import homepunk.lesson.first.model.TVSeries;
-import homepunk.lesson.first.model.network.TVListFetchrModel;
-import homepunk.lesson.first.presenter.common.RecycleViewPresenter;
-import homepunk.lesson.first.view.main.MainFragment;
 
 
-public class MainFragmentPresenter implements Presenter.MainFragmentPresenter, Presenter{
-    private MainFragment view;
-    private RecyclerView recyclerView;
-    private List<TVSeries> tvList;
-    private Context context;
-    private TVSeriesAdapter adapter;
+public class MainFragmentPresenter implements Presenter.MainFragmentPresenter{
+    private View.MainFragmentView view;
+    private final Model.TVSeriesModel model;
+
+    public MainFragmentPresenter(Context context) {
+        this.model = new DataRepository(context);
+    }
 
     @Override
-    public void setView(MainFragment view) {
+    public void setView(View.MainFragmentView view) {
         this.view = view;
     }
 
     @Override
-    public void setRecycleView(RecyclerView view) {
-        this.recyclerView = view;
-    }
-
-    @Override
     public void getMostPopularTVSeries() {
-        TVListFetchrModel tvTask = new TVListFetchrModel();
-        tvList = new ArrayList<>(Constants.FILM_COUNT);
-        adapter = new TVSeriesAdapter(view.getContext(), tvList);
-        setUpRecycleViewPresenter();
+        model.fetchTVSeries(new Listener() {
+            @Override
+            public void onResult(List<TVSeries> tvSeries) {
+                if (MainFragmentPresenter.this.view != null)
+                    MainFragmentPresenter.this.view.onTVSeriesReceived(tvSeries);
+            }
 
-        tvTask.setPresenter(this);
-        tvTask.setTVList(tvList);
-        tvTask.setAdapter(adapter);
-        tvTask.setContext(view.getContext());
-        tvTask.setExecuteRef(Constants.TV_REFENECE + Constants.TV_TOP20 + Constants.LANGUAGE_EN + Constants.API_KEY);
-        tvTask.fetch();
-    }
-
-    public Context getContext() {
-        return view.getContext();
-    }
-
-    private void setUpRecycleViewPresenter(){
-        tvList = new ArrayList<>(Constants.FILM_COUNT);
-        adapter = new TVSeriesAdapter(view.getContext(), tvList);
-        RecycleViewPresenter rvPresenter = new RecycleViewPresenter();
-        rvPresenter.setPresenter(this);
-        rvPresenter.setContext(view.getContext());
-        rvPresenter.setTVList(tvList);
-        rvPresenter.setAdapter(adapter);
-        rvPresenter.setResources(view.getResources());
-        rvPresenter.setUpRecycleView(recyclerView);
+            @Override
+            public void onError(Exception e) {
+                if (MainFragmentPresenter.this.view != null)
+                    MainFragmentPresenter.this.view.onError(e.getLocalizedMessage());
+            }
+        });
     }
 
     @Override
-    public void setContext(Context context) {
-        this.context = context;
+    public void onTVSeriesSelected(int id) {
+
     }
 }

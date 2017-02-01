@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.database.Constants;
+import homepunk.lesson.first.data.database.Constants;
 import homepunk.lesson.first.presenter.detailed.DetailedActivityPresenter;
 import homepunk.lesson.first.interfaces.View;
 

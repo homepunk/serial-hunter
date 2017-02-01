@@ -1,4 +1,4 @@
-package homepunk.lesson.first.database;
+package homepunk.lesson.first.data.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

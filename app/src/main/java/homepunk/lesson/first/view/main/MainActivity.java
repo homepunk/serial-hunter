@@ -13,7 +13,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Display;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,7 +25,7 @@ import com.roughike.bottombar.OnTabSelectListener;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.database.Constants;
+import homepunk.lesson.first.data.database.Constants;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.interfaces.View;
 import homepunk.lesson.first.presenter.main.MainActivityPresenter;
@@ -47,15 +46,10 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initUI();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
         mainPresenter = new MainActivityPresenter();
         mainPresenter.setView(this);
+
+        initUI();
     }
 
     @Override
@@ -75,28 +69,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean isSpinnerVisible() {
-        if (spinner.getVisibility() == android.view.View.VISIBLE)
-            return true;
-        else return false;
-    }
-
-    @Override
-    public void setSpinnerVisibility(boolean visibility) {
-        if (visibility = Constants.VISIBLE)
-            spinner.setVisibility(android.view.View.VISIBLE);
-        else spinner.setVisibility(android.view.View.INVISIBLE);
-
-    }
-
-    @Override
-    public void beginTransaction(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        final FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.contentContainer, fragment).commit();
-    }
-
     private void initUI() {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
@@ -113,28 +85,32 @@ public class MainActivity extends AppCompatActivity
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
-                mainPresenter.onTabSelected(tabId);
+                if (tabId == R.id.tab_search)
+                    spinner.setVisibility(android.view.View.GONE);
+                else spinner.setVisibility(android.view.View.VISIBLE);
+
+                Fragment fragment = mainPresenter.onTabSelected(tabId);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                final FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.contentContainer, fragment).commit();
             }
         });
     }
 
     private void setUpSpinner() {
-        Display display = getWindowManager().getDefaultDisplay();
-        int spinnerWidth = display.getWidth();
+        int spinnerWidth = getWindowManager().getDefaultDisplay().getWidth();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item_spinner, Constants.data);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item_spinner, Constants.data);
         adapter.setDropDownViewResource(R.layout.list_item_spinner_dpordown);
+
         spinner.getBackground().setColorFilter(getResources().getColor(R.color.colorText), PorterDuff.Mode.SRC_ATOP);
         spinner.setDropDownWidth(spinnerWidth);
-        spinner.setLayoutParams(spinner.getLayoutParams());
         spinner.setAdapter(adapter);
-        spinner.setPrompt("Title");
         spinner.setSelection(2);
-        spinner.setVisibility(android.view.View.VISIBLE);
-        spinner.addView(spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
+//              Presenter handles all user's actions
                 mainPresenter.onSpinnerItemClicked();
             }
 

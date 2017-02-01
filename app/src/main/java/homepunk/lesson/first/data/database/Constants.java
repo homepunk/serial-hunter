@@ -1,4 +1,4 @@
-package homepunk.lesson.first.database;
+package homepunk.lesson.first.data.database;
 
 public class Constants {
     public static final int FILM_COUNT = 20;

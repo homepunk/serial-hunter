@@ -12,7 +12,6 @@ import java.util.List;
 import homepunk.lesson.first.adapter.TVSeriesAdapter;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.model.TVSeries;
-import homepunk.lesson.first.model.network.TVListFetchrModel;
 
 public class RecycleViewPresenter implements Presenter.RecycleView {
     private Resources resources;
@@ -20,7 +19,7 @@ public class RecycleViewPresenter implements Presenter.RecycleView {
     private RecyclerView recyclerView;
     private TVSeriesAdapter adapter;
     private Context context;
-    private TVListFetchrModel task;
+//    private TVListFetchrModel task;
     private RecyclerView.LayoutManager layoutManager;
     private List<TVSeries> tvList;
     private int quantity = 0;

@@ -1,4 +1,4 @@
-package homepunk.lesson.first.database;
+package homepunk.lesson.first.data.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -13,11 +13,11 @@ import java.util.List;
 import homepunk.lesson.first.interfaces.Model;
 import homepunk.lesson.first.model.TVSeries;
 
-public class TVSeriesDataManager implements Model.SeriesDAO<TVSeries>{
-    private static final String LOG_TAG = TVSeriesDataManager.class.getSimpleName();
+public class DatabaseStorage implements Model.SeriesDAO<TVSeries>{
+    private static final String LOG_TAG = DatabaseStorage.class.getSimpleName();
     private TVSeriesOpenHelper dbHelper;
 
-    public TVSeriesDataManager(Context c) {
+    public DatabaseStorage(Context c) {
         this.dbHelper = new TVSeriesOpenHelper(c);
     }
 

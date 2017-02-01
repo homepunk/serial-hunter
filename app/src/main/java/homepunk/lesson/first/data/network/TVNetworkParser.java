@@ -1,4 +1,4 @@
-package homepunk.lesson.first.network;
+package homepunk.lesson.first.data.network;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import homepunk.lesson.first.database.Constants;
+import homepunk.lesson.first.data.database.Constants;
 import homepunk.lesson.first.model.TVSeries;
 
 public class TVNetworkParser {

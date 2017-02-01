@@ -1,23 +1,20 @@
 package homepunk.lesson.first.interfaces;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.support.v4.app.Fragment;
 import android.widget.RelativeLayout;
 
+import java.util.List;
+
+import homepunk.lesson.first.model.TVSeries;
 import homepunk.lesson.first.view.detailed.DetailedFragment;
 
 public interface View {
-    Context getContext();
-
-    Resources getResources();
-
     interface MainActivityView {
-        boolean isSpinnerVisible();
+    }
 
-        void setSpinnerVisibility(boolean visibility);
+    interface MainFragmentView {
+        void onTVSeriesReceived(List<TVSeries> tvSeries);
 
-        void beginTransaction(Fragment fragment);
+        void onError(String error);
     }
 
     interface DetailedActivityView{

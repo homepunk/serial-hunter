@@ -32,7 +32,7 @@ public class SearchFragment extends Fragment implements homepunk.lesson.first.in
         searchFragmentPresenter = new SearchFragmentPresenter();
         searchFragmentPresenter.setView(this);
         searchFragmentPresenter.setRecycleView(rvRecommend);
-        searchFragmentPresenter.setContext(getContext());
+//        searchFragmentPresenter.setContext(getContext());
         searchFragmentPresenter.getRecommendationTVSeries();
 
         return root;

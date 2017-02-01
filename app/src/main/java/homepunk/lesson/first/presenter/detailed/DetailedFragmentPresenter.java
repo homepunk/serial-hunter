@@ -3,10 +3,8 @@ package homepunk.lesson.first.presenter.detailed;
 import android.content.Context;
 import android.view.ViewGroup;
 
-import homepunk.lesson.first.database.Constants;
-import homepunk.lesson.first.model.TVSeries;
-import homepunk.lesson.first.model.network.TVObjectFetchrModel;
 import homepunk.lesson.first.interfaces.Presenter;
+import homepunk.lesson.first.model.TVSeries;
 
 public class DetailedFragmentPresenter implements Presenter {
 
@@ -14,7 +12,7 @@ public class DetailedFragmentPresenter implements Presenter {
     private int id;
 
     private TVSeries tvSeries;
-    private TVObjectFetchrModel task;
+//    private TVObjectFetchrModel task;
     private Listener listener;
 
     public DetailedFragmentPresenter(homepunk.lesson.first.view.detailed.DetailedFragment view) {
@@ -29,10 +27,10 @@ public class DetailedFragmentPresenter implements Presenter {
 
 //    @Override
     public void attachAllViews() {
-        task = new TVObjectFetchrModel();
-        task.registerObserver(listener);
-        task.setExecuteRef(Constants.TV_REFENECE + id + Constants.LANGUAGE_RU + Constants.API_KEY);
-        task.fetch();
+//        task = new TVObjectFetchrModel();
+//        task.registerObserver(listener);
+//        task.setExecuteRef(Constants.TV_REFENECE + id + Constants.LANGUAGE_RU + Constants.API_KEY);
+//        task.fetch();
     }
 
 //    @Override
@@ -48,11 +46,6 @@ public class DetailedFragmentPresenter implements Presenter {
 
 //    @Override
     public void addView(ViewGroup view) {
-    }
-
-    @Override
-    public void setContext(Context context) {
-
     }
 
     public class Listener implements Observer {

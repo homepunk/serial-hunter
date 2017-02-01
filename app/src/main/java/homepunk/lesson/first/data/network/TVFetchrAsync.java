@@ -1,6 +1,7 @@
-package homepunk.lesson.first.network;
+package homepunk.lesson.first.data.network;
 
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,9 +11,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class TVFetchrAsync extends AsyncTask<String, Integer, String> {
-    public IResultListener listener;
+    public ResultListener listener;
 
-    public TVFetchrAsync(IResultListener listener) {
+    public TVFetchrAsync(ResultListener listener) {
         this.listener = listener;
     }
 
@@ -73,8 +74,8 @@ public class TVFetchrAsync extends AsyncTask<String, Integer, String> {
         listener.onResult(result);
     }
 
-    public interface IResultListener {
-        void onResult(String result);
+    public interface ResultListener {
+        void onResult(@NonNull String result);
 
         void onError(String error);
     }

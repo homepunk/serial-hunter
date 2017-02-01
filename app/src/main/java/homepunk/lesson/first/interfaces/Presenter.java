@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -14,29 +15,26 @@ import java.util.List;
 
 import homepunk.lesson.first.adapter.TVSeriesAdapter;
 import homepunk.lesson.first.model.TVSeries;
-import homepunk.lesson.first.view.main.MainFragment;
 import homepunk.lesson.first.view.main.SearchFragment;
 
 public interface Presenter {
-
-    void setContext(Context context);
 
     interface MainActivityPresenter {
         void setView(View.MainActivityView view);
 
         void onSpinnerItemClicked();
 
-        void onTabSelected(@IdRes int tabId);
+        Fragment onTabSelected(@IdRes int tabId);
 
         void onNavigationItemSelected(int id);
     }
 
     interface MainFragmentPresenter {
-        void setView(MainFragment view);
-
-        void setRecycleView(RecyclerView view);
+        void setView(View.MainFragmentView view);
 
         void getMostPopularTVSeries();
+
+        void onTVSeriesSelected(int id);
     }
 
     interface SearchFragmentPresenter{
@@ -76,7 +74,7 @@ public interface Presenter {
 
     interface NavDrawerPresenter {
 
-        void setView(View.MainActivityView view);
+        void setView(View.MainFragmentView view);
 
         void setToolbar(Toolbar toolbar);
 

@@ -4,7 +4,6 @@ import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.database.Constants;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.interfaces.View;
 import homepunk.lesson.first.view.main.MainFragment;
@@ -25,24 +24,19 @@ public class MainActivityPresenter implements Presenter.MainActivityPresenter {
     }
 
     @Override
-    public void onTabSelected(@IdRes int tabId) {
+    public Fragment onTabSelected(@IdRes int tabId) {
         switch (tabId) {
             case R.id.tab_hot_updates:
-                if (!view.isSpinnerVisible())
-                    view.setSpinnerVisibility(Constants.VISIBLE);
                 fragment = new MainFragment();
                 break;
             case R.id.tab_watchlist:
-                if (!view.isSpinnerVisible())
-                    view.setSpinnerVisibility(Constants.VISIBLE);
                 fragment = new MainFragment();
                 break;
             case R.id.tab_search:
-                view.setSpinnerVisibility(Constants.INVISIBLE);
                 fragment = new SearchFragment();
                 break;
         }
-        view.beginTransaction(fragment);
+        return fragment;
     }
 
     @Override
