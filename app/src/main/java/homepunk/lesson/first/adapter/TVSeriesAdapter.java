@@ -1,10 +1,7 @@
 package homepunk.lesson.first.adapter;
 
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -19,9 +16,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.data.database.Constants;
 import homepunk.lesson.first.model.TVSeries;
-import homepunk.lesson.first.view.detailed.DetailedActivity;
 
 public class TVSeriesAdapter extends RecyclerView.Adapter<TVSeriesAdapter.GridViewHolder> {
     public static final int GRID_TYPE = 0;
@@ -69,27 +64,15 @@ public class TVSeriesAdapter extends RecyclerView.Adapter<TVSeriesAdapter.GridVi
         return tvList.size();
     }
 
-    public static class GridViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class GridViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.item_poster) ImageView poster;
-        private TVSeries tvItem;
 
         public GridViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            poster.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View v) {
-            final Context context = v.getContext();
-            Intent intent = new Intent(context, DetailedActivity.class);
-            tvItem = tvList.get(getAdapterPosition());
 
-            ActivityOptionsCompat options = ActivityOptionsCompat.
-                    makeSceneTransitionAnimation((Activity) v.getContext(), poster, "profile");
-            intent.putExtra(Constants.TV_ID, tvItem.id);
-            context.startActivity(intent, options.toBundle());
-        }
     }
 
 //    public static class LinearViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

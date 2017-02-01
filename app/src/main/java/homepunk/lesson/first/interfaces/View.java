@@ -5,7 +5,6 @@ import android.widget.RelativeLayout;
 import java.util.List;
 
 import homepunk.lesson.first.model.TVSeries;
-import homepunk.lesson.first.view.detailed.DetailedFragment;
 
 public interface View {
     interface MainActivityView {
@@ -17,19 +16,16 @@ public interface View {
         void onError(String error);
     }
 
-    interface SearchFragmentView{
+    interface SearchFragmentView {
         void onRecommendedSeriesRecieved(List<TVSeries> tvSeries);
 
         void onError(String error);
     }
 
-    interface DetailedActivityView{
-        DetailedFragment newInstance(int id);
+    interface DetailedFragmentView {
+        void  onDescriptionRecieved(TVSeries tvSeries);
 
-        int getFromIntent();
-    }
-
-    interface DetailedFragmentView{
+        void onError(String error);
 
         int getFromBundle();
 

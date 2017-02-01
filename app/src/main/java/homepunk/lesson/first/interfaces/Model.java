@@ -11,7 +11,11 @@ import homepunk.lesson.first.model.TVSeries;
 public interface Model {
 
     interface TVSeriesModel{
-        void fetchTVSeries(Listener resultListener);
+        void fetchTVSeriesList(Listener resultListener);
+
+        void setSelectedTVSeriesId(int id);
+
+        TVSeries fetchTVSeries(Listener resultListener);
     }
 
     interface TVObjectFetchrModel{

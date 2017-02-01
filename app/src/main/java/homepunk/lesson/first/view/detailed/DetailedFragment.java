@@ -20,6 +20,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.data.database.Constants;
+import homepunk.lesson.first.model.TVSeries;
 import homepunk.lesson.first.presenter.detailed.ShadowViewPresenter;
 import homepunk.lesson.first.presenter.detailed.DetailedFragmentPresenter;
 import homepunk.lesson.first.presenter.detailed.FloatingButtonsPresenter;
@@ -45,19 +46,27 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.first.
 
         ButterKnife.bind(this, root);
 
-        detailesModule = new DetailedFragmentPresenter(this);
-        detailesModule.attachAllViews();
-        detailesModule.updateContent();
+        detailesModule = new DetailedFragmentPresenter(getContext());
 
-        shadedViewModule = new ShadowViewPresenter(this);
-        shadedViewModule.addView(rLayout);
-
-        fabModule = new FloatingButtonsPresenter(this);
-        fabModule.setMainFabClickListener(fab);
-        fabModule.setFabsClickListeners(fab1, fab2, fab3);
-        fabModule.loadFabAnimation();
+//        shadedViewModule = new ShadowViewPresenter(this);
+//        shadedViewModule.addView(rLayout);
+//
+//        fabModule = new FloatingButtonsPresenter(this);
+//        fabModule.setMainFabClickListener(fab);
+//        fabModule.setFabsClickListeners(fab1, fab2, fab3);
+//        fabModule.loadFabAnimation();
 
         return root;
+    }
+
+    @Override
+    public void onDescriptionRecieved(TVSeries tvSeries) {
+
+    }
+
+    @Override
+    public void onError(String error) {
+
     }
 
     @Override

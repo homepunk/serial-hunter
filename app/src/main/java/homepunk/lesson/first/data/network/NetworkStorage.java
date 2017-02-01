@@ -11,7 +11,11 @@ public class NetworkStorage {
         this.context = context;
     }
 
-    public void getTVSeriesAPI(TVFetchrAsync.ResultListener listener){
+    public void getMostPopularTVSeriesAPI(TVFetchrAsync.ResultListener listener){
         new TVFetchrAsync(listener).execute(Constants.TV_REFENECE + Constants.TV_TOP20 + Constants.LANGUAGE_EN + Constants.API_KEY);
+    }
+
+    public void getTVSeriesAPI(int id, TVFetchrAsync.ResultListener listener){
+        new TVFetchrAsync(listener).execute(Constants.TV_REFENECE + id + Constants.LANGUAGE_RU + Constants.API_KEY);
     }
 }

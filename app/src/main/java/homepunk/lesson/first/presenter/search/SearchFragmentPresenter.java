@@ -28,7 +28,7 @@ public class SearchFragmentPresenter implements Presenter.SearchFragmentPresente
 
     @Override
     public void getRecommendedSeries() {
-        model.fetchTVSeries(new Listener() {
+        model.fetchTVSeriesList(new Listener() {
             @Override
             public void onResult(List<TVSeries> tvSeries) {
                 if (SearchFragmentPresenter.this.view != null)

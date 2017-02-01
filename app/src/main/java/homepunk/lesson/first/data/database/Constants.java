@@ -13,6 +13,9 @@ public class Constants {
     public static final boolean VISIBLE = true;
     public static final boolean INVISIBLE = false;
 
-   public static final String[] data = {"Комедии", "Приколючения", "Детективы", "Драмы", "Ужасы"};
+    public static final String SHARED_PREF_NAME = "SharedPref";
+    public static final String SHARED_PREF_KEY_ID = "id";
+
+    public static final String[] data = {"Комедии", "Приколючения", "Детективы", "Драмы", "Ужасы"};
 
 }

@@ -1,60 +1,31 @@
 package homepunk.lesson.first.presenter.detailed;
 
 import android.content.Context;
-import android.view.ViewGroup;
 
+import homepunk.lesson.first.data.DataRepository;
+import homepunk.lesson.first.interfaces.Model;
 import homepunk.lesson.first.interfaces.Presenter;
-import homepunk.lesson.first.model.TVSeries;
+import homepunk.lesson.first.interfaces.View;
 
-public class DetailedFragmentPresenter implements Presenter {
+public class DetailedFragmentPresenter implements Presenter.DetailedFragmentPresenter {
 
-    private homepunk.lesson.first.view.detailed.DetailedFragment view;
+    private View.DetailedFragmentView view;
     private int id;
+    private final Model.TVSeriesModel model;
 
-    private TVSeries tvSeries;
-//    private TVObjectFetchrModel task;
-    private Listener listener;
+    public DetailedFragmentPresenter(Context context) {
+        model = new DataRepository(context);
+    }
 
-    public DetailedFragmentPresenter(homepunk.lesson.first.view.detailed.DetailedFragment view) {
+    @Override
+    public void setView(View.DetailedFragmentView view) {
         this.view = view;
-        this.id = view.getFromBundle();
-        this.listener = new Listener();
     }
 
-    private void setTvSeries(TVSeries tvSeries) {
-        this.tvSeries = tvSeries;
+    @Override
+    public void getTVSeriesDescription() {
+
     }
 
-//    @Override
-    public void attachAllViews() {
-//        task = new TVObjectFetchrModel();
-//        task.registerObserver(listener);
-//        task.setExecuteRef(Constants.TV_REFENECE + id + Constants.LANGUAGE_RU + Constants.API_KEY);
-//        task.fetch();
-    }
-
-//    @Override
-    public void updateContent() {
-        view.setOverview(tvSeries.overview);
-        view.setPosterImage(tvSeries.getFullPosterPath(TVSeries.WIDTH_780));
-    }
-
-//    @Override
-    public Context getContext() {
-        return view.getContext();
-    }
-
-//    @Override
-    public void addView(ViewGroup view) {
-    }
-
-    public class Listener implements Observer {
-
-        @Override
-        public void update(TVSeries item) {
-            setTvSeries(item);
-            updateContent();
-        }
-    }
 }
 
