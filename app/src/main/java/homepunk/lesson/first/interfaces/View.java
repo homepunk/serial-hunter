@@ -2,10 +2,8 @@ package homepunk.lesson.first.interfaces;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.view.ViewGroup;
+import android.support.v4.app.Fragment;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
 import homepunk.lesson.first.view.detailed.DetailedFragment;
 
@@ -15,30 +13,11 @@ public interface View {
     Resources getResources();
 
     interface MainActivityView {
-        void addSpinnerView(Spinner spinner);
+        boolean isSpinnerVisible();
 
         void setSpinnerVisibility(boolean visibility);
 
-        boolean isSpinnerVisible();
-
-        void setSpinnerDropDownWidth(int width);
-
-        void setSpinnerLayoutParams(ViewGroup.LayoutParams params);
-
-        void setSpinnerAdapater(SpinnerAdapter adapter);
-
-        void setSpinnerPrompt(String title);
-
-        void setSpinnerSelection(int position);
-
-        void setSpinnerArrowColor(int color);
-
-        void setBottomBarBackgroundColor(int color);
-
-        void setDefaultTab(int id);
-
-
-
+        void beginTransaction(Fragment fragment);
     }
 
     interface DetailedActivityView{

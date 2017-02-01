@@ -1,22 +1,19 @@
 package homepunk.lesson.first.interfaces;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
-import com.roughike.bottombar.BottomBar;
-
 import java.util.List;
 
 import homepunk.lesson.first.adapter.TVSeriesAdapter;
 import homepunk.lesson.first.model.TVSeries;
-import homepunk.lesson.first.view.main.MainActivity;
 import homepunk.lesson.first.view.main.MainFragment;
 import homepunk.lesson.first.view.main.SearchFragment;
 
@@ -25,17 +22,13 @@ public interface Presenter {
     void setContext(Context context);
 
     interface MainActivityPresenter {
-        void setView(MainActivity view);
-
-        void setBottomBar(BottomBar bottomBar);
-
-        void setSpinner(android.widget.Spinner spinner);
-
-        void setFragmentManager(FragmentManager fragmentManager);
+        void setView(View.MainActivityView view);
 
         void onSpinnerItemClicked();
 
-        void onTabSelected();
+        void onTabSelected(@IdRes int tabId);
+
+        void onNavigationItemSelected(int id);
     }
 
     interface MainFragmentPresenter {
@@ -112,6 +105,7 @@ public interface Presenter {
         void setLayoutManeger(RecyclerView.LayoutManager layoutManeger);
 
         void setItemsQuantity(int quantity);
+
 //        void updateContent(TVListFetchrModel fetchr);
     }
 
