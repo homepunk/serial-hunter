@@ -10,8 +10,6 @@ public class Constants {
     public static final String TV_TOP20 = "top_rated?page=1";
     public static final String POPULAR = "popular?page=1";
     public static final String TV_SEARCH = "https://api.themoviedb.org/3/search/tv?page=1&query=";
-    public static final boolean VISIBLE = true;
-    public static final boolean INVISIBLE = false;
 
     public static final String SHARED_PREF_NAME = "SharedPref";
     public static final String SHARED_PREF_KEY_ID = "id";

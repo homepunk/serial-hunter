@@ -6,13 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -21,105 +22,103 @@ import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.data.database.Constants;
 import homepunk.lesson.first.model.TVSeries;
-import homepunk.lesson.first.presenter.detailed.ShadowViewPresenter;
 import homepunk.lesson.first.presenter.detailed.DetailedFragmentPresenter;
-import homepunk.lesson.first.presenter.detailed.FloatingButtonsPresenter;
+import homepunk.lesson.first.utils.CustomViewUtils;
+import homepunk.lesson.first.utils.ScreenUtils;
+import homepunk.lesson.first.view.custom.CustomShadowedView;
 
 public class DetailedFragment extends Fragment implements homepunk.lesson.first.interfaces.View.DetailedFragmentView {
-    @Bind(R.id.fragment_main_id) RelativeLayout rLayout;
-    @Bind(R.id.id_detailed_overview) TextView tvDescription;
+    @Bind(R.id.custom_shadowed_view_id) CustomShadowedView customShadowedView;
     @Bind(R.id.item_detailed_poster) ImageView ivPoster;
+    @Bind(R.id.id_detailed_overview) TextView tvOverview;
+    @Bind(R.id.fragment_main_id) RelativeLayout rLayout;
     @Bind(R.id.fab) FloatingActionButton fab;
-    @Bind(R.id.fab_1) FloatingActionButton fab1;
-    @Bind(R.id.fab_2) FloatingActionButton fab2;
-    @Bind(R.id.fab_3) FloatingActionButton fab3;
+//    @Bind(R.id.fab_1) FloatingActionButton fab1;
+//    @Bind(R.id.fab_2) FloatingActionButton fab2;
+//    @Bind(R.id.fab_3) FloatingActionButton fab3;
 
-    private DetailedFragmentPresenter detailesModule;
-    private FloatingButtonsPresenter fabModule;
-    private ShadowViewPresenter shadedViewModule;
+    private DetailedFragmentPresenter detailedFragmentPresenter;
+    private TVSeries tvSeries;
+//    private FloatingButtonsPresenter fabModule;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_detailed, container, false);
-
-        ButterKnife.bind(this, root);
-
-        detailesModule = new DetailedFragmentPresenter(getContext());
-
-//        shadedViewModule = new ShadowViewPresenter(this);
-//        shadedViewModule.addView(rLayout);
-//
-//        fabModule = new FloatingButtonsPresenter(this);
-//        fabModule.setMainFabClickListener(fab);
-//        fabModule.setFabsClickListeners(fab1, fab2, fab3);
-//        fabModule.loadFabAnimation();
+        initUI(root);
+        detailedFragmentPresenter = new DetailedFragmentPresenter(getContext());
 
         return root;
     }
 
     @Override
-    public void onDescriptionRecieved(TVSeries tvSeries) {
+    public void onResume() {
+        super.onResume();
 
+        int id = getIdFromBundle();
+        detailedFragmentPresenter.setView(this);
+        detailedFragmentPresenter.getSeriesDescriptionById(id);
+    }
+
+    @Override
+    public void onSeriesDescRecieved(TVSeries tvSeries) {
+        this.tvSeries = tvSeries;
+        updateUI(tvSeries);
     }
 
     @Override
     public void onError(String error) {
-
+        Toast.makeText(getContext(), "Error: " + error,
+                Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public int getFromBundle() {
-        Bundle bundle = getArguments();
-        return bundle != null ? bundle.getInt(Constants.TV_ID) : 0;
+    private void initUI(ViewGroup root){
+        ButterKnife.bind(this, root);
+
+        setUpCustomView();
+        setUpFAB();
     }
 
-    @Override
-    public void setOverview(String o) {
+    private void updateUI(TVSeries tvSeries){
         Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Quicksand-Regular.ttf");
-        tvDescription.setTypeface(typeFace);
-        this.tvDescription.setText(o);
-    }
+        tvOverview.setTypeface(typeFace);
+        tvOverview.setText(tvSeries.overview);
 
-    @Override
-    public void setPosterImage(String path) {
-        Picasso.with(getContext()).load(path)
-                .resize(shadedViewModule.width, shadedViewModule.height)
+        if (!TextUtils.isEmpty(tvSeries.getFullPosterPath(TVSeries.WIDTH_780)))
+        Picasso.with(getContext()).
+                load(tvSeries.getFullPosterPath(tvSeries.WIDTH_780))
+                .placeholder(R.drawable.placeholder_image)
+                .resize(ScreenUtils.getDisplayContentWidth(getContext()),
+                        ScreenUtils.getDisplayContentHeight(getContext()))
                 .into(ivPoster);
     }
 
-    @Override
-    public int getFabMarginTop() {
-        return shadedViewModule.getMarginTop();
-    }
+    private void setUpFAB(){
+        int left = CustomViewUtils.getLeftMargin(getContext(), 28, customShadowedView.getLineAngleCoef(), customShadowedView.getXOffsetCoef());
+        int top = CustomViewUtils.getTopMargin(getContext(), 28, customShadowedView.getLineAngleCoef(), customShadowedView.getXOffsetCoef());
 
-    @Override
-    public int getFabMarginLeft() {
-        return shadedViewModule.getMarginRight();
-    }
-
-    @Override
-    public int getDisplayContentHeight() {
-        int statusBarHeight;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-
-        if (resourceId > 0)
-            statusBarHeight = getResources().getDimensionPixelSize(resourceId);
-        else statusBarHeight = 0;
-
-        // Current screen size
-        DisplayMetrics metrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        int screenHeight = metrics.heightPixels;
-        return screenHeight - statusBarHeight;
-    }
-
-    @Override
-    public RelativeLayout.LayoutParams getLayoutParams() {
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fab.getLayoutParams();
-        return params;
+        params.setMargins(left, top, 0, 0);
+        fab.setLayoutParams(params);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Fab works fine", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
+    private void setUpCustomView(){
+        customShadowedView.setTransparentAlpha(240);
+        customShadowedView.setLineAngleCoef(0.7);
+        customShadowedView.setxOffsetCoef(0.8);
+        customShadowedView.setColor(39, 43, 46);
+    }
+
+    private int getIdFromBundle() {
+        Bundle bundle = getArguments();
+        return bundle != null ? bundle.getInt(Constants.TV_ID) : 0;
+    }
 }
 

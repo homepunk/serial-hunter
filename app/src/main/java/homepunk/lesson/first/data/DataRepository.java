@@ -3,7 +3,6 @@ package homepunk.lesson.first.data;
 import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import org.json.JSONException;
 
@@ -15,7 +14,7 @@ import homepunk.lesson.first.data.local.SharedPrefencesStorage;
 import homepunk.lesson.first.data.network.NetworkStorage;
 import homepunk.lesson.first.data.network.TVFetchrAsync;
 import homepunk.lesson.first.data.network.TVNetworkParser;
-import homepunk.lesson.first.interfaces.Listener;
+import homepunk.lesson.first.interfaces.Listeners;
 import homepunk.lesson.first.interfaces.Model;
 import homepunk.lesson.first.model.TVSeries;
 import homepunk.lesson.first.utils.NetworkUtils;
@@ -34,14 +33,14 @@ public class DataRepository implements Model.TVSeriesModel {
     }
 
     @Override
-    public void fetchTVSeriesList(final Listener presenterListener) {
+    public void fetchSeriesList(final Listeners.ListListener presenterListener) {
         if (NetworkUtils.isNetworkAvailable(context)){
             List<TVSeries> tvSeries = db.getAll();
             if (tvSeries != null)
                 presenterListener.onResult(tvSeries);
             else presenterListener.onError(new MissingResourceException(null, null, "Database is empty"));
         } else {
-            rest.getMostPopularTVSeriesAPI(new TVFetchrAsync.ResultListener() {
+            rest.getMostPopularSeriesAPI(new TVFetchrAsync.ResultListener() {
                 @Override
                 public void onResult(@NonNull String result) {
                     try {
@@ -63,14 +62,13 @@ public class DataRepository implements Model.TVSeriesModel {
     }
 
     @Override
-    public TVSeries fetchTVSeries(Listener resultListener) {
-        final TVSeries[] tvSeries = new TVSeries[1];
-        rest.getTVSeriesAPI(sharedPrefences.getId(), new TVFetchrAsync.ResultListener() {
+    public void fetchSeriesById(int id, final Listeners.Listener resultListener) {
+        rest.getSeriesByIdAPI(id, new TVFetchrAsync.ResultListener() {
             @Override
             public void onResult(@NonNull String result) {
                 try {
-                    tvSeries[0] = TVNetworkParser.getDetailedByJsonId(result);
-                    Log.d(getClass().getCanonicalName(), String.valueOf(tvSeries[0].id));
+                    TVSeries tvSeries = TVNetworkParser.getDetailedByJsonId(result);
+                    resultListener.onResult(tvSeries);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -78,14 +76,9 @@ public class DataRepository implements Model.TVSeriesModel {
 
             @Override
             public void onError(String error) {
-
+                resultListener.onError(new NetworkErrorException(error));
             }
         });
-        return tvSeries[0];
-    }
 
-    @Override
-    public void setSelectedTVSeriesId(int id) {
-        sharedPrefences.saveId(id);
     }
 }

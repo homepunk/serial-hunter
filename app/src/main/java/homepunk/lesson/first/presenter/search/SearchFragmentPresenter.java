@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.List;
 
 import homepunk.lesson.first.data.DataRepository;
-import homepunk.lesson.first.interfaces.Listener;
+import homepunk.lesson.first.interfaces.Listeners;
 import homepunk.lesson.first.interfaces.Model;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.interfaces.View;
@@ -28,7 +28,7 @@ public class SearchFragmentPresenter implements Presenter.SearchFragmentPresente
 
     @Override
     public void getRecommendedSeries() {
-        model.fetchTVSeriesList(new Listener() {
+        model.fetchSeriesList(new Listeners.ListListener() {
             @Override
             public void onResult(List<TVSeries> tvSeries) {
                 if (SearchFragmentPresenter.this.view != null)

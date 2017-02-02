@@ -7,7 +7,7 @@ import java.util.List;
 
 import homepunk.lesson.first.data.DataRepository;
 import homepunk.lesson.first.data.database.Constants;
-import homepunk.lesson.first.interfaces.Listener;
+import homepunk.lesson.first.interfaces.Listeners;
 import homepunk.lesson.first.interfaces.Model;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.interfaces.View;
@@ -31,8 +31,8 @@ public class MainFragmentPresenter implements Presenter.MainFragmentPresenter{
     }
 
     @Override
-    public void getMostPopularTVSeries() {
-        model.fetchTVSeriesList(new Listener() {
+    public void getMostPopularSeries() {
+        model.fetchSeriesList(new Listeners.ListListener() {
             @Override
             public void onResult(List<TVSeries> tvSeries) {
                 if (MainFragmentPresenter.this.view != null)
@@ -48,12 +48,10 @@ public class MainFragmentPresenter implements Presenter.MainFragmentPresenter{
     }
 
     @Override
-    public void onTVSeriesSelected(int id) {
+    public void onSeriesSelected(int id) {
             Intent intent = new Intent(context, DetailedActivity.class);
 
             intent.putExtra(Constants.TV_ID, id);
             context.startActivity(intent);
-
-            model.setSelectedTVSeriesId(id);
     }
 }

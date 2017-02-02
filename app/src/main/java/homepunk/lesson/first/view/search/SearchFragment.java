@@ -1,4 +1,4 @@
-package homepunk.lesson.first.view.main;
+package homepunk.lesson.first.view.search;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

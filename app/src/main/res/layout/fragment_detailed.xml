@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fab="http://schemas.android.com/tools"
     android:id="@+id/fragment_scroll_id"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:fillViewport="true"
-    android:background="@color/colorBackgroundLightTwo">
+    android:background="@color/colorBackgroundLightTwo"
+    android:fillViewport="true">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,11 +14,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/item_detailed_poster"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY" />
+        <ImageView
+            android:id="@+id/item_detailed_poster"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY" />
+
+        <homepunk.lesson.first.view.custom.CustomShadowedView
+            android:id="@+id/custom_shadowed_view_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/id_detailed_overview"
@@ -30,23 +34,15 @@
             android:textSize="20sp" />
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fab"
             android:layout_alignParentLeft="true"
             android:background="@color/colorAccentTwo"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_play"
             app:elevation="8dip"
             app:fabSize="normal" />
-
-        <include
-            layout="@xml/fab_layout"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="300dp" />
 
     </RelativeLayout>
 

@@ -21,7 +21,6 @@ import homepunk.lesson.first.data.database.Constants;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.model.TVSeries;
 import homepunk.lesson.first.presenter.main.MainFragmentPresenter;
-import homepunk.lesson.first.utils.RecyclerClickListener;
 
 public class MainFragment extends Fragment implements homepunk.lesson.first.interfaces.View.MainFragmentView {
     @Bind(R.id.movies_rv) RecyclerView recycler;
@@ -44,7 +43,7 @@ public class MainFragment extends Fragment implements homepunk.lesson.first.inte
     public void onResume() {
         super.onResume();
         fragmentPresenter.setView(this);
-        fragmentPresenter.getMostPopularTVSeries();
+        fragmentPresenter.getMostPopularSeries();
     }
 
     @Override
@@ -71,7 +70,7 @@ public class MainFragment extends Fragment implements homepunk.lesson.first.inte
         recycler.addOnItemTouchListener(new RecyclerClickListener(getContext(), new RecyclerClickListener.OnItemMotionEventListener() {
             @Override
             public void onItemClick(View view, int position) {
-                fragmentPresenter.onTVSeriesSelected(tvSeries.get(position).id);
+                fragmentPresenter.onSeriesSelected(tvSeries.get(position).id);
             }
 
             @Override

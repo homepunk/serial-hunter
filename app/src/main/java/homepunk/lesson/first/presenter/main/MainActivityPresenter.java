@@ -7,7 +7,7 @@ import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.interfaces.View;
 import homepunk.lesson.first.view.main.MainFragment;
-import homepunk.lesson.first.view.main.SearchFragment;
+import homepunk.lesson.first.view.search.SearchFragment;
 
 public class MainActivityPresenter implements Presenter.MainActivityPresenter {
     private View.MainActivityView view;
