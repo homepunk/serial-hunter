@@ -25,9 +25,9 @@ import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.model.TVSeries;
 
 public class MainFragment extends Fragment implements homepunk.lesson.first.interfaces.View.MainFragmentView {
-    @Bind(R.id.movies_rv) RecyclerView recycler;
-
     @Inject Presenter.MainFragmentPresenter fragmentPresenter;
+
+    @Bind(R.id.movies_rv) RecyclerView recycler;
 
     private List<TVSeries> tvSeries;
     private TVSeriesAdapter adapter;

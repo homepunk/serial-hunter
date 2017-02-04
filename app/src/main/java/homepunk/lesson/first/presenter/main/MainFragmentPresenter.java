@@ -5,7 +5,6 @@ import android.content.Intent;
 
 import java.util.List;
 
-import homepunk.lesson.first.data.DataRepository;
 import homepunk.lesson.first.data.database.Constants;
 import homepunk.lesson.first.interfaces.Listeners;
 import homepunk.lesson.first.interfaces.Model;
@@ -20,9 +19,9 @@ public class MainFragmentPresenter implements Presenter.MainFragmentPresenter{
     private View.MainFragmentView view;
     private Context context;
 
-    public MainFragmentPresenter(Context context) {
+    public MainFragmentPresenter(Context context, Model.TVSeriesModel model) {
         this.context = context;
-        this.model = new DataRepository(context);
+        this.model = model;
     }
 
     @Override

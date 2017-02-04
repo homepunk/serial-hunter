@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import homepunk.lesson.first.interfaces.Model;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.presenter.detailed.DetailedFragmentPresenter;
 import homepunk.lesson.first.presenter.main.MainActivityPresenter;
@@ -23,19 +24,19 @@ public class PresentersModule {
 
     @Provides
     @Singleton
-    Presenter.MainFragmentPresenter provideMainFragmentPresenter(Context context) {
-        return new MainFragmentPresenter(context);
+    Presenter.MainFragmentPresenter provideMainFragmentPresenter(Context context, Model.TVSeriesModel model) {
+        return new MainFragmentPresenter(context, model);
     }
 
     @Provides
     @Singleton
-    Presenter.SearchFragmentPresenter provideSearchFragmentPresenter(Context context){
-        return new SearchFragmentPresenter(context);
+    Presenter.SearchFragmentPresenter provideSearchFragmentPresenter(Model.TVSeriesModel model){
+        return new SearchFragmentPresenter(model);
     }
 
     @Provides
     @Singleton
-    Presenter.DetailedFragmentPresenter provideDetailedFragmentPresenter(Context context){
-        return new DetailedFragmentPresenter(context);
+    Presenter.DetailedFragmentPresenter provideDetailedFragmentPresenter(Model.TVSeriesModel model){
+        return new DetailedFragmentPresenter(model);
     }
 }

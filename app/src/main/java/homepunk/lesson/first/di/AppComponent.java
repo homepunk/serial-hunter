@@ -9,7 +9,7 @@ import homepunk.lesson.first.ui.main.MainFragment;
 import homepunk.lesson.first.ui.search.SearchFragment;
 
 @Singleton
-@Component(modules = {AppModule.class, PresentersModule.class})
+@Component(modules = {AppModule.class, PresentersModule.class, DataAccessModule.class})
 public interface AppComponent{
     MainActivity plus(MainActivity activity);
 

@@ -1,7 +1,6 @@
 package homepunk.lesson.first.di;
 
 import android.content.Context;
-import android.content.res.Resources;
 
 import javax.inject.Singleton;
 
@@ -21,12 +20,5 @@ public class AppModule {
     Context provideContext(){
         return app;
     }
-
-    @Provides
-    @Singleton
-    public Resources provideResources(){
-        return app.getResources();
-    }
-
 }
 

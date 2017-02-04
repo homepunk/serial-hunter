@@ -1,10 +1,7 @@
 package homepunk.lesson.first.presenter.search;
 
-import android.content.Context;
-
 import java.util.List;
 
-import homepunk.lesson.first.data.DataRepository;
 import homepunk.lesson.first.interfaces.Listeners;
 import homepunk.lesson.first.interfaces.Model;
 import homepunk.lesson.first.interfaces.Presenter;
@@ -12,11 +9,11 @@ import homepunk.lesson.first.interfaces.View;
 import homepunk.lesson.first.model.TVSeries;
 
 public class SearchFragmentPresenter implements Presenter.SearchFragmentPresenter {
-    private View.SearchFragmentView view;
     private final Model.TVSeriesModel model;
+    private View.SearchFragmentView view;
 
-    public SearchFragmentPresenter(Context context) {
-        model = new DataRepository(context);
+    public SearchFragmentPresenter(Model.TVSeriesModel model) {
+        this.model = model;
     }
 
     @Override
