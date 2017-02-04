@@ -1,7 +1,5 @@
 package homepunk.lesson.first.di;
 
-import android.content.Context;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -24,8 +22,8 @@ public class PresentersModule {
 
     @Provides
     @Singleton
-    Presenter.MainFragmentPresenter provideMainFragmentPresenter(Context context, Model.TVSeriesModel model) {
-        return new MainFragmentPresenter(context, model);
+    Presenter.MainFragmentPresenter provideMainFragmentPresenter(Model.TVSeriesModel model) {
+        return new MainFragmentPresenter(model);
     }
 
     @Provides

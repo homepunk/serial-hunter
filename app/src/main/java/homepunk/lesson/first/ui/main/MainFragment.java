@@ -1,5 +1,6 @@
 package homepunk.lesson.first.ui.main;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.data.database.Constants;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.model.TVSeries;
+import homepunk.lesson.first.ui.detailed.DetailedActivity;
 
 public class MainFragment extends Fragment implements homepunk.lesson.first.interfaces.View.MainFragmentView {
     @Inject Presenter.MainFragmentPresenter fragmentPresenter;
@@ -36,7 +38,6 @@ public class MainFragment extends Fragment implements homepunk.lesson.first.inte
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_main, container, false);
-        App.getAppComponent(getContext()).plus(this);
         initUI(root);
 
         return root;
@@ -64,6 +65,8 @@ public class MainFragment extends Fragment implements homepunk.lesson.first.inte
 
     private void initUI(ViewGroup root){
         ButterKnife.bind(this, root);
+        App.getAppComponent(getContext()).plus(this);
+
         tvSeries = new ArrayList<>(Constants.FILM_COUNT);
         adapter = new TVSeriesAdapter(getContext(), tvSeries);
         recycler.setAdapter(adapter);
@@ -73,7 +76,7 @@ public class MainFragment extends Fragment implements homepunk.lesson.first.inte
         recycler.addOnItemTouchListener(new RecyclerClickListener(getContext(), new RecyclerClickListener.OnItemMotionEventListener() {
             @Override
             public void onItemClick(View view, int position) {
-                fragmentPresenter.onSeriesSelected(tvSeries.get(position).id);
+                openDescription(tvSeries.get(position).id);
             }
 
             @Override
@@ -81,6 +84,13 @@ public class MainFragment extends Fragment implements homepunk.lesson.first.inte
                 Toast.makeText(getContext(), "Long click", Toast.LENGTH_SHORT).show();
             }
         }));
+    }
+
+    private void openDescription(int id){
+        Intent intent = new Intent(getContext(), DetailedActivity.class);
+
+        intent.putExtra(Constants.TV_ID, id);
+        startActivity(intent);
     }
 }
 

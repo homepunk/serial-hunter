@@ -47,7 +47,6 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.first.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_detailed, container, false);
-        App.getAppComponent(getContext()).plus(this);
         initUI(root);
 
 
@@ -77,6 +76,7 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.first.
 
     private void initUI(ViewGroup root){
         ButterKnife.bind(this, root);
+        App.getAppComponent(getContext()).plus(this);
 
         setUpCustomView();
         setUpFAB();

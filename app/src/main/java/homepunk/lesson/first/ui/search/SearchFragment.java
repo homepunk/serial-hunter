@@ -42,7 +42,6 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_search, container, false);
-        App.getAppComponent(getContext()).plus(this);
         initUI(root);
 
         return root;
@@ -81,6 +80,7 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
 
     private void initUI(ViewGroup root){
         ButterKnife.bind(this, root);
+        App.getAppComponent(getContext()).plus(this);
         setHasOptionsMenu(true);
 
         recommendSeries = new ArrayList<>();
