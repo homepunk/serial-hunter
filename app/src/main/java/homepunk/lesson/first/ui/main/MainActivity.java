@@ -1,4 +1,4 @@
-package homepunk.lesson.first.view.main;
+package homepunk.lesson.first.ui.main;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -22,13 +22,15 @@ import android.widget.Spinner;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import homepunk.lesson.first.di.App;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.data.database.Constants;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.interfaces.View;
-import homepunk.lesson.first.presenter.main.MainActivityPresenter;
 
 public class MainActivity extends AppCompatActivity
         implements View.MainActivityView, NavigationView.OnNavigationItemSelectedListener {
@@ -39,17 +41,20 @@ public class MainActivity extends AppCompatActivity
     @Bind(R.id.bottomBar) BottomBar bottomBar;
     @Bind(R.id.main_relative_layout) RelativeLayout layout;
 
+    @Inject
+    Presenter.MainActivityPresenter mainPresenter;
+
     private ActionBarDrawerToggle drawerToggle;
-    private Presenter.MainActivityPresenter mainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mainPresenter = new MainActivityPresenter();
+        App.getAppComponent(this).plus(this);
+        initUI();
+
         mainPresenter.setView(this);
 
-        initUI();
     }
 
     @Override

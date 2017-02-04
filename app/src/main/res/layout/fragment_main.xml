@@ -5,7 +5,7 @@
     android:id="@+id/content_movies"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="homepunk.lesson.first.view.main.MainFragment"
+    tools:context="homepunk.lesson.first.ui.main.MainFragment"
     tools:showIn="@layout/content_main">
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

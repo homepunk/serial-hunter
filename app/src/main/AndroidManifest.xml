@@ -6,13 +6,14 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name="homepunk.lesson.first.di.App"
         android:allowBackup="true"
         android:icon="@drawable/ic_watch_later"
         android:label=""
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="homepunk.lesson.first.view.main.MainActivity"
+            android:name="homepunk.lesson.first.ui.main.MainActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -22,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="homepunk.lesson.first.view.detailed.DetailedActivity"
+            android:name="homepunk.lesson.first.ui.detailed.DetailedActivity"
             android:label="@string/title_activity_detailed_page"
             android:theme="@style/AppTheme" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->

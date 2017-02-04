@@ -19,8 +19,6 @@ public class SearchFragmentPresenter implements Presenter.SearchFragmentPresente
         model = new DataRepository(context);
     }
 
-
-
     @Override
     public void setView(View.SearchFragmentView view) {
         this.view = view;

@@ -12,7 +12,7 @@ import homepunk.lesson.first.interfaces.Model;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.interfaces.View;
 import homepunk.lesson.first.model.TVSeries;
-import homepunk.lesson.first.view.detailed.DetailedActivity;
+import homepunk.lesson.first.ui.detailed.DetailedActivity;
 
 
 public class MainFragmentPresenter implements Presenter.MainFragmentPresenter{

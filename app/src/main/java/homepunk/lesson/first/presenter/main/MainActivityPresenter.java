@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.interfaces.View;
-import homepunk.lesson.first.view.main.MainFragment;
-import homepunk.lesson.first.view.search.SearchFragment;
+import homepunk.lesson.first.ui.main.MainFragment;
+import homepunk.lesson.first.ui.search.SearchFragment;
 
 public class MainActivityPresenter implements Presenter.MainActivityPresenter {
     private View.MainActivityView view;

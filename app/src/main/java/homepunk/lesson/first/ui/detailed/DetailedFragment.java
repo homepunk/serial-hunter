@@ -1,4 +1,4 @@
-package homepunk.lesson.first.view.detailed;
+package homepunk.lesson.first.ui.detailed;
 
 import android.graphics.Typeface;
 import android.os.Build;
@@ -17,15 +17,18 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
+import homepunk.lesson.first.di.App;
 import homepunk.lesson.first.data.database.Constants;
+import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.model.TVSeries;
-import homepunk.lesson.first.presenter.detailed.DetailedFragmentPresenter;
+import homepunk.lesson.first.ui.custom.CustomShadowedView;
 import homepunk.lesson.first.utils.CustomViewUtils;
 import homepunk.lesson.first.utils.ScreenUtils;
-import homepunk.lesson.first.view.custom.CustomShadowedView;
 
 public class DetailedFragment extends Fragment implements homepunk.lesson.first.interfaces.View.DetailedFragmentView {
     @Bind(R.id.custom_shadowed_view_id) CustomShadowedView customShadowedView;
@@ -33,21 +36,20 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.first.
     @Bind(R.id.id_detailed_overview) TextView tvOverview;
     @Bind(R.id.fragment_main_id) RelativeLayout rLayout;
     @Bind(R.id.fab) FloatingActionButton fab;
-//    @Bind(R.id.fab_1) FloatingActionButton fab1;
-//    @Bind(R.id.fab_2) FloatingActionButton fab2;
-//    @Bind(R.id.fab_3) FloatingActionButton fab3;
 
-    private DetailedFragmentPresenter detailedFragmentPresenter;
+    @Inject
+    Presenter.DetailedFragmentPresenter detailedFragmentPresenter;
+
     private TVSeries tvSeries;
-//    private FloatingButtonsPresenter fabModule;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_detailed, container, false);
+        App.getAppComponent(getContext()).plus(this);
         initUI(root);
-        detailedFragmentPresenter = new DetailedFragmentPresenter(getContext());
+
 
         return root;
     }

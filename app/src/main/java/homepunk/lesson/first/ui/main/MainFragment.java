@@ -1,4 +1,4 @@
-package homepunk.lesson.first.view.main;
+package homepunk.lesson.first.ui.main;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -13,19 +13,22 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.adapter.TVSeriesAdapter;
+import homepunk.lesson.first.di.App;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.data.database.Constants;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.model.TVSeries;
-import homepunk.lesson.first.presenter.main.MainFragmentPresenter;
 
 public class MainFragment extends Fragment implements homepunk.lesson.first.interfaces.View.MainFragmentView {
     @Bind(R.id.movies_rv) RecyclerView recycler;
 
-    private Presenter.MainFragmentPresenter fragmentPresenter;
+    @Inject Presenter.MainFragmentPresenter fragmentPresenter;
+
     private List<TVSeries> tvSeries;
     private TVSeriesAdapter adapter;
 
@@ -33,8 +36,8 @@ public class MainFragment extends Fragment implements homepunk.lesson.first.inte
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_main, container, false);
+        App.getAppComponent(getContext()).plus(this);
         initUI(root);
-        fragmentPresenter = new MainFragmentPresenter(getContext());
 
         return root;
     }

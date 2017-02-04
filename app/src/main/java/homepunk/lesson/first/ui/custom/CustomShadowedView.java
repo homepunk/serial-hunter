@@ -1,4 +1,4 @@
-package homepunk.lesson.first.view.custom;
+package homepunk.lesson.first.ui.custom;
 
 import android.content.Context;
 import android.graphics.Canvas;
