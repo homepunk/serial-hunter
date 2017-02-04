@@ -1,4 +1,4 @@
-package homepunk.lesson.first.presenter.main;
+package homepunk.lesson.first.presenter;
 
 import java.util.List;
 
@@ -8,38 +8,38 @@ import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.interfaces.View;
 import homepunk.lesson.first.model.TVSeries;
 
-
-public class MainFragmentPresenter implements Presenter.MainFragmentPresenter{
+public class SearchFragmentPresenter implements Presenter.SearchFragmentPresenter {
     private final Model.TVSeriesModel model;
-    private View.MainFragmentView view;
+    private View.SearchFragmentView view;
 
-    public MainFragmentPresenter(Model.TVSeriesModel model) {
+    public SearchFragmentPresenter(Model.TVSeriesModel model) {
         this.model = model;
     }
 
     @Override
-    public void setView(View.MainFragmentView view) {
+    public void setView(View.SearchFragmentView view) {
         this.view = view;
     }
 
     @Override
-    public void getMostPopularSeries() {
+    public void getRecommendedSeries() {
         model.fetchSeriesList(new Listeners.ListListener() {
             @Override
             public void onResult(List<TVSeries> tvSeries) {
-                if (MainFragmentPresenter.this.view != null)
-                    MainFragmentPresenter.this.view.onTVSeriesReceived(tvSeries);
+                if (SearchFragmentPresenter.this.view != null)
+                    SearchFragmentPresenter.this.view.onRecommendedSeriesRecieved(tvSeries);
             }
 
             @Override
             public void onError(Exception e) {
-                if (MainFragmentPresenter.this.view != null)
-                    MainFragmentPresenter.this.view.onError(e.getLocalizedMessage());
+                if (SearchFragmentPresenter.this.view != null)
+                    SearchFragmentPresenter.this.view.onError(e.getLocalizedMessage());
             }
         });
     }
 
     @Override
-    public void onSeriesSelected(int id) {
+    public void onSearchViewClicked() {
+
     }
 }

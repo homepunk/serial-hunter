@@ -1,4 +1,4 @@
-package homepunk.lesson.first.presenter.detailed;
+package homepunk.lesson.first.presenter;
 
 import homepunk.lesson.first.interfaces.Listeners;
 import homepunk.lesson.first.interfaces.Model;

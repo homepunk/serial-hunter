@@ -10,7 +10,7 @@ import homepunk.lesson.first.data.DataRepository;
 import homepunk.lesson.first.interfaces.Model;
 
 @Module
-public class DataAccessModule {
+public class NetworkModule {
     @Provides
     @Singleton
     public Model.TVSeriesModel provideDataRepository(Context context){

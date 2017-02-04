@@ -1,4 +1,4 @@
-package homepunk.lesson.first.presenter.search;
+package homepunk.lesson.first.presenter;
 
 import java.util.List;
 
@@ -8,38 +8,38 @@ import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.interfaces.View;
 import homepunk.lesson.first.model.TVSeries;
 
-public class SearchFragmentPresenter implements Presenter.SearchFragmentPresenter {
-    private final Model.TVSeriesModel model;
-    private View.SearchFragmentView view;
 
-    public SearchFragmentPresenter(Model.TVSeriesModel model) {
+public class MainFragmentPresenter implements Presenter.MainFragmentPresenter{
+    private final Model.TVSeriesModel model;
+    private View.MainFragmentView view;
+
+    public MainFragmentPresenter(Model.TVSeriesModel model) {
         this.model = model;
     }
 
     @Override
-    public void setView(View.SearchFragmentView view) {
+    public void setView(View.MainFragmentView view) {
         this.view = view;
     }
 
     @Override
-    public void getRecommendedSeries() {
+    public void getMostPopularSeries() {
         model.fetchSeriesList(new Listeners.ListListener() {
             @Override
             public void onResult(List<TVSeries> tvSeries) {
-                if (SearchFragmentPresenter.this.view != null)
-                    SearchFragmentPresenter.this.view.onRecommendedSeriesRecieved(tvSeries);
+                if (MainFragmentPresenter.this.view != null)
+                    MainFragmentPresenter.this.view.onTVSeriesReceived(tvSeries);
             }
 
             @Override
             public void onError(Exception e) {
-                if (SearchFragmentPresenter.this.view != null)
-                    SearchFragmentPresenter.this.view.onError(e.getLocalizedMessage());
+                if (MainFragmentPresenter.this.view != null)
+                    MainFragmentPresenter.this.view.onError(e.getLocalizedMessage());
             }
         });
     }
 
     @Override
-    public void onSearchViewClicked() {
-
+    public void onSeriesSelected(int id) {
     }
 }

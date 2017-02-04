@@ -22,15 +22,12 @@ import android.widget.Spinner;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
-import javax.inject.Inject;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import homepunk.lesson.first.di.App;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.data.database.Constants;
-import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.interfaces.View;
+import homepunk.lesson.first.ui.search.SearchFragment;
 
 public class MainActivity extends AppCompatActivity
         implements View.MainActivityView, NavigationView.OnNavigationItemSelectedListener {
@@ -41,26 +38,30 @@ public class MainActivity extends AppCompatActivity
     @Bind(R.id.bottomBar) BottomBar bottomBar;
     @Bind(R.id.main_relative_layout) RelativeLayout layout;
 
-    @Inject
-    Presenter.MainActivityPresenter mainPresenter;
-
     private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        App.getAppComponent(this).plus(this);
         initUI();
-
-        mainPresenter.setView(this);
-
     }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        mainPresenter.onNavigationItemSelected(item.getItemId());
+        int id = item.getItemId();
 
+        if (id == R.id.nav_camera) {
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initUI() {
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         setUpSpinner();
@@ -90,11 +92,21 @@ public class MainActivity extends AppCompatActivity
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
-                if (tabId == R.id.tab_search)
-                    spinner.setVisibility(android.view.View.GONE);
-                else spinner.setVisibility(android.view.View.VISIBLE);
-
-                Fragment fragment = mainPresenter.onTabSelected(tabId);
+                Fragment fragment = null;
+                switch (tabId) {
+                    case R.id.tab_hot_updates:
+                        spinner.setVisibility(android.view.View.VISIBLE);
+                        fragment = new MainFragment();
+                        break;
+                    case R.id.tab_watchlist:
+                        spinner.setVisibility(android.view.View.VISIBLE);
+                        fragment = new MainFragment();
+                        break;
+                    case R.id.tab_search:
+                        spinner.setVisibility(android.view.View.GONE);
+                        fragment = new SearchFragment();
+                        break;
+                }
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 final FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.contentContainer, fragment).commit();
@@ -115,8 +127,7 @@ public class MainActivity extends AppCompatActivity
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
-//              Presenter handles all user's actions
-                mainPresenter.onSpinnerItemClicked();
+
             }
 
             @Override
