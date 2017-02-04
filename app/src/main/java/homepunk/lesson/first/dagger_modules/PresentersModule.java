@@ -1,4 +1,4 @@
-package homepunk.lesson.first.di;
+package homepunk.lesson.first.dagger_modules;
 
 import javax.inject.Singleton;
 

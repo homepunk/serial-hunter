@@ -1,4 +1,4 @@
-package homepunk.lesson.first.di;
+package homepunk.lesson.first.dagger_modules;
 
 import android.content.Context;
 
@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import homepunk.lesson.first.App;
 
 @Module
 public class AppModule {

@@ -1,7 +1,10 @@
-package homepunk.lesson.first.di;
+package homepunk.lesson.first;
 
 import android.app.Application;
 import android.content.Context;
+
+import homepunk.lesson.first.dagger_modules.AppModule;
+import homepunk.lesson.first.dagger_modules.DaggerAppComponent;
 
 public class App extends Application{
     private AppComponent component;

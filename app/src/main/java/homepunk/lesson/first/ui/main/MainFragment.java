@@ -19,7 +19,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.adapter.TVSeriesAdapter;
-import homepunk.lesson.first.di.App;
+import homepunk.lesson.first.App;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.data.database.Constants;
 import homepunk.lesson.first.interfaces.Presenter;

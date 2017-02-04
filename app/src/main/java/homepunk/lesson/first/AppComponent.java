@@ -1,8 +1,11 @@
-package homepunk.lesson.first.di;
+package homepunk.lesson.first;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
+import homepunk.lesson.first.dagger_modules.AppModule;
+import homepunk.lesson.first.dagger_modules.NetworkModule;
+import homepunk.lesson.first.dagger_modules.PresentersModule;
 import homepunk.lesson.first.ui.detailed.DetailedFragment;
 import homepunk.lesson.first.ui.main.MainFragment;
 import homepunk.lesson.first.ui.search.SearchFragment;

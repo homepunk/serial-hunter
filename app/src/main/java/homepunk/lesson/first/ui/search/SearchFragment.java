@@ -23,7 +23,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.adapter.TVSeriesAdapter;
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.di.App;
+import homepunk.lesson.first.App;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.interfaces.View.SearchFragmentView;
 import homepunk.lesson.first.model.TVSeries;
@@ -32,8 +32,7 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
     @Bind(R.id.search_rv) RecyclerView rvSearch;
     @Bind(R.id.search_recomendations_rv) RecyclerView rvRecommend;
 
-    @Inject
-    Presenter.SearchFragmentPresenter searchFragmentPresenter;
+    @Inject Presenter.SearchFragmentPresenter searchFragmentPresenter;
 
     private List<TVSeries> recommendSeries;
     private TVSeriesAdapter recommendAdapter;

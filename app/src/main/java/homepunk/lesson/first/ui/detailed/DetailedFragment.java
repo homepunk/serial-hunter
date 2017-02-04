@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.first.di.App;
+import homepunk.lesson.first.App;
 import homepunk.lesson.first.data.database.Constants;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.model.TVSeries;
@@ -37,10 +37,7 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.first.
     @Bind(R.id.fragment_main_id) RelativeLayout rLayout;
     @Bind(R.id.fab) FloatingActionButton fab;
 
-    @Inject
-    Presenter.DetailedFragmentPresenter detailedFragmentPresenter;
-
-    private TVSeries tvSeries;
+    @Inject Presenter.DetailedFragmentPresenter detailedFragmentPresenter;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -64,7 +61,6 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.first.
 
     @Override
     public void onSeriesDescRecieved(TVSeries tvSeries) {
-        this.tvSeries = tvSeries;
         updateUI(tvSeries);
     }
 
