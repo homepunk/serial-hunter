@@ -1,7 +1,6 @@
 package homepunk.lesson.first.data.database;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -10,16 +9,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import homepunk.lesson.first.interfaces.Model;
 import homepunk.lesson.first.model.TVSeries;
 
 public class DatabaseStorage implements Model.SeriesDAO<TVSeries>{
+    @Inject TVSeriesOpenHelper dbHelper;
     private static final String LOG_TAG = DatabaseStorage.class.getSimpleName();
-    private TVSeriesOpenHelper dbHelper;
-
-    public DatabaseStorage(Context c) {
-        this.dbHelper = new TVSeriesOpenHelper(c);
-    }
 
     @Override
     public long save(TVSeries tvSeries) throws IOException {

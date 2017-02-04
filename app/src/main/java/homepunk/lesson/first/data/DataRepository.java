@@ -9,6 +9,8 @@ import org.json.JSONException;
 import java.util.List;
 import java.util.MissingResourceException;
 
+import javax.inject.Inject;
+
 import homepunk.lesson.first.data.database.DatabaseStorage;
 import homepunk.lesson.first.data.local.SharedPrefencesStorage;
 import homepunk.lesson.first.data.network.NetworkStorage;
@@ -20,16 +22,14 @@ import homepunk.lesson.first.model.TVSeries;
 import homepunk.lesson.first.utils.NetworkUtils;
 
 public class DataRepository implements Model.TVSeriesModel {
+    @Inject DatabaseStorage db;
+    @Inject NetworkStorage rest;
+    @Inject SharedPrefencesStorage sharedPrefences;
+
     private final Context context;
-    private final DatabaseStorage db;
-    private final NetworkStorage rest;
-    private final SharedPrefencesStorage sharedPrefences;
 
     public DataRepository(Context context) {
         this.context = context;
-        db = new DatabaseStorage(context);
-        rest = new NetworkStorage(context);
-        sharedPrefences = new SharedPrefencesStorage(context);
     }
 
     @Override
