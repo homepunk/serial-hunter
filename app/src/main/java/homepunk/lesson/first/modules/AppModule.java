@@ -1,4 +1,4 @@
-package homepunk.lesson.first.dagger_modules;
+package homepunk.lesson.first.modules;
 
 import android.content.Context;
 
