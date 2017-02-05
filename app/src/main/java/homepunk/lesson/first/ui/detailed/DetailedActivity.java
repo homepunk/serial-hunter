@@ -28,14 +28,14 @@ public class DetailedActivity extends AppCompatActivity {
 
     private int getIdFromIntent() {
         Intent intent = getIntent();
-        return (int) intent.getSerializableExtra(Constants.TV_ID);
+        return (int) intent.getSerializableExtra(Constants.KEY_ID);
     }
 
     private DetailedFragment newInstance(int id) {
         DetailedFragment fragment = new DetailedFragment();
 
         Bundle arguments = new Bundle();
-        arguments.putInt(Constants.TV_ID, id);
+        arguments.putInt(Constants.KEY_ID, id);
         fragment.setArguments(arguments);
 
         return fragment;

@@ -21,12 +21,12 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import homepunk.lesson.first.adapter.TVSeriesAdapter;
+import homepunk.lesson.first.adapter.TvSeriesAdapter;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.App;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.interfaces.View.SearchFragmentView;
-import homepunk.lesson.first.model.TVSeries;
+import homepunk.lesson.first.model.Series;
 
 public class SearchFragment extends Fragment implements SearchFragmentView {
     @Bind(R.id.search_rv) RecyclerView rvSearch;
@@ -34,8 +34,8 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
 
     @Inject Presenter.SearchFragmentPresenter searchFragmentPresenter;
 
-    private List<TVSeries> recommendSeries;
-    private TVSeriesAdapter recommendAdapter;
+    private List<Series> recommendSeries;
+    private TvSeriesAdapter recommendAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,7 +83,7 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
         setHasOptionsMenu(true);
 
         recommendSeries = new ArrayList<>();
-        recommendAdapter = new TVSeriesAdapter(getContext(), recommendSeries);
+        recommendAdapter = new TvSeriesAdapter(getContext(), recommendSeries);
         rvRecommend.setAdapter(recommendAdapter);
         rvRecommend.setLayoutManager(new GridLayoutManager(getContext(), getResources().getConfiguration().orientation ==
                 Configuration.ORIENTATION_LANDSCAPE ? 3 : 2));
@@ -91,7 +91,7 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
     }
 
     @Override
-    public void onRecommendedSeriesRecieved(List<TVSeries> tvSeries) {
+    public void onRecommendedSeriesRecieved(List<Series> tvSeries) {
         recommendSeries.clear();
         recommendSeries.addAll(tvSeries);
         recommendAdapter.notifyDataSetChanged();

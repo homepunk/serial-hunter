@@ -6,13 +6,13 @@ import homepunk.lesson.first.interfaces.Listeners;
 import homepunk.lesson.first.interfaces.Model;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.interfaces.View;
-import homepunk.lesson.first.model.TVSeries;
+import homepunk.lesson.first.model.Series;
 
 public class SearchFragmentPresenter implements Presenter.SearchFragmentPresenter {
-    private final Model.TVSeriesModel model;
+    private final Model.DataRepositoryModel model;
     private View.SearchFragmentView view;
 
-    public SearchFragmentPresenter(Model.TVSeriesModel model) {
+    public SearchFragmentPresenter(Model.DataRepositoryModel model) {
         this.model = model;
     }
 
@@ -23,17 +23,17 @@ public class SearchFragmentPresenter implements Presenter.SearchFragmentPresente
 
     @Override
     public void getRecommendedSeries() {
-        model.fetchSeriesList(new Listeners.ListListener() {
+        model.fetchOnAirSeries(new Listeners.RetrofitListListener() {
             @Override
-            public void onResult(List<TVSeries> tvSeries) {
+            public void onResult(List<Series> onAirList) {
                 if (SearchFragmentPresenter.this.view != null)
-                    SearchFragmentPresenter.this.view.onRecommendedSeriesRecieved(tvSeries);
+                    SearchFragmentPresenter.this.view.onRecommendedSeriesRecieved(onAirList);
             }
 
             @Override
-            public void onError(Exception e) {
+            public void onError(String e) {
                 if (SearchFragmentPresenter.this.view != null)
-                    SearchFragmentPresenter.this.view.onError(e.getLocalizedMessage());
+                    SearchFragmentPresenter.this.view.onError(e);
             }
         });
     }

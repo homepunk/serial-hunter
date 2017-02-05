@@ -6,14 +6,14 @@ import homepunk.lesson.first.interfaces.Listeners;
 import homepunk.lesson.first.interfaces.Model;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.interfaces.View;
-import homepunk.lesson.first.model.TVSeries;
+import homepunk.lesson.first.model.Series;
 
 
 public class MainFragmentPresenter implements Presenter.MainFragmentPresenter{
-    private final Model.TVSeriesModel model;
+    private final Model.DataRepositoryModel model;
     private View.MainFragmentView view;
 
-    public MainFragmentPresenter(Model.TVSeriesModel model) {
+    public MainFragmentPresenter(Model.DataRepositoryModel model) {
         this.model = model;
     }
 
@@ -23,18 +23,18 @@ public class MainFragmentPresenter implements Presenter.MainFragmentPresenter{
     }
 
     @Override
-    public void getMostPopularSeries() {
-        model.fetchSeriesList(new Listeners.ListListener() {
+    public void getOnAirSeries(){
+        model.fetchOnAirSeries(new Listeners.RetrofitListListener() {
             @Override
-            public void onResult(List<TVSeries> tvSeries) {
+            public void onResult(List<Series> onAirList) {
                 if (MainFragmentPresenter.this.view != null)
-                    MainFragmentPresenter.this.view.onTVSeriesReceived(tvSeries);
+                    MainFragmentPresenter.this.view.onTVSeriesReceived(onAirList);
             }
 
             @Override
-            public void onError(Exception e) {
+            public void onError(String e) {
                 if (MainFragmentPresenter.this.view != null)
-                    MainFragmentPresenter.this.view.onError(e.getLocalizedMessage());
+                    MainFragmentPresenter.this.view.onError(e);
             }
         });
     }

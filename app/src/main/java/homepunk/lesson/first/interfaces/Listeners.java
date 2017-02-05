@@ -2,18 +2,18 @@ package homepunk.lesson.first.interfaces;
 
 import java.util.List;
 
-import homepunk.lesson.first.model.TVSeries;
+import homepunk.lesson.first.model.Series;
 
 public interface Listeners {
-        interface ListListener {
-                void onResult(List<TVSeries> seriesList);
+        interface RetrofitListListener {
+                void onResult(List<Series> onAirList);
 
-                void onError(Exception e);
+                void onError(String e);
         }
 
-        interface Listener {
-                void onResult(TVSeries series);
+        interface RetrofitListener {
+                void onResult(Series series);
 
-                void onError(Exception e);
+                void onError(String e);
         }
 }

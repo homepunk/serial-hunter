@@ -18,12 +18,13 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import homepunk.lesson.first.adapter.TVSeriesAdapter;
+import homepunk.lesson.first.adapter.TvSeriesAdapter;
 import homepunk.lesson.first.App;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.data.database.Constants;
 import homepunk.lesson.first.interfaces.Presenter;
-import homepunk.lesson.first.model.TVSeries;
+import homepunk.lesson.first.model.SeriesResponse;
+import homepunk.lesson.first.model.Series;
 import homepunk.lesson.first.ui.detailed.DetailedActivity;
 
 public class MainFragment extends Fragment implements homepunk.lesson.first.interfaces.View.MainFragmentView {
@@ -31,8 +32,9 @@ public class MainFragment extends Fragment implements homepunk.lesson.first.inte
 
     @Bind(R.id.movies_rv) RecyclerView recycler;
 
-    private List<TVSeries> tvSeries;
-    private TVSeriesAdapter adapter;
+    private List<Series> tvSeries;
+    private List<SeriesResponse> onAirList;
+    private TvSeriesAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,11 +49,11 @@ public class MainFragment extends Fragment implements homepunk.lesson.first.inte
     public void onResume() {
         super.onResume();
         fragmentPresenter.setView(this);
-        fragmentPresenter.getMostPopularSeries();
+        fragmentPresenter.getOnAirSeries();
     }
 
     @Override
-    public void onTVSeriesReceived(List<TVSeries> tvSeries) {
+    public void onTVSeriesReceived(List<Series> tvSeries) {
         this.tvSeries.clear();
         this.tvSeries.addAll(tvSeries);
         adapter.notifyDataSetChanged();
@@ -68,7 +70,8 @@ public class MainFragment extends Fragment implements homepunk.lesson.first.inte
         App.getAppComponent(getContext()).plus(this);
 
         tvSeries = new ArrayList<>(Constants.FILM_COUNT);
-        adapter = new TVSeriesAdapter(getContext(), tvSeries);
+
+        adapter = new TvSeriesAdapter(getContext(), tvSeries);
         recycler.setAdapter(adapter);
         recycler.setLayoutManager(new GridLayoutManager(getContext(), getResources().getConfiguration().orientation ==
                 Configuration.ORIENTATION_LANDSCAPE ? 3 : 2));
@@ -76,7 +79,7 @@ public class MainFragment extends Fragment implements homepunk.lesson.first.inte
         recycler.addOnItemTouchListener(new RecyclerClickListener(getContext(), new RecyclerClickListener.OnItemMotionEventListener() {
             @Override
             public void onItemClick(View view, int position) {
-                openDescription(tvSeries.get(position).id);
+                openDescription(tvSeries.get(position).getId());
             }
 
             @Override
@@ -89,7 +92,7 @@ public class MainFragment extends Fragment implements homepunk.lesson.first.inte
     private void openDescription(int id){
         Intent intent = new Intent(getContext(), DetailedActivity.class);
 
-        intent.putExtra(Constants.TV_ID, id);
+        intent.putExtra(Constants.KEY_ID, id);
         startActivity(intent);
     }
 }

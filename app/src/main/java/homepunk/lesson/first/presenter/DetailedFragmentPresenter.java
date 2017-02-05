@@ -4,14 +4,14 @@ import homepunk.lesson.first.interfaces.Listeners;
 import homepunk.lesson.first.interfaces.Model;
 import homepunk.lesson.first.interfaces.Presenter;
 import homepunk.lesson.first.interfaces.View;
-import homepunk.lesson.first.model.TVSeries;
+import homepunk.lesson.first.model.Series;
 
 public class DetailedFragmentPresenter implements Presenter.DetailedFragmentPresenter {
 
     private View.DetailedFragmentView view;
-    private final Model.TVSeriesModel model;
+    private final Model.DataRepositoryModel model;
 
-    public DetailedFragmentPresenter(Model.TVSeriesModel model) {
+    public DetailedFragmentPresenter(Model.DataRepositoryModel model) {
         this.model = model;
     }
 
@@ -22,17 +22,17 @@ public class DetailedFragmentPresenter implements Presenter.DetailedFragmentPres
 
     @Override
     public void getSeriesDescriptionById(int id) {
-        model.fetchSeriesById(id, new Listeners.Listener() {
+        model.fetchSeriesById(id, new Listeners.RetrofitListener() {
             @Override
-            public void onResult(TVSeries series) {
+            public void onResult(Series series) {
                 if (DetailedFragmentPresenter.this.view != null)
                     DetailedFragmentPresenter.this.view.onSeriesDescRecieved(series);
             }
 
             @Override
-            public void onError(Exception e) {
+            public void onError(String e) {
                 if(DetailedFragmentPresenter.this.view != null)
-                    DetailedFragmentPresenter.this.view.onError(e.getLocalizedMessage());
+                    DetailedFragmentPresenter.this.view.onError(e);
             }
         });
     }

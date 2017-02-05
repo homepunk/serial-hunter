@@ -14,19 +14,19 @@ import homepunk.lesson.first.presenter.SearchFragmentPresenter;
 public class PresentersModule {
     @Provides
     @Singleton
-    Presenter.MainFragmentPresenter provideMainFragmentPresenter(Model.TVSeriesModel model) {
+    Presenter.MainFragmentPresenter provideMainFragmentPresenter(Model.DataRepositoryModel model) {
         return new MainFragmentPresenter(model);
     }
 
     @Provides
     @Singleton
-    Presenter.SearchFragmentPresenter provideSearchFragmentPresenter(Model.TVSeriesModel model){
+    Presenter.SearchFragmentPresenter provideSearchFragmentPresenter(Model.DataRepositoryModel model){
         return new SearchFragmentPresenter(model);
     }
 
     @Provides
     @Singleton
-    Presenter.DetailedFragmentPresenter provideDetailedFragmentPresenter(Model.TVSeriesModel model){
+    Presenter.DetailedFragmentPresenter provideDetailedFragmentPresenter(Model.DataRepositoryModel model){
         return new DetailedFragmentPresenter(model);
     }
 }

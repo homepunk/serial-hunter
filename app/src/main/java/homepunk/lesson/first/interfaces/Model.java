@@ -3,12 +3,14 @@ package homepunk.lesson.first.interfaces;
 import java.io.IOException;
 import java.util.List;
 
+import static homepunk.lesson.first.interfaces.Listeners.*;
+
 public interface Model {
 
-    interface TVSeriesModel{
-        void fetchSeriesList(Listeners.ListListener resultListener);
+    interface DataRepositoryModel {
+        void fetchOnAirSeries(final RetrofitListListener listener);
 
-        void fetchSeriesById(int id, Listeners.Listener resultListener);
+        void fetchSeriesById(int id, final RetrofitListener listener);
     }
 
     interface SeriesDAO<T>{
@@ -18,11 +20,5 @@ public interface Model {
         List<T> getAll();
 
         void saveAll(List<T> series);
-    }
-
-    interface Observerable {
-        void registerObserver(Presenter.Observer listener);
-
-        void notifyObservers();
     }
 }

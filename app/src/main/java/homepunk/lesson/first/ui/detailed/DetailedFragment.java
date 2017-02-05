@@ -21,14 +21,15 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.App;
-import homepunk.lesson.first.data.database.Constants;
+import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.first.interfaces.Presenter;
-import homepunk.lesson.first.model.TVSeries;
+import homepunk.lesson.first.model.Series;
 import homepunk.lesson.first.ui.custom.CustomShadowedView;
 import homepunk.lesson.first.utils.CustomViewUtils;
 import homepunk.lesson.first.utils.ScreenUtils;
+
+import static homepunk.lesson.first.data.database.Constants.KEY_ID;
 
 public class DetailedFragment extends Fragment implements homepunk.lesson.first.interfaces.View.DetailedFragmentView {
     @Bind(R.id.custom_shadowed_view_id) CustomShadowedView customShadowedView;
@@ -46,7 +47,6 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.first.
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_detailed, container, false);
         initUI(root);
 
-
         return root;
     }
 
@@ -54,20 +54,30 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.first.
     public void onResume() {
         super.onResume();
 
-        int id = getIdFromBundle();
-        detailedFragmentPresenter.setView(this);
-        detailedFragmentPresenter.getSeriesDescriptionById(id);
+        setUpPresenter();
     }
 
     @Override
-    public void onSeriesDescRecieved(TVSeries tvSeries) {
-        updateUI(tvSeries);
+    public void onSeriesDescRecieved(Series tvSeries) {
+        setUpPoster(tvSeries);
+        setUpOverview(tvSeries);
     }
 
     @Override
     public void onError(String error) {
         Toast.makeText(getContext(), "Error: " + error,
                 Toast.LENGTH_SHORT).show();
+    }
+
+    private void setUpPresenter(){
+        int id = getIdFromBundle();
+        detailedFragmentPresenter.setView(this);
+        detailedFragmentPresenter.getSeriesDescriptionById(id);
+    }
+
+    private int getIdFromBundle() {
+        Bundle bundle = getArguments();
+        return bundle != null ? bundle.getInt(KEY_ID) : 0;
     }
 
     private void initUI(ViewGroup root){
@@ -78,18 +88,27 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.first.
         setUpFAB();
     }
 
-    private void updateUI(TVSeries tvSeries){
+    private void setUpOverview(Series tvSeries){
         Typeface typeFace = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Quicksand-Regular.ttf");
         tvOverview.setTypeface(typeFace);
-        tvOverview.setText(tvSeries.overview);
+        tvOverview.setText(tvSeries.getOverview());
+    }
 
-        if (!TextUtils.isEmpty(tvSeries.getFullPosterPath(TVSeries.WIDTH_780)))
-        Picasso.with(getContext()).
-                load(tvSeries.getFullPosterPath(tvSeries.WIDTH_780))
-                .placeholder(R.drawable.placeholder_image)
-                .resize(ScreenUtils.getDisplayContentWidth(getContext()),
-                        ScreenUtils.getDisplayContentHeight(getContext()))
-                .into(ivPoster);
+    private void setUpPoster(Series tvSeries){
+        if (!TextUtils.isEmpty(tvSeries.getFullPosterPath(Series.WIDTH_780)))
+            Picasso.with(getContext()).
+                    load(tvSeries.getFullPosterPath(tvSeries.WIDTH_780))
+                    .placeholder(R.drawable.placeholder_image)
+                    .resize(ScreenUtils.getDisplayContentWidth(getContext()),
+                            ScreenUtils.getDisplayContentHeight(getContext()))
+                    .into(ivPoster);
+    }
+
+    private void setUpCustomView(){
+        customShadowedView.setTransparentAlpha(240);
+        customShadowedView.setLineAngleCoef(0.7);
+        customShadowedView.setxOffsetCoef(0.8);
+        customShadowedView.setColor(39, 43, 46);
     }
 
     private void setUpFAB(){
@@ -105,18 +124,6 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.first.
                 Toast.makeText(getContext(), "Fab works fine", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void setUpCustomView(){
-        customShadowedView.setTransparentAlpha(240);
-        customShadowedView.setLineAngleCoef(0.7);
-        customShadowedView.setxOffsetCoef(0.8);
-        customShadowedView.setColor(39, 43, 46);
-    }
-
-    private int getIdFromBundle() {
-        Bundle bundle = getArguments();
-        return bundle != null ? bundle.getInt(Constants.TV_ID) : 0;
     }
 }
 

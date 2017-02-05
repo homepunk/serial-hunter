@@ -4,7 +4,7 @@ import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 
-import homepunk.lesson.first.model.TVSeries;
+import homepunk.lesson.first.model.Series;
 
 public interface Presenter {
 
@@ -21,7 +21,7 @@ public interface Presenter {
     interface MainFragmentPresenter {
         void setView(View.MainFragmentView view);
 
-        void getMostPopularSeries();
+        void getOnAirSeries();
 
         void onSeriesSelected(int id);
     }
@@ -52,7 +52,7 @@ public interface Presenter {
 
     interface Observer {
 
-        void update(TVSeries tvSeries);
+        void update(Series tvSeries);
     }
 
 }
