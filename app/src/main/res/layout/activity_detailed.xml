@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/colorBackgroundLight"
-    tools:context="homepunk.lesson.first.contollers.homepunk.lesson.first.activity.DetailedPageActivity">
+    tools:context="homepunk.lesson.series.contollers.homepunk.lesson.first.activity.DetailedPageActivity">
 
     <include layout="@layout/content_detailed" />
 
