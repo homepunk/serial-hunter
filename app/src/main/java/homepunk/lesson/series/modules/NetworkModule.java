@@ -12,7 +12,7 @@ import dagger.Module;
 import dagger.Provides;
 import homepunk.lesson.series.data.DataManager;
 import homepunk.lesson.series.data.database.DbFlowService;
-import homepunk.lesson.series.data.rest.TmdbService;
+import homepunk.lesson.series.data.rest.RetrofitService;
 import homepunk.lesson.series.interfaces.Model;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -46,22 +46,22 @@ public class NetworkModule {
     @Provides
     @Singleton
     @Named(WITH_EXPOSE)
-    public TmdbService provideTmdbApiWithExpose(Gson gson){
+    public RetrofitService provideTmdbApiWithExpose(Gson gson){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-        return retrofit.create(TmdbService.class);
+        return retrofit.create(RetrofitService.class);
     }
 
     @Provides
     @Singleton
     @Named(WITHOUT_EXPOSE)
-    public TmdbService provideTmdbApiWithoutExpose(){
+    public RetrofitService provideTmdbApiWithoutExpose(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        return retrofit.create(TmdbService.class);
+        return retrofit.create(RetrofitService.class);
     }
 }

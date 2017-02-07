@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.series.App;
 import homepunk.lesson.series.adapter.SeriesAdapter;
+import homepunk.lesson.series.adapter.SeriesAdapter.GridViewHolder;
 import homepunk.lesson.series.data.Constants;
 import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.model.Series;
@@ -36,6 +37,7 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
     private List<Series> tvSeries;
     private List<SeriesResponse> onAirList;
     private SeriesAdapter adapter;
+    private boolean favorite;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,6 +87,9 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
 
             @Override
             public void onItemLongClick(View view, int position) {
+                if(!isFavorite(view))
+                    setSelected(view);
+                else setUnselected(view);
                 Toast.makeText(getContext(), "Long click", Toast.LENGTH_SHORT).show();
             }
         }));
@@ -95,6 +100,23 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
 
         intent.putExtra(Constants.KEY_ID, id);
         startActivity(intent);
+    }
+
+    private void setSelected(View view){
+        GridViewHolder holder = new GridViewHolder(view);
+        holder.getFavorite().setImageResource(R.drawable.ic_star_selected);
+        holder.setFavorite(true);
+    }
+
+    private void setUnselected(View view){
+        GridViewHolder holder = new GridViewHolder(view);
+        holder.getFavorite().setImageResource(R.drawable.ic_star_full);
+        holder.setFavorite(false);
+    }
+
+    private boolean isFavorite(View view){
+        GridViewHolder holder = new GridViewHolder(view);
+        return holder.isFavorite() ? true : false;
     }
 }
 

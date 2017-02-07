@@ -20,7 +20,8 @@ public interface Model {
         boolean delete(T t);
         T get(int id);
         List<T> getAll();
-
+        boolean clear();
         void saveAll(List<T> series);
+        boolean isAlreadyInDatabase(List<Series> series);
     }
 }

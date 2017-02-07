@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface TmdbService {
+public interface RetrofitService {
         @GET("tv/{id}")
         Call<Series> loadTVSeriesDetails(@Path("id") int id,
                                          @Query("language") String language,

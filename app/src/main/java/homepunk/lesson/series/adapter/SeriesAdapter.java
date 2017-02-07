@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -45,7 +46,11 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.GridViewHo
     @Override
     public void onBindViewHolder(GridViewHolder holder, int position) {
         tvSeries = tvList.get(position);
+        if(tvSeries.getTitle() != null)
+            holder.textView.setText(tvSeries.getTitle());
 
+        holder.textViewUpdate.setText("20/04 (Ср)");
+        holder.favorite.getContext();
         loadPoster(holder, tvSeries);
     }
 
@@ -57,10 +62,26 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.GridViewHo
 
     public static class GridViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.item_poster) ImageView poster;
+        @Bind(R.id.id_series_title) TextView textView;
+        @Bind(R.id.id_series_last_update) TextView textViewUpdate;
+        @Bind(R.id.id_image_view) ImageView favorite;
+        private boolean isFavorite;
 
         public GridViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        public ImageView getFavorite() {
+            return favorite;
+        }
+
+        public boolean isFavorite() {
+            return isFavorite;
+        }
+
+        public void setFavorite(boolean favorite) {
+            isFavorite = favorite;
         }
     }
 

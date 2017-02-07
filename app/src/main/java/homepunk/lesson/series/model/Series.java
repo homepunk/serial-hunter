@@ -1,8 +1,6 @@
 package homepunk.lesson.series.model;
 
 
-import android.database.Cursor;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.raizlabs.android.dbflow.annotation.Column;
@@ -15,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Table(database = SeriesDatabase.class)
-public class Series extends BaseModel implements Serializable {
+public class Series extends BaseModel implements Serializable, Comparable<Series>{
     public static final String WIDTH_154 = "w154";
     public static final String WIDTH_342 = "w342";
     public static final String WIDTH_500 = "w500";
@@ -47,12 +45,14 @@ public class Series extends BaseModel implements Serializable {
 
     @SerializedName(KEY_TITLE)
     @Expose
+    @Column
     private String title;
 
     @SerializedName(KEY_OVERVIEW)
     private String overview;
 
     @SerializedName(KEY_RATE)
+    @Expose
     private String rate;
 
     @SerializedName(KEY_POSTER_PATH)
@@ -132,15 +132,6 @@ public class Series extends BaseModel implements Serializable {
         this.title = title;
     }
 
-    public static Series getItemFromCursor(Cursor c) {
-        Series item = new Series();
-
-//        item.id = c.getInt(c.getColumnIndex(Series.KEY_ID));
-//        item.posterPath = c.getString(c.getColumnIndex(Series.KEY_POSTER_PATH));
-
-        return item;
-    }
-
     public String getFullPosterPath(String preferedWidth) {
         StringBuilder sb = new StringBuilder();
         sb.append(URL_IMAGE_TMDB_DEFAULT);
@@ -152,7 +143,11 @@ public class Series extends BaseModel implements Serializable {
 
     @Override
     public String toString() {
-        return "[TVSeries Item {title=" + title + ", id= " + id + "}]";
+        return "[Series {title=" + getTitle() + ", id= " + getId() + "}]";
     }
 
+    @Override
+    public int compareTo(Series o) {
+        return o.getRate().compareTo(getRate());
+    }
 }
