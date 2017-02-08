@@ -44,8 +44,8 @@ public class Series extends BaseModel implements Serializable, Comparable<Series
     private int id;
 
     @SerializedName(KEY_TITLE)
-    @Expose
     @Column
+    @Expose
     private String title;
 
     @SerializedName(KEY_OVERVIEW)

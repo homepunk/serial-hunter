@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/content_movies"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_series"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="homepunk.lesson.series.ui.main.MainFragment"
     tools:showIn="@layout/content_main">
-    <android.support.v7.widget.RecyclerView
+
+    <com.dinuscxj.refresh.RecyclerRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/movies_rv"
-        android:scrollbars="horizontal"
-        android:clipToPadding="false"/>
+        android:id="@+id/main_swipe">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/movies_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:scrollbars="horizontal" />
+    </com.dinuscxj.refresh.RecyclerRefreshLayout>
 </RelativeLayout>

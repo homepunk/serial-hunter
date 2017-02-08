@@ -3,7 +3,6 @@ package homepunk.lesson.series.data;
 import android.content.Context;
 import android.util.Log;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -57,7 +56,7 @@ public class DataManager implements DataManagerModel {
                 @Override
                 public void onResponse(Call<SeriesResponse> call, Response<SeriesResponse> response) {
                     List<Series> series = response.body().getResults();
-                    Collections.sort(series);
+//                    Collections.sort(series);
                     if(!dbService.getAll().isEmpty()) {
                         if (!dbService.isAlreadyInDatabase(series)) {
                             Log.d("DataManager", "List saved succesfully");

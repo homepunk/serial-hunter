@@ -66,6 +66,7 @@ dependencies {
     compile('com.github.florent37:materialviewpager:1.2.0@aar') {
         transitive = true
     }
+    compile 'com.dinuscxj:recyclerrefreshlayout:2.0.3'
 
 //  Unknows dependencies
     compile 'com.google.android.gms:play-services-appindexing:9.8.0'

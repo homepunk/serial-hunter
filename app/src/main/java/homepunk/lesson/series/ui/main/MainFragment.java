@@ -3,6 +3,7 @@ package homepunk.lesson.series.ui.main;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.dinuscxj.refresh.RecyclerRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,17 +28,16 @@ import homepunk.lesson.series.adapter.SeriesAdapter.GridViewHolder;
 import homepunk.lesson.series.data.Constants;
 import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.model.Series;
-import homepunk.lesson.series.model.SeriesResponse;
 import homepunk.lesson.series.ui.RecyclerClickListener;
 import homepunk.lesson.series.ui.detailed.DetailedActivity;
-
-public class MainFragment extends Fragment implements homepunk.lesson.series.interfaces.View.MainFragmentView {
+public class MainFragment extends Fragment implements homepunk.lesson.series.interfaces.View.MainFragmentView, RecyclerRefreshLayout.OnRefreshListener   {
     @Inject Presenter.MainFragmentPresenter fragmentPresenter;
 
+    @Bind(R.id.main_swipe)
+    RecyclerRefreshLayout refreshLayout;
     @Bind(R.id.movies_rv) RecyclerView recycler;
 
-    private List<Series> tvSeries;
-    private List<SeriesResponse> onAirList;
+    private List<Series> onAirSeries;
     private SeriesAdapter adapter;
     private boolean favorite;
 
@@ -53,12 +55,14 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
         super.onResume();
         fragmentPresenter.setView(this);
         fragmentPresenter.getOnAirSeries();
+        initSwipeAndRefreshLayout();
     }
 
     @Override
     public void onTVSeriesReceived(List<Series> tvSeries) {
-        this.tvSeries.clear();
-        this.tvSeries.addAll(tvSeries);
+        this.onAirSeries.clear();
+        this.onAirSeries.addAll(tvSeries);
+        Toast.makeText(getContext(), "Сериалы обновлены", Toast.LENGTH_SHORT).show();
         adapter.notifyDataSetChanged();
     }
 
@@ -71,10 +75,13 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
     private void initUI(ViewGroup root){
         ButterKnife.bind(this, root);
         App.getAppComponent(getContext()).plus(this);
+        setUpRecycleView();
+    }
 
-        tvSeries = new ArrayList<>(Constants.FILM_COUNT);
+    private void setUpRecycleView(){
+        onAirSeries = new ArrayList<>(Constants.FILM_COUNT);
 
-        adapter = new SeriesAdapter(getContext(), tvSeries);
+        adapter = new SeriesAdapter(getContext(), onAirSeries);
         recycler.setAdapter(adapter);
         recycler.setLayoutManager(new GridLayoutManager(getContext(), getResources().getConfiguration().orientation ==
                 Configuration.ORIENTATION_LANDSCAPE ? 3 : 2));
@@ -82,33 +89,33 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
         recycler.addOnItemTouchListener(new RecyclerClickListener(getContext(), new RecyclerClickListener.OnItemMotionEventListener() {
             @Override
             public void onItemClick(View view, int position) {
-                openDescription(tvSeries.get(position).getId());
+                startDetailedActivity(onAirSeries.get(position).getId());
             }
 
             @Override
             public void onItemLongClick(View view, int position) {
                 if(!isFavorite(view))
-                    setSelected(view);
-                else setUnselected(view);
+                    setFavorite(view);
+                else setUnfavorite(view);
                 Toast.makeText(getContext(), "Long click", Toast.LENGTH_SHORT).show();
             }
         }));
     }
 
-    private void openDescription(int id){
+    private void startDetailedActivity(int id){
         Intent intent = new Intent(getContext(), DetailedActivity.class);
 
         intent.putExtra(Constants.KEY_ID, id);
         startActivity(intent);
     }
 
-    private void setSelected(View view){
+    private void setFavorite(View view){
         GridViewHolder holder = new GridViewHolder(view);
         holder.getFavorite().setImageResource(R.drawable.ic_star_selected);
         holder.setFavorite(true);
     }
 
-    private void setUnselected(View view){
+    private void setUnfavorite(View view){
         GridViewHolder holder = new GridViewHolder(view);
         holder.getFavorite().setImageResource(R.drawable.ic_star_full);
         holder.setFavorite(false);
@@ -117,6 +124,24 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
     private boolean isFavorite(View view){
         GridViewHolder holder = new GridViewHolder(view);
         return holder.isFavorite() ? true : false;
+    }
+
+    private void initSwipeAndRefreshLayout(){
+        refreshLayout.setOnRefreshListener(this);
+        refreshLayout.setRefreshStyle(RecyclerRefreshLayout.RefreshStyle.PINNED);
+        refreshLayout.setRefreshInitialOffset(30);
+    }
+
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(true);
+                fragmentPresenter.getOnAirSeries();
+                refreshLayout.setRefreshing(false);
+            }
+        }, 1500);
     }
 }
 
