@@ -4,7 +4,6 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -26,7 +25,6 @@ import homepunk.lesson.series.App;
 import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.model.Series;
 import homepunk.lesson.series.ui.custom.CustomShadowedView;
-import homepunk.lesson.series.utils.CustomViewUtils;
 import homepunk.lesson.series.utils.ScreenUtils;
 
 import static homepunk.lesson.series.data.Constants.KEY_ID;
@@ -36,7 +34,7 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.series
     @Bind(R.id.item_detailed_poster) ImageView ivPoster;
     @Bind(R.id.id_detailed_overview) TextView tvOverview;
     @Bind(R.id.fragment_main_id) RelativeLayout rLayout;
-    @Bind(R.id.fab) FloatingActionButton fab;
+//    @Bind(R.id.fab) FloatingActionButton fab;
 
     @Inject Presenter.DetailedFragmentPresenter detailedFragmentPresenter;
 
@@ -58,9 +56,9 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.series
     }
 
     @Override
-    public void onSeriesDescRecieved(Series tvSeries) {
-        setUpPoster(tvSeries);
-        setUpOverview(tvSeries);
+    public void onSeriesDescRecieved(Series series) {
+        setUpPoster(series);
+        setUpOverview(series);
     }
 
     @Override
@@ -85,7 +83,7 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.series
         App.getAppComponent(getContext()).plus(this);
 
         setUpCustomView();
-        setUpFAB();
+//        setUpFAB();
     }
 
     private void setUpOverview(Series tvSeries){
@@ -111,19 +109,19 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.series
         customShadowedView.setColor(39, 43, 46);
     }
 
-    private void setUpFAB(){
-        int left = CustomViewUtils.getLeftMargin(getContext(), 28, customShadowedView.getLineAngleCoef(), customShadowedView.getXOffsetCoef());
-        int top = CustomViewUtils.getTopMargin(getContext(), 28, customShadowedView.getLineAngleCoef(), customShadowedView.getXOffsetCoef());
-
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fab.getLayoutParams();
-        params.setMargins(left, top, 0, 0);
-        fab.setLayoutParams(params);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Fab works fine", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    private void setUpFAB(){
+//        int left = CustomViewUtils.getLeftMargin(getContext(), 28, customShadowedView.getLineAngleCoef(), customShadowedView.getXOffsetCoef());
+//        int top = CustomViewUtils.getTopMargin(getContext(), 28, customShadowedView.getLineAngleCoef(), customShadowedView.getXOffsetCoef());
+//
+//        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fab.getLayoutParams();
+//        params.setMargins(left, top, 0, 0);
+//        fab.setLayoutParams(params);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getContext(), "Fab works fine", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 }
 

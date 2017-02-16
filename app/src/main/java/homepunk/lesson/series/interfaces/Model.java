@@ -14,6 +14,8 @@ public interface Model {
 
         void fetchTopRatedSeries(final RetrofitListener<List<Series>> listener);
 
+        void fetchSearchResults(String searchQuery, final RetrofitListener<List<Series>> listener);
+
         void fetchSeriesById(int id, final RetrofitListener<Series> listener);
     }
 

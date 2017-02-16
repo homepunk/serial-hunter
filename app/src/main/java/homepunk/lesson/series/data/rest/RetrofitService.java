@@ -22,4 +22,10 @@ public interface RetrofitService {
         Call<SeriesResponse> loadTopRatedSeries(@Query("page") int page,
                                                 @Query("language") String language,
                                                 @Query("api_key") String apiKey);
+
+        @GET("search/tv")
+        Call<SeriesResponse> loadSearchResults(@Query("page") int page,
+                                               @Query("query") String query,
+                                               @Query("language") String language,
+                                               @Query("api_key") String apiKey);
 }

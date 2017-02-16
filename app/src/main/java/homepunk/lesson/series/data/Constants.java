@@ -13,7 +13,7 @@ public class Constants {
     public static final String SHARED_PREF_NAME = "SharedPref";
     public static final String SHARED_PREF_KEY_ID = "id";
 
-    public static final String[] data = {"Комедии", "Приколючения", "Детективы", "Драмы", "Ужасы"};
+    public static final String[] data = {"По рейтингу", "По популярности", "Все сериалы"};
 
     public static final String MESSAGE_DATABASE_ERROR = "Database read error";
 

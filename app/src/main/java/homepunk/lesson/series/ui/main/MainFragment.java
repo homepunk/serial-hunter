@@ -65,9 +65,9 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
     }
 
     @Override
-    public void onTVSeriesReceived(List<Series> tvSeries) {
+    public void onTVSeriesReceived(List<Series> seriesList) {
         this.onAirSeries.clear();
-        this.onAirSeries.addAll(tvSeries);
+        this.onAirSeries.addAll(seriesList);
         Toast.makeText(getContext(), "Сериалы обновлены", Toast.LENGTH_SHORT).show();
         adapter.notifyDataSetChanged();
     }
@@ -149,6 +149,10 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
                 refreshLayout.setRefreshing(false);
             }
         }, 1500);
+    }
+
+    public List<Series> getSerieslist(){
+        return this.onAirSeries;
     }
 }
 

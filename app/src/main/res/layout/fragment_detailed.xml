@@ -33,16 +33,16 @@
             android:textColor="@color/colorAccentTwo"
             android:textSize="20sp" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:background="@color/colorAccentTwo"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_play"
-            app:elevation="8dip"
-            app:fabSize="normal" />
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/fab"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:background="@color/colorAccentTwo"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@drawable/ic_play"-->
+            <!--app:elevation="8dip"-->
+            <!--app:fabSize="normal" />-->
 
     </RelativeLayout>
 

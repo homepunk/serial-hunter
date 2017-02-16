@@ -81,7 +81,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     .placeholder(R.drawable.placeholder_image)
                     .into(backdropVh.poster);
 
-            backdropVh.title.setText(String.valueOf(++position) + " " + series.getTitle());
+            backdropVh.title.setText(series.getTitle());
         }
     }
 

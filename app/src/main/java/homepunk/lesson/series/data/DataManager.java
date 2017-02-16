@@ -95,6 +95,23 @@ public class DataManager implements DataManagerModel {
     }
 
     @Override
+    public void fetchSearchResults(String searchQuery, final RetrofitListener<List<Series>> listener) {
+        Call<SeriesResponse> call = listService.loadSearchResults(1, searchQuery, LANGUAGE_EN, KEY_API);
+
+        call.enqueue(new Callback<SeriesResponse>() {
+            @Override
+            public void onResponse(Call<SeriesResponse> call, Response<SeriesResponse> response) {
+                listener.onResult(response.body().setViewType(Series.BACKDROP_TYPE));
+            }
+
+            @Override
+            public void onFailure(Call<SeriesResponse> call, Throwable t) {
+                listener.onError(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    @Override
     public void fetchSeriesById(int id, final RetrofitListener<Series> listener) {
         Call<Series> call = seriesService.loadTVSeriesDetails(id, LANGUAGE_EN, KEY_API);
 

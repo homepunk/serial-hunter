@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
@@ -34,7 +35,7 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
 
     @Inject Presenter.SearchFragmentPresenter searchFragmentPresenter;
 
-    private List<Series> recommendSeries, results;
+    private List<Series> recommendSeries, searchResults;
     private SeriesAdapter recommendAdapter, seachAdapter;
 
     @Override
@@ -51,7 +52,7 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
         super.onResume();
 
         searchFragmentPresenter.setView(this);
-        searchFragmentPresenter.getRecommendedSeries();
+        searchFragmentPresenter.getSearchRecommendationResults();
     }
 
     @Override
@@ -65,13 +66,13 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-//                searchFragmentPresenter.search(query);
+                searchFragmentPresenter.getSearchResults(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-//                searchFragmentPresenter.search(newText);
+                searchFragmentPresenter.getSearchResults(newText);
                 return true;
             }
         });
@@ -81,7 +82,31 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
         ButterKnife.bind(this, root);
         App.getAppComponent(getContext()).plus(this);
         setHasOptionsMenu(true);
+        setUpRecommendationsRv();
+        setUpSearchRv();
+    }
 
+    @Override
+    public void onRecommendedSeriesRecieved(List<Series> seriesList) {
+        recommendSeries.clear();
+        recommendSeries.addAll(seriesList);
+        recommendAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onSearchResultsRecieved(List<Series> seriesList) {
+        searchResults.clear();
+        searchResults.addAll(seriesList);
+        seachAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onError(String error) {
+        Toast.makeText(getContext(), "Error: " + error,
+                Toast.LENGTH_SHORT).show();
+    }
+
+    private void setUpRecommendationsRv(){
         recommendSeries = new ArrayList<>();
         recommendAdapter = new SeriesAdapter(getContext(), recommendSeries);
         rvRecommend.setAdapter(recommendAdapter);
@@ -89,16 +114,12 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
                 Configuration.ORIENTATION_LANDSCAPE ? 3 : 2));
     }
 
-    @Override
-    public void onRecommendedSeriesRecieved(List<Series> tvSeries) {
-        recommendSeries.clear();
-        recommendSeries.addAll(tvSeries);
-        recommendAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onError(String error) {
-        Toast.makeText(getContext(), "Error: " + error,
-                Toast.LENGTH_SHORT).show();
+    private void setUpSearchRv(){
+        searchResults = new ArrayList<>();
+        seachAdapter = new SeriesAdapter(getContext(), searchResults);
+        rvSearch.setAdapter(seachAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rvSearch.setLayoutManager(layoutManager);
     }
 }
