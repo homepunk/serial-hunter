@@ -34,8 +34,8 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
 
     @Inject Presenter.SearchFragmentPresenter searchFragmentPresenter;
 
-    private List<Series> recommendSeries;
-    private SeriesAdapter recommendAdapter;
+    private List<Series> recommendSeries, results;
+    private SeriesAdapter recommendAdapter, seachAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,7 +87,6 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
         rvRecommend.setAdapter(recommendAdapter);
         rvRecommend.setLayoutManager(new GridLayoutManager(getContext(), getResources().getConfiguration().orientation ==
                 Configuration.ORIENTATION_LANDSCAPE ? 3 : 2));
-
     }
 
     @Override

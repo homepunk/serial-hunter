@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -23,18 +25,18 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.series.App;
+import homepunk.lesson.series.adapter.GridViewHolder;
 import homepunk.lesson.series.adapter.SeriesAdapter;
-import homepunk.lesson.series.adapter.SeriesAdapter.GridViewHolder;
 import homepunk.lesson.series.data.Constants;
 import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.model.Series;
 import homepunk.lesson.series.ui.RecyclerClickListener;
 import homepunk.lesson.series.ui.detailed.DetailedActivity;
+
 public class MainFragment extends Fragment implements homepunk.lesson.series.interfaces.View.MainFragmentView, RecyclerRefreshLayout.OnRefreshListener   {
     @Inject Presenter.MainFragmentPresenter fragmentPresenter;
 
-    @Bind(R.id.main_swipe)
-    RecyclerRefreshLayout refreshLayout;
+    @Bind(R.id.main_swipe) RecyclerRefreshLayout refreshLayout;
     @Bind(R.id.movies_rv) RecyclerView recycler;
 
     private List<Series> onAirSeries;
@@ -55,7 +57,11 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
         super.onResume();
         fragmentPresenter.setView(this);
         fragmentPresenter.getOnAirSeries();
-        initSwipeAndRefreshLayout();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -73,9 +79,10 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
     }
 
     private void initUI(ViewGroup root){
-        ButterKnife.bind(this, root);
         App.getAppComponent(getContext()).plus(this);
+        ButterKnife.bind(this, root);
         setUpRecycleView();
+        initSwipeAndRefreshLayout();
     }
 
     private void setUpRecycleView(){

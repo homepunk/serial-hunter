@@ -26,4 +26,10 @@ public interface View {
         void onError(String error);
     }
 
+    interface HotUpdatesFragmentView {
+        void onTopRatedRecieved(List<Series> seriesList);
+
+        void onError(String error);
+    }
+
 }

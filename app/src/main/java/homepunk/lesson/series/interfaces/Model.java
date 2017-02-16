@@ -12,6 +12,8 @@ public interface Model {
     interface DataManagerModel {
         void fetchOnAirSeries(final RetrofitListener<List<Series>> listener);
 
+        void fetchTopRatedSeries(final RetrofitListener<List<Series>> listener);
+
         void fetchSeriesById(int id, final RetrofitListener<Series> listener);
     }
 

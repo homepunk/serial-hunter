@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/item_poster"
+                    android:id="@+id/item_full_poster"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_gravity="center"
@@ -65,13 +65,13 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="bottom"
                             android:layout_weight="0.1"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/colorBackgroundLight"
                             android:paddingBottom="4dp"
                             android:textSize="13sp" />
                     </LinearLayout>
 
                     <ImageView
-                        android:id="@+id/id_image_view"
+                        android:id="@+id/id_favorite"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

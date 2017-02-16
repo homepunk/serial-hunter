@@ -19,6 +19,13 @@ public class SeriesResponse {
     @Expose
     private List<Series> results;
 
+    public List<Series> setViewType(int viewType){
+        for(int i = 0; i < results.size(); i++){
+            results.get(i).setViewType(viewType);
+        }
+        return results;
+    }
+
     public void setResults(List<Series> results) {
         this.results = results;
     }

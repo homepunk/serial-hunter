@@ -14,6 +14,12 @@ import java.util.List;
 
 @Table(database = SeriesDatabase.class)
 public class Series extends BaseModel implements Serializable, Comparable<Series>{
+    public static final int GRID_TYPE = 0;
+    public static final int BACKDROP_TYPE = 1;
+    public static final int NULL_TYPE = -1;
+
+    private int viewType;
+
     public static final String WIDTH_154 = "w154";
     public static final String WIDTH_342 = "w342";
     public static final String WIDTH_500 = "w500";
@@ -23,6 +29,7 @@ public class Series extends BaseModel implements Serializable, Comparable<Series
 
     public static final String KEY_TITLE = "original_name";
     public static final String KEY_POSTER_PATH = "poster_path";
+    public static final String KEY_BACKDROP_PATH = "backdrop_path";
     public static final String KEY_OVERVIEW = "overview";
     public static final String KEY_RATE = "vote_average";
     public static final String KEY_RELEASE_DATE = "release_date";
@@ -60,13 +67,34 @@ public class Series extends BaseModel implements Serializable, Comparable<Series
     @Expose
     private String posterPath;
 
+    @SerializedName(KEY_BACKDROP_PATH)
+    @Expose
+    private String backdropPath;
+
     @SerializedName(KEY_GENRE_IDS)
     private List<Integer> genreIds = new ArrayList<>();
 
     @SerializedName(KEY_ORIGINAL_COUNTRY)
     private List<String> countrys = new ArrayList<>();
 
+
     private boolean favorite;
+
+    public String getBackdropPath() {
+        return backdropPath;
+    }
+
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
+    }
+
+    public int getViewType() {
+        return viewType;
+    }
+
+    public void setViewType(int viewType) {
+        this.viewType = viewType;
+    }
 
     public List<String> getCountrys() {
         return countrys;
@@ -137,6 +165,15 @@ public class Series extends BaseModel implements Serializable, Comparable<Series
         sb.append(URL_IMAGE_TMDB_DEFAULT);
         sb.append(preferedWidth);
         sb.append(posterPath);
+
+        return sb.toString();
+    }
+
+    public String getFullBackdropPath(String preferedWidth) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(URL_IMAGE_TMDB_DEFAULT);
+        sb.append(preferedWidth);
+        sb.append(backdropPath);
 
         return sb.toString();
     }

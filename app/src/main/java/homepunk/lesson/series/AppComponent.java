@@ -10,6 +10,7 @@ import homepunk.lesson.series.modules.PresentersModule;
 import homepunk.lesson.series.ui.detailed.DetailedFragment;
 import homepunk.lesson.series.ui.main.MainFragment;
 import homepunk.lesson.series.ui.main.SearchFragment;
+import homepunk.lesson.series.ui.main.TopRatedFragment;
 
 @Singleton
 @Component(modules = {AppModule.class, PresentersModule.class, NetworkModule.class})
@@ -21,4 +22,6 @@ public interface AppComponent{
     DetailedFragment plus(DetailedFragment fragment);
 
     DataManager plus(DataManager repository);
+
+    TopRatedFragment plus(TopRatedFragment fragment);
 }

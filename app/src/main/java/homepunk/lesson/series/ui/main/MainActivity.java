@@ -27,15 +27,17 @@ import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.series.data.Constants;
 import homepunk.lesson.series.interfaces.View;
+import homepunk.lesson.series.utils.ScreenUtils;
 
 public class MainActivity extends AppCompatActivity
         implements View.MainActivityView, NavigationView.OnNavigationItemSelectedListener {
     @Bind(R.id.main_toolbar) Toolbar toolbar;
     @Bind(R.id.nav_view) NavigationView navigationView;
     @Bind(R.id.drawer_layout) DrawerLayout drawerLayout;
-    @Bind(R.id.spinner) Spinner spinner;
     @Bind(R.id.bottomBar) BottomBar bottomBar;
     @Bind(R.id.main_relative_layout) RelativeLayout layout;
+    @Bind(R.id.spinner) Spinner spinner;
+
 
     private ActionBarDrawerToggle drawerToggle;
 
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         initUI();
     }
+
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -77,10 +80,11 @@ public class MainActivity extends AppCompatActivity
     private void initUI() {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         setSupportActionBar(toolbar);
-        setUpSpinner();
         setUpBottomBar();
         setUpNavDrawer();
+        setUpSpinner(spinner);
     }
 
     private void setUpBottomBar(){
@@ -94,8 +98,8 @@ public class MainActivity extends AppCompatActivity
                 Fragment fragment = null;
                 switch (tabId) {
                     case R.id.tab_hot_updates:
-                        spinner.setVisibility(android.view.View.VISIBLE);
-                        fragment = new MainFragment();
+                        spinner.setVisibility(android.view.View.GONE);
+                        fragment = new TopRatedFragment();
                         break;
                     case R.id.tab_watchlist:
                         spinner.setVisibility(android.view.View.VISIBLE);
@@ -108,13 +112,23 @@ public class MainActivity extends AppCompatActivity
                 }
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 final FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.contentContainer, fragment).commit();
+                transaction.replace(R.id.content_container, fragment).commit();
             }
         });
     }
 
-    private void setUpSpinner() {
-        int spinnerWidth = getWindowManager().getDefaultDisplay().getWidth();
+    private void setUpNavDrawer(){
+        drawerToggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.setDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+
+        navigationView.setItemIconTintList(null);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void setUpSpinner(Spinner spinner) {
+        int spinnerWidth = ScreenUtils.getDisplayContentWidth(this);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item_spinner, Constants.data);
         adapter.setDropDownViewResource(R.layout.list_item_spinner_dpordown);
@@ -134,16 +148,4 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-
-    private void setUpNavDrawer(){
-        drawerToggle = new ActionBarDrawerToggle(
-                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.setDrawerListener(drawerToggle);
-        drawerToggle.syncState();
-
-        navigationView.setItemIconTintList(null);
-        navigationView.setNavigationItemSelectedListener(this);
-    }
-
-
 }

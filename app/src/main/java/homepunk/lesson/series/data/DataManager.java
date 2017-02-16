@@ -29,10 +29,10 @@ import static homepunk.lesson.series.interfaces.Model.DataManagerModel;
 public class DataManager implements DataManagerModel {
     @Inject
     @Named(WITHOUT_EXPOSE)
-    RetrofitService detailsService;
+    RetrofitService seriesService;
     @Inject
     @Named(WITH_EXPOSE)
-    RetrofitService onAirService;
+    RetrofitService listService;
     @Inject
     Context context;
     @Inject
@@ -50,15 +50,16 @@ public class DataManager implements DataManagerModel {
                 listener.onResult(series);
             else listener.onError(MESSAGE_DATABASE_ERROR);
         } else {
-            Call<SeriesResponse> call = onAirService.loadOnAirSeries(1, LANGUAGE_EN, KEY_API);
+            Call<SeriesResponse> call = listService.loadOnAirSeries(1, LANGUAGE_EN, KEY_API);
 
             call.enqueue(new Callback<SeriesResponse>() {
                 @Override
                 public void onResponse(Call<SeriesResponse> call, Response<SeriesResponse> response) {
-                    List<Series> series = response.body().getResults();
+                    List<Series> series = response.body().setViewType(Series.GRID_TYPE);
 //                    Collections.sort(series);
                     if(!dbService.getAll().isEmpty()) {
                         if (!dbService.isAlreadyInDatabase(series)) {
+//                            TODO: TIMBER LIBRARY
                             Log.d("DataManager", "List saved succesfully");
                             dbService.clear();
                             dbService.saveAll(series);
@@ -78,8 +79,24 @@ public class DataManager implements DataManagerModel {
 }
 
     @Override
+    public void fetchTopRatedSeries(final RetrofitListener<List<Series>> listener) {
+        Call<SeriesResponse> call = listService.loadTopRatedSeries(1, LANGUAGE_EN, KEY_API);
+        call.enqueue(new Callback<SeriesResponse>() {
+            @Override
+            public void onResponse(Call<SeriesResponse> call, Response<SeriesResponse> response) {
+                listener.onResult(response.body().setViewType(Series.BACKDROP_TYPE));
+            }
+
+            @Override
+            public void onFailure(Call<SeriesResponse> call, Throwable t) {
+                listener.onError(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    @Override
     public void fetchSeriesById(int id, final RetrofitListener<Series> listener) {
-        Call<Series> call = detailsService.loadTVSeriesDetails(id, LANGUAGE_EN, KEY_API);
+        Call<Series> call = seriesService.loadTVSeriesDetails(id, LANGUAGE_EN, KEY_API);
 
         call.enqueue(new Callback<Series>() {
             @Override

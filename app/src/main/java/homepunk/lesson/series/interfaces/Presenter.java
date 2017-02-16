@@ -26,7 +26,7 @@ public interface Presenter {
         void onSeriesSelected(int id);
     }
 
-    interface SearchFragmentPresenter{
+    interface SearchFragmentPresenter {
         void setView(View.SearchFragmentView view);
 
         void getRecommendedSeries();
@@ -35,10 +35,16 @@ public interface Presenter {
 
     }
 
-    interface DetailedFragmentPresenter{
+    interface DetailedFragmentPresenter {
         void setView(View.DetailedFragmentView view);
 
         void getSeriesDescriptionById(int id);
+    }
+
+    interface TopRatedFragmentPresenter {
+        void setView(View.HotUpdatesFragmentView view);
+
+        void getHotUpdates();
     }
 
     interface Fab {
