@@ -2,16 +2,22 @@ package homepunk.lesson.series.ui.main;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.dinuscxj.refresh.RecyclerRefreshLayout;
@@ -32,6 +38,7 @@ import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.model.Series;
 import homepunk.lesson.series.ui.RecyclerClickListener;
 import homepunk.lesson.series.ui.detailed.DetailedActivity;
+import homepunk.lesson.series.utils.ScreenUtils;
 
 public class MainFragment extends Fragment implements homepunk.lesson.series.interfaces.View.MainFragmentView, RecyclerRefreshLayout.OnRefreshListener   {
     @Inject Presenter.MainFragmentPresenter fragmentPresenter;
@@ -61,7 +68,12 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_spinner, menu);
+
+        MenuItem item = menu.findItem(R.id.menu_spinner);
+        Spinner spinner = (Spinner) MenuItemCompat.getActionView(item);
+
+        setUpSpinner(spinner);
     }
 
     @Override
@@ -83,6 +95,7 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
         ButterKnife.bind(this, root);
         setUpRecycleView();
         initSwipeAndRefreshLayout();
+        setHasOptionsMenu(true);
     }
 
     private void setUpRecycleView(){
@@ -137,6 +150,28 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setRefreshStyle(RecyclerRefreshLayout.RefreshStyle.PINNED);
         refreshLayout.setRefreshInitialOffset(30);
+    }
+
+    private void setUpSpinner(Spinner spinner) {
+        int spinnerWidth = ScreenUtils.getDisplayContentWidth(getContext());
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.list_item_spinner, Constants.data);
+        adapter.setDropDownViewResource(R.layout.list_item_spinner_dpordown);
+
+        spinner.getBackground().setColorFilter(getResources().getColor(R.color.colorText), PorterDuff.Mode.SRC_ATOP);
+        spinner.setDropDownWidth(spinnerWidth);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(2);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
     }
 
     @Override

@@ -1,7 +1,6 @@
 package homepunk.lesson.series.ui.main;
 
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.NavigationView;
@@ -14,10 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -25,9 +21,7 @@ import com.roughike.bottombar.OnTabSelectListener;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.series.data.Constants;
 import homepunk.lesson.series.interfaces.View;
-import homepunk.lesson.series.utils.ScreenUtils;
 
 public class MainActivity extends AppCompatActivity
         implements View.MainActivityView, NavigationView.OnNavigationItemSelectedListener {
@@ -36,7 +30,6 @@ public class MainActivity extends AppCompatActivity
     @Bind(R.id.drawer_layout) DrawerLayout drawerLayout;
     @Bind(R.id.bottomBar) BottomBar bottomBar;
     @Bind(R.id.main_relative_layout) RelativeLayout layout;
-    @Bind(R.id.spinner) Spinner spinner;
 
 
     private ActionBarDrawerToggle drawerToggle;
@@ -84,7 +77,6 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         setUpBottomBar();
         setUpNavDrawer();
-        setUpSpinner(spinner);
     }
 
     private void setUpBottomBar(){
@@ -98,15 +90,12 @@ public class MainActivity extends AppCompatActivity
                 Fragment fragment = null;
                 switch (tabId) {
                     case R.id.tab_hot_updates:
-                        spinner.setVisibility(android.view.View.GONE);
                         fragment = new TopRatedFragment();
                         break;
                     case R.id.tab_watchlist:
-                        spinner.setVisibility(android.view.View.VISIBLE);
                         fragment = new MainFragment();
                         break;
                     case R.id.tab_search:
-                        spinner.setVisibility(android.view.View.GONE);
                         fragment = new SearchFragment();
                         break;
                 }
@@ -127,25 +116,5 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void setUpSpinner(Spinner spinner) {
-        int spinnerWidth = ScreenUtils.getDisplayContentWidth(this);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item_spinner, Constants.data);
-        adapter.setDropDownViewResource(R.layout.list_item_spinner_dpordown);
-
-        spinner.getBackground().setColorFilter(getResources().getColor(R.color.colorText), PorterDuff.Mode.SRC_ATOP);
-        spinner.setDropDownWidth(spinnerWidth);
-        spinner.setAdapter(adapter);
-        spinner.setSelection(2);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
-    }
 }
