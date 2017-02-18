@@ -18,10 +18,10 @@ public interface RetrofitService {
                                              @Query("language") String language,
                                              @Query("api_key") String apiKey);
 
-        @GET("tv/top_rated")
-        Call<SeriesResponse> loadTopRatedSeries(@Query("page") int page,
-                                                @Query("language") String language,
-                                                @Query("api_key") String apiKey);
+        @GET("tv/popular")
+        Call<SeriesResponse> loadPopularSeries(@Query("page") int page,
+                                               @Query("language") String language,
+                                               @Query("api_key") String apiKey);
 
         @GET("search/tv")
         Call<SeriesResponse> loadSearchResults(@Query("page") int page,

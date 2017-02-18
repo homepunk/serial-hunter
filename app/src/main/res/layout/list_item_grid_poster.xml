@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:padding="2dp">
 
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,8 +39,8 @@
                     android:layout_height="56dp"
                     android:layout_gravity="bottom"
                     android:alpha="0.92"
-                    android:backgroundTint="@color/colorAccent"
                     android:background="@xml/linear_layout_corners"
+                    android:backgroundTint="@color/colorAccent"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -47,8 +48,8 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="bottom"
                         android:layout_weight="0.1"
-                        android:paddingLeft="16dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingLeft="16dp">
 
                         <TextView
                             android:id="@+id/id_series_title"
@@ -65,8 +66,8 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="bottom"
                             android:layout_weight="0.1"
-                            android:textColor="@color/colorBackgroundLight"
                             android:paddingBottom="4dp"
+                            android:textColor="@color/colorBackgroundLight"
                             android:textSize="13sp" />
                     </LinearLayout>
 

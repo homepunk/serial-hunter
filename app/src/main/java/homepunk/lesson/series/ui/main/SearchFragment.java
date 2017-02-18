@@ -24,7 +24,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.series.App;
-import homepunk.lesson.series.adapter.SeriesAdapter;
+import homepunk.lesson.series.adapter.SeriesRecyclerAdapter;
 import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.interfaces.View.SearchFragmentView;
 import homepunk.lesson.series.model.Series;
@@ -36,7 +36,7 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
     @Inject Presenter.SearchFragmentPresenter searchFragmentPresenter;
 
     private List<Series> recommendSeries, searchResults;
-    private SeriesAdapter recommendAdapter, seachAdapter;
+    private SeriesRecyclerAdapter recommendAdapter, seachAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,19 +63,7 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) item.getActionView();
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                searchFragmentPresenter.getSearchResults(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                searchFragmentPresenter.getSearchResults(newText);
-                return true;
-            }
-        });
+        setUpSearchView(searchView);
     }
 
     private void initUI(ViewGroup root){
@@ -108,7 +96,7 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
 
     private void setUpRecommendationsRv(){
         recommendSeries = new ArrayList<>();
-        recommendAdapter = new SeriesAdapter(getContext(), recommendSeries);
+        recommendAdapter = new SeriesRecyclerAdapter(getContext(), recommendSeries);
         rvRecommend.setAdapter(recommendAdapter);
         rvRecommend.setLayoutManager(new GridLayoutManager(getContext(), getResources().getConfiguration().orientation ==
                 Configuration.ORIENTATION_LANDSCAPE ? 3 : 2));
@@ -116,10 +104,26 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
 
     private void setUpSearchRv(){
         searchResults = new ArrayList<>();
-        seachAdapter = new SeriesAdapter(getContext(), searchResults);
+        seachAdapter = new SeriesRecyclerAdapter(getContext(), searchResults);
         rvSearch.setAdapter(seachAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvSearch.setLayoutManager(layoutManager);
+    }
+
+    private void setUpSearchView(SearchView searchView){
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchFragmentPresenter.getSearchResults(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchFragmentPresenter.getSearchResults(newText);
+                return true;
+            }
+        });
     }
 }

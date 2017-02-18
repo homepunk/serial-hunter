@@ -21,12 +21,12 @@ public class DetailedFragmentPresenter implements Presenter.DetailedFragmentPres
     }
 
     @Override
-    public void getSeriesDescriptionById(int id) {
-        model.fetchSeriesById(id, new Listeners.RetrofitListener<Series>() {
+    public void getDetailedDescription(int id) {
+        model.fetchDetailedDescription(id, new Listeners.RetrofitListener<Series>() {
             @Override
             public void onResult(Series series) {
                 if (DetailedFragmentPresenter.this.view != null)
-                    DetailedFragmentPresenter.this.view.onSeriesDescRecieved(series);
+                    DetailedFragmentPresenter.this.view.onDetailedDescriptionRecieved(series);
             }
 
             @Override

@@ -7,7 +7,6 @@ import dagger.Provides;
 import homepunk.lesson.series.interfaces.Model;
 import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.presenter.DetailedFragmentPresenter;
-import homepunk.lesson.series.presenter.TopRatedFragmentPresenter;
 import homepunk.lesson.series.presenter.MainFragmentPresenter;
 import homepunk.lesson.series.presenter.SearchFragmentPresenter;
 
@@ -33,7 +32,7 @@ public class PresentersModule {
 
     @Provides
     @Singleton
-    Presenter.TopRatedFragmentPresenter provideTopRatedFragmentPresenter(Model.DataManagerModel model){
-        return new TopRatedFragmentPresenter(model);
+    Presenter.PopularFragmentPresenter provideTopRatedFragmentPresenter(Model.DataManagerModel model){
+        return new homepunk.lesson.series.presenter.PopularFragmentPresenter(model);
     }
 }

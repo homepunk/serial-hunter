@@ -40,22 +40,13 @@ public interface Presenter {
     interface DetailedFragmentPresenter {
         void setView(View.DetailedFragmentView view);
 
-        void getSeriesDescriptionById(int id);
+        void getDetailedDescription(int id);
     }
 
-    interface TopRatedFragmentPresenter {
-        void setView(View.HotUpdatesFragmentView view);
+    interface PopularFragmentPresenter {
+        void setView(View.PopularFragmentView view);
 
-        void getHotUpdates();
-    }
-
-    interface Fab {
-        void setMainFabClickListener(FloatingActionButton fab);
-
-        void setFabsClickListeners(FloatingActionButton fab, FloatingActionButton fab1,
-                                   FloatingActionButton fab2);
-
-        void loadFabAnimation();
+        void getPopularSeries();
     }
 
     interface Observer {

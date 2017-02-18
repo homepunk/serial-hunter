@@ -12,11 +12,11 @@ public interface Model {
     interface DataManagerModel {
         void fetchOnAirSeries(final RetrofitListener<List<Series>> listener);
 
-        void fetchTopRatedSeries(final RetrofitListener<List<Series>> listener);
+        void fetchPopularSeries(final RetrofitListener<List<Series>> listener);
 
         void fetchSearchResults(String searchQuery, final RetrofitListener<List<Series>> listener);
 
-        void fetchSeriesById(int id, final RetrofitListener<Series> listener);
+        void fetchDetailedDescription(int id, final RetrofitListener<Series> listener);
     }
 
     interface SeriesDAO<T>{

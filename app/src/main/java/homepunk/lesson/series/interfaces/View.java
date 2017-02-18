@@ -23,13 +23,13 @@ public interface View {
     }
 
     interface DetailedFragmentView {
-        void onSeriesDescRecieved(Series series);
+        void onDetailedDescriptionRecieved(Series series);
 
         void onError(String error);
     }
 
-    interface HotUpdatesFragmentView {
-        void onTopRatedRecieved(List<Series> seriesList);
+    interface PopularFragmentView {
+        void onPopularSeriesRecieved(List<Series> seriesList);
 
         void onError(String error);
     }

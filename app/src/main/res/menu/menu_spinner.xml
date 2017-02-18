@@ -5,8 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools">
     <item
         android:id="@+id/menu_spinner"
-        android:title="ActionBar Spinner"
+        android:title="Spinner"
         app:actionViewClass="android.widget.Spinner"
+        android:gravity="center"
+        android:textAlignment="center"
         android:background="@color/colorAccent"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
 </menu>

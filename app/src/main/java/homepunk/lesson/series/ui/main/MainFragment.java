@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.series.App;
 import homepunk.lesson.series.adapter.GridViewHolder;
-import homepunk.lesson.series.adapter.SeriesAdapter;
+import homepunk.lesson.series.adapter.SeriesRecyclerAdapter;
 import homepunk.lesson.series.data.Constants;
 import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.model.Series;
@@ -47,7 +47,7 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
     @Bind(R.id.movies_rv) RecyclerView recycler;
 
     private List<Series> onAirSeries;
-    private SeriesAdapter adapter;
+    private SeriesRecyclerAdapter adapter;
     private boolean favorite;
 
     @Override
@@ -93,6 +93,7 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
     private void initUI(ViewGroup root){
         App.getAppComponent(getContext()).plus(this);
         ButterKnife.bind(this, root);
+
         setUpRecycleView();
         initSwipeAndRefreshLayout();
         setHasOptionsMenu(true);
@@ -101,7 +102,7 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
     private void setUpRecycleView(){
         onAirSeries = new ArrayList<>(Constants.FILM_COUNT);
 
-        adapter = new SeriesAdapter(getContext(), onAirSeries);
+        adapter = new SeriesRecyclerAdapter(getContext(), onAirSeries);
         recycler.setAdapter(adapter);
         recycler.setLayoutManager(new GridLayoutManager(getContext(), getResources().getConfiguration().orientation ==
                 Configuration.ORIENTATION_LANDSCAPE ? 3 : 2));
@@ -153,14 +154,12 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
     }
 
     private void setUpSpinner(Spinner spinner) {
-        int spinnerWidth = ScreenUtils.getDisplayContentWidth(getContext());
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.list_item_spinner, Constants.data);
         adapter.setDropDownViewResource(R.layout.list_item_spinner_dpordown);
 
-        spinner.getBackground().setColorFilter(getResources().getColor(R.color.colorText), PorterDuff.Mode.SRC_ATOP);
-        spinner.setDropDownWidth(spinnerWidth);
         spinner.setAdapter(adapter);
+        spinner.getBackground().setColorFilter(getResources().getColor(R.color.colorText), PorterDuff.Mode.SRC_ATOP);
+        spinner.setDropDownWidth(ScreenUtils.getDisplayContentWidth(getContext()));
         spinner.setSelection(2);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

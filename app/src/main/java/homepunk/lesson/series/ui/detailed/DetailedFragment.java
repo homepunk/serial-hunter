@@ -56,7 +56,7 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.series
     }
 
     @Override
-    public void onSeriesDescRecieved(Series series) {
+    public void onDetailedDescriptionRecieved(Series series) {
         setUpPoster(series);
         setUpOverview(series);
     }
@@ -70,7 +70,7 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.series
     private void setUpPresenter(){
         int id = getIdFromBundle();
         detailedFragmentPresenter.setView(this);
-        detailedFragmentPresenter.getSeriesDescriptionById(id);
+        detailedFragmentPresenter.getDetailedDescription(id);
     }
 
     private int getIdFromBundle() {

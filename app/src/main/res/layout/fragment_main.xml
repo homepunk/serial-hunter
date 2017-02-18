@@ -8,8 +8,6 @@
     tools:context="homepunk.lesson.series.ui.main.MainFragment"
     tools:showIn="@layout/content_main">
 
-    <include layout="@layout/list_item_spinner" />
-
     <com.dinuscxj.refresh.RecyclerRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

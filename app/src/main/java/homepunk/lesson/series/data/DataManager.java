@@ -79,12 +79,13 @@ public class DataManager implements DataManagerModel {
 }
 
     @Override
-    public void fetchTopRatedSeries(final RetrofitListener<List<Series>> listener) {
-        Call<SeriesResponse> call = listService.loadTopRatedSeries(1, LANGUAGE_EN, KEY_API);
+    public void fetchPopularSeries(final RetrofitListener<List<Series>> listener) {
+        Call<SeriesResponse> call = listService.loadPopularSeries(1, LANGUAGE_EN, KEY_API);
         call.enqueue(new Callback<SeriesResponse>() {
             @Override
             public void onResponse(Call<SeriesResponse> call, Response<SeriesResponse> response) {
-                listener.onResult(response.body().setViewType(Series.BACKDROP_TYPE));
+                if(response.body() != null)
+                    listener.onResult(response.body().setViewType(Series.BACKDROP_TYPE));
             }
 
             @Override
@@ -101,6 +102,7 @@ public class DataManager implements DataManagerModel {
         call.enqueue(new Callback<SeriesResponse>() {
             @Override
             public void onResponse(Call<SeriesResponse> call, Response<SeriesResponse> response) {
+                if(response.body() != null)
                 listener.onResult(response.body().setViewType(Series.BACKDROP_TYPE));
             }
 
@@ -112,7 +114,7 @@ public class DataManager implements DataManagerModel {
     }
 
     @Override
-    public void fetchSeriesById(int id, final RetrofitListener<Series> listener) {
+    public void fetchDetailedDescription(int id, final RetrofitListener<Series> listener) {
         Call<Series> call = seriesService.loadTVSeriesDetails(id, LANGUAGE_EN, KEY_API);
 
         call.enqueue(new Callback<Series>() {
