@@ -12,9 +12,11 @@ import dagger.Module;
 import dagger.Provides;
 import homepunk.lesson.series.data.DataManager;
 import homepunk.lesson.series.data.database.DbFlowService;
+import homepunk.lesson.series.data.rest.RetrofitRepository;
 import homepunk.lesson.series.data.rest.RetrofitService;
 import homepunk.lesson.series.interfaces.Model;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static homepunk.lesson.series.data.Constants.BASE_URL;
@@ -50,6 +52,7 @@ public class NetworkModule {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         return retrofit.create(RetrofitService.class);
     }
@@ -63,5 +66,11 @@ public class NetworkModule {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return retrofit.create(RetrofitService.class);
+    }
+
+    @Provides
+    @Singleton
+    public RetrofitRepository provideRetrofitNetworkRepository(Context context){
+        return new RetrofitRepository(context);
     }
 }

@@ -4,19 +4,18 @@ import java.io.IOException;
 import java.util.List;
 
 import homepunk.lesson.series.model.Series;
-
-import static homepunk.lesson.series.interfaces.Listeners.*;
+import rx.Observable;
 
 public interface Model {
 
     interface DataManagerModel {
-        void fetchOnAirSeries(final RetrofitListener<List<Series>> listener);
+        Observable<List<Series>> fetchOnAirSeries();
 
-        void fetchPopularSeries(final RetrofitListener<List<Series>> listener);
+        Observable<List<Series>> fetchPopularSeries();
 
-        void fetchSearchResults(String searchQuery, final RetrofitListener<List<Series>> listener);
+        Observable<List<Series>> fetchSearchResults(String searchQuery);
 
-        void fetchDetailedDescription(int id, final RetrofitListener<Series> listener);
+        Observable<Series> fetchDetailedDescriptionById(int id);
     }
 
     interface SeriesDAO<T>{

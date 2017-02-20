@@ -1,10 +1,12 @@
 package homepunk.lesson.series.presenter;
 
-import homepunk.lesson.series.interfaces.Listeners;
 import homepunk.lesson.series.interfaces.Model;
 import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.interfaces.View;
 import homepunk.lesson.series.model.Series;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class DetailedFragmentPresenter implements Presenter.DetailedFragmentPresenter {
 
@@ -22,19 +24,27 @@ public class DetailedFragmentPresenter implements Presenter.DetailedFragmentPres
 
     @Override
     public void getDetailedDescription(int id) {
-        model.fetchDetailedDescription(id, new Listeners.RetrofitListener<Series>() {
-            @Override
-            public void onResult(Series series) {
-                if (DetailedFragmentPresenter.this.view != null)
-                    DetailedFragmentPresenter.this.view.onDetailedDescriptionRecieved(series);
-            }
+        model.fetchDetailedDescriptionById(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Series>() {
+                    @Override
+                    public void onCompleted() {
 
-            @Override
-            public void onError(String e) {
-                if(DetailedFragmentPresenter.this.view != null)
-                    DetailedFragmentPresenter.this.view.onError(e);
-            }
-        });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if(DetailedFragmentPresenter.this.view != null)
+                            DetailedFragmentPresenter.this.view.onError(e.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onNext(Series series) {
+                        if(DetailedFragmentPresenter.this.view != null)
+                            DetailedFragmentPresenter.this.view.onDetailedDescriptionRecieved(series);
+                    }
+                });
     }
 
 }

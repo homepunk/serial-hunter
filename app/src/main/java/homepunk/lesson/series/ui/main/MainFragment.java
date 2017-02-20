@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -19,8 +18,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.dinuscxj.refresh.RecyclerRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,13 +36,14 @@ import homepunk.lesson.series.model.Series;
 import homepunk.lesson.series.ui.RecyclerClickListener;
 import homepunk.lesson.series.ui.detailed.DetailedActivity;
 import homepunk.lesson.series.utils.ScreenUtils;
+import rx.Subscription;
 
-public class MainFragment extends Fragment implements homepunk.lesson.series.interfaces.View.MainFragmentView, RecyclerRefreshLayout.OnRefreshListener   {
+public class MainFragment extends Fragment implements homepunk.lesson.series.interfaces.View.MainFragmentView {
     @Inject Presenter.MainFragmentPresenter fragmentPresenter;
 
-    @Bind(R.id.main_swipe) RecyclerRefreshLayout refreshLayout;
     @Bind(R.id.movies_rv) RecyclerView recycler;
 
+    private Subscription subscription;
     private List<Series> onAirSeries;
     private SeriesRecyclerAdapter adapter;
     private boolean favorite;
@@ -90,13 +88,22 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
                 Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+//      Protecting from a memory leak
+        if(subscription != null && !subscription.isUnsubscribed())
+            subscription.unsubscribe();
+
+    }
+
     private void initUI(ViewGroup root){
         App.getAppComponent(getContext()).plus(this);
         ButterKnife.bind(this, root);
+        setHasOptionsMenu(true);
 
         setUpRecycleView();
-        initSwipeAndRefreshLayout();
-        setHasOptionsMenu(true);
     }
 
     private void setUpRecycleView(){
@@ -147,12 +154,6 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
         return holder.isFavorite() ? true : false;
     }
 
-    private void initSwipeAndRefreshLayout(){
-        refreshLayout.setOnRefreshListener(this);
-        refreshLayout.setRefreshStyle(RecyclerRefreshLayout.RefreshStyle.PINNED);
-        refreshLayout.setRefreshInitialOffset(30);
-    }
-
     private void setUpSpinner(Spinner spinner) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.list_item_spinner, Constants.data);
         adapter.setDropDownViewResource(R.layout.list_item_spinner_dpordown);
@@ -173,20 +174,9 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
         });
     }
 
-    @Override
-    public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                refreshLayout.setRefreshing(true);
-                fragmentPresenter.getOnAirSeries();
-                refreshLayout.setRefreshing(false);
-            }
-        }, 1500);
-    }
-
     public List<Series> getSerieslist(){
         return this.onAirSeries;
     }
+
 }
 

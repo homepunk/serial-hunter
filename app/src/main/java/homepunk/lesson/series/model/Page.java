@@ -5,12 +5,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class SeriesResponse {
+public class Page {
     @SerializedName("page")
     private int page;
 
     @SerializedName("total_results")
-    private int totalResults;
+    private int totalSereies;
 
     @SerializedName("total_pages")
     private int totalPages;
@@ -30,8 +30,8 @@ public class SeriesResponse {
         this.results = results;
     }
 
-    public void setTotalResults(int totalResults) {
-        this.totalResults = totalResults;
+    public void setTotalSereies(int totalSereies) {
+        this.totalSereies = totalSereies;
     }
 
     public void setPage(int page) {
@@ -46,8 +46,8 @@ public class SeriesResponse {
         return results;
     }
 
-    public int getTotalResults() {
-        return totalResults;
+    public int getTotalSereies() {
+        return totalSereies;
     }
 
     public int getPage() {

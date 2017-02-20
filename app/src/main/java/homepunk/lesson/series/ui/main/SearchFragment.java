@@ -1,10 +1,10 @@
 package homepunk.lesson.series.ui.main;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
@@ -25,13 +25,15 @@ import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.series.App;
 import homepunk.lesson.series.adapter.SeriesRecyclerAdapter;
+import homepunk.lesson.series.data.Constants;
 import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.interfaces.View.SearchFragmentView;
 import homepunk.lesson.series.model.Series;
+import homepunk.lesson.series.ui.RecyclerClickListener;
+import homepunk.lesson.series.ui.detailed.DetailedActivity;
 
 public class SearchFragment extends Fragment implements SearchFragmentView {
-    @Bind(R.id.search_rv) RecyclerView rvSearch;
-    @Bind(R.id.search_recomendations_rv) RecyclerView rvRecommend;
+    @Bind(R.id.rv_search) RecyclerView rvSearch;
 
     @Inject Presenter.SearchFragmentPresenter searchFragmentPresenter;
 
@@ -70,15 +72,13 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
         ButterKnife.bind(this, root);
         App.getAppComponent(getContext()).plus(this);
         setHasOptionsMenu(true);
-        setUpRecommendationsRv();
+
         setUpSearchRv();
     }
 
     @Override
     public void onRecommendedSeriesRecieved(List<Series> seriesList) {
-        recommendSeries.clear();
-        recommendSeries.addAll(seriesList);
-        recommendAdapter.notifyDataSetChanged();
+;
     }
 
     @Override
@@ -95,20 +95,27 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
     }
 
     private void setUpRecommendationsRv(){
-        recommendSeries = new ArrayList<>();
-        recommendAdapter = new SeriesRecyclerAdapter(getContext(), recommendSeries);
-        rvRecommend.setAdapter(recommendAdapter);
-        rvRecommend.setLayoutManager(new GridLayoutManager(getContext(), getResources().getConfiguration().orientation ==
-                Configuration.ORIENTATION_LANDSCAPE ? 3 : 2));
+
     }
 
     private void setUpSearchRv(){
         searchResults = new ArrayList<>();
         seachAdapter = new SeriesRecyclerAdapter(getContext(), searchResults);
         rvSearch.setAdapter(seachAdapter);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        rvSearch.setLayoutManager(layoutManager);
+        rvSearch.setLayoutManager(new GridLayoutManager(getContext(), getResources().getConfiguration().orientation ==
+                Configuration.ORIENTATION_LANDSCAPE ? 3 : 2));
+
+        rvSearch.addOnItemTouchListener(new RecyclerClickListener(getContext(), new RecyclerClickListener.OnItemMotionEventListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                startDetailedActivity(searchResults.get(position).getId());
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Toast.makeText(getContext(), "Long click", Toast.LENGTH_SHORT).show();
+            }
+        }));
     }
 
     private void setUpSearchView(SearchView searchView){
@@ -125,5 +132,12 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
                 return true;
             }
         });
+    }
+
+    private void startDetailedActivity(int id){
+        Intent intent = new Intent(getContext(), DetailedActivity.class);
+
+        intent.putExtra(Constants.KEY_ID, id);
+        startActivity(intent);
     }
 }

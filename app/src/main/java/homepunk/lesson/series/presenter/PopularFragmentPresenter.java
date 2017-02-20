@@ -2,11 +2,13 @@ package homepunk.lesson.series.presenter;
 
 import java.util.List;
 
-import homepunk.lesson.series.interfaces.Listeners;
 import homepunk.lesson.series.interfaces.Model;
 import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.interfaces.View;
 import homepunk.lesson.series.model.Series;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class PopularFragmentPresenter implements Presenter.PopularFragmentPresenter {
     private final Model.DataManagerModel model;
@@ -23,18 +25,26 @@ public class PopularFragmentPresenter implements Presenter.PopularFragmentPresen
 
     @Override
     public void getPopularSeries() {
-        model.fetchPopularSeries(new Listeners.RetrofitListener<List<Series>>() {
-            @Override
-            public void onResult(List<Series> series) {
-                if (PopularFragmentPresenter.this.view != null)
-                    PopularFragmentPresenter.this.view.onPopularSeriesRecieved(series);
-            }
+        model.fetchPopularSeries()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Series>>() {
+                    @Override
+                    public void onCompleted() {
 
-            @Override
-            public void onError(String e) {
-                if (PopularFragmentPresenter.this.view != null)
-                    PopularFragmentPresenter.this.view.onError(e);
-            }
-        });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if(PopularFragmentPresenter.this.view != null)
+                            PopularFragmentPresenter.this.view.onError(e.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onNext(List<Series> series) {
+                        if(PopularFragmentPresenter.this.view != null)
+                            PopularFragmentPresenter.this.view.onPopularSeriesRecieved(series);
+                    }
+                });
     }
 }

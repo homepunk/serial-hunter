@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
@@ -34,8 +35,7 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.series
     @Bind(R.id.item_detailed_poster) ImageView ivPoster;
     @Bind(R.id.id_detailed_overview) TextView tvOverview;
     @Bind(R.id.fragment_main_id) RelativeLayout rLayout;
-//    @Bind(R.id.fab) FloatingActionButton fab;
-
+    @Bind(R.id.viewpagertab) SmartTabLayout tabLayout;
     @Inject Presenter.DetailedFragmentPresenter detailedFragmentPresenter;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -43,7 +43,7 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.series
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_detailed, container, false);
-        initUI(root);
+        initUi(root);
 
         return root;
     }
@@ -52,7 +52,9 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.series
     public void onResume() {
         super.onResume();
 
-        setUpPresenter();
+        int id = getIdFromBundle();
+        detailedFragmentPresenter.setView(this);
+        detailedFragmentPresenter.getDetailedDescription(id);
     }
 
     @Override
@@ -67,23 +69,17 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.series
                 Toast.LENGTH_SHORT).show();
     }
 
-    private void setUpPresenter(){
-        int id = getIdFromBundle();
-        detailedFragmentPresenter.setView(this);
-        detailedFragmentPresenter.getDetailedDescription(id);
-    }
-
-    private int getIdFromBundle() {
-        Bundle bundle = getArguments();
-        return bundle != null ? bundle.getInt(KEY_ID) : 0;
-    }
-
-    private void initUI(ViewGroup root){
+    private void initUi(ViewGroup root){
         ButterKnife.bind(this, root);
         App.getAppComponent(getContext()).plus(this);
 
         setUpCustomView();
 //        setUpFAB();
+    }
+
+    private int getIdFromBundle() {
+        Bundle bundle = getArguments();
+        return bundle != null ? bundle.getInt(KEY_ID) : 0;
     }
 
     private void setUpOverview(Series tvSeries){
@@ -109,19 +105,9 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.series
         customShadowedView.setColor(39, 43, 46);
     }
 
-//    private void setUpFAB(){
-//        int left = CustomViewUtils.getLeftMargin(getContext(), 28, customShadowedView.getLineAngleCoef(), customShadowedView.getXOffsetCoef());
-//        int top = CustomViewUtils.getTopMargin(getContext(), 28, customShadowedView.getLineAngleCoef(), customShadowedView.getXOffsetCoef());
-//
-//        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fab.getLayoutParams();
-//        params.setMargins(left, top, 0, 0);
-//        fab.setLayoutParams(params);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getContext(), "Fab works fine", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+    private void setUpTabLayout(){
+
+    }
+
 }
 

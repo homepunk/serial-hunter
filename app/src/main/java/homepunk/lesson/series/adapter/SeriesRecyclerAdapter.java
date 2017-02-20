@@ -69,7 +69,7 @@ public class SeriesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             loadText(viewHolder.title, series.getTitle());
         }
     }
-    
+
     @Override
     public int getItemCount() {
         return seriesList.size();

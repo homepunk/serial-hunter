@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity
     @Bind(R.id.main_toolbar) Toolbar toolbar;
     @Bind(R.id.nav_view) NavigationView navigationView;
     @Bind(R.id.drawer_layout) DrawerLayout drawerLayout;
-    @Bind(R.id.bottomBar) BottomBar bottomBar;
+    @Bind(R.id.bottomBar) BottomBar bottomNavgiationTabs;
     @Bind(R.id.pager) ViewPager pager;
 
 
@@ -75,8 +75,8 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        setUpNavDrawer();
-        setUpBottomBar();
+        setUpNavigationDrawer();
+        setUpBottomNavigationTabs();
         setUpViewPager();
     }
 
@@ -84,20 +84,20 @@ public class MainActivity extends AppCompatActivity
         pagerAdapter = new SeriesPagerAdapter(getSupportFragmentManager());
 
         pager.setAdapter(pagerAdapter);
-        pager.setCurrentItem(bottomBar.getCurrentTabPosition());
+        pager.setCurrentItem(bottomNavgiationTabs.getCurrentTabPosition());
         pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                bottomBar.selectTabAtPosition(position);
+                bottomNavgiationTabs.selectTabAtPosition(position);
             }
         });
     }
 
-    private void setUpBottomBar(){
-        bottomBar.setBackgroundColor(Color.BLACK);
-        bottomBar.setDrawingCacheBackgroundColor(Color.BLACK);
-        bottomBar.setDefaultTab(R.id.tab_watchlist);
-        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+    private void setUpBottomNavigationTabs(){
+        bottomNavgiationTabs.setBackgroundColor(Color.BLACK);
+        bottomNavgiationTabs.setDrawingCacheBackgroundColor(Color.BLACK);
+        bottomNavgiationTabs.setDefaultTab(R.id.tab_watchlist);
+        bottomNavgiationTabs.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 switch (tabId) {
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    private void setUpNavDrawer(){
+    private void setUpNavigationDrawer(){
         drawerToggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.setDrawerListener(drawerToggle);

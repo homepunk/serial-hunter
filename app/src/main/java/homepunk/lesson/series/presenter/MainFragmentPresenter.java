@@ -2,11 +2,13 @@ package homepunk.lesson.series.presenter;
 
 import java.util.List;
 
-import homepunk.lesson.series.interfaces.Listeners.RetrofitListener;
 import homepunk.lesson.series.interfaces.Model;
 import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.interfaces.View;
 import homepunk.lesson.series.model.Series;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 
 public class MainFragmentPresenter implements Presenter.MainFragmentPresenter{
@@ -24,19 +26,27 @@ public class MainFragmentPresenter implements Presenter.MainFragmentPresenter{
 
     @Override
     public void getOnAirSeries(){
-        model.fetchOnAirSeries(new RetrofitListener<List<Series>>() {
-            @Override
-            public void onResult(List<Series> onAirList) {
-                if (MainFragmentPresenter.this.view != null)
-                    MainFragmentPresenter.this.view.onTVSeriesReceived(onAirList);
-            }
+        model.fetchOnAirSeries()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Series>>() {
+                    @Override
+                    public void onCompleted() {
 
-            @Override
-            public void onError(String e) {
-                if (MainFragmentPresenter.this.view != null)
-                    MainFragmentPresenter.this.view.onError(e);
-            }
-        });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                       if(MainFragmentPresenter.this.view != null)
+                           MainFragmentPresenter.this.view.onError(e.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onNext(List<Series> series) {
+                        if(MainFragmentPresenter.this.view != null)
+                            MainFragmentPresenter.this.view.onTVSeriesReceived(series);
+                    }
+                });
     }
 
     @Override

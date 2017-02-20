@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import homepunk.lesson.series.data.DataManager;
+import homepunk.lesson.series.data.rest.RetrofitRepository;
 import homepunk.lesson.series.modules.AppModule;
 import homepunk.lesson.series.modules.NetworkModule;
 import homepunk.lesson.series.modules.PresentersModule;
@@ -24,4 +25,6 @@ public interface AppComponent{
     DataManager plus(DataManager repository);
 
     PopularFragment plus(PopularFragment fragment);
+
+    RetrofitRepository plus(RetrofitRepository repository);
 }

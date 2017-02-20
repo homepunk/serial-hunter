@@ -10,11 +10,11 @@
         android:background="@color/colorBackgroundLight"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
+        <android.support.v4.view.ViewPager
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="230dp"
             android:layout_marginBottom="4dp"
-            android:id="@+id/search_rv"/>
+            android:id="@+id/view_pager_recommendations"/>
 
         <View
             android:layout_width="match_parent"
@@ -25,6 +25,6 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/search_recomendations_rv"/>
+            android:id="@+id/rv_search"/>
     </LinearLayout>
 </FrameLayout>

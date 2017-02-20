@@ -36,7 +36,7 @@ public class PopularFragment extends Fragment implements PopularFragmentView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_top_rated, container, false);
+        View root = inflater.inflate(R.layout.fragment_popular, container, false);
         initUi(root);
 
         return root;

@@ -11,6 +11,11 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+//  RetroLambda options
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     buildTypes {
         release {
@@ -19,16 +24,20 @@ android {
         }
     }
 }
+
 buildscript {
     repositories {
         mavenCentral()
     }
     dependencies {
-
+        classpath 'me.tatarka:gradle-retrolambda:3.5.0'
     }
 }
 
 apply plugin: 'com.neenbedankt.android-apt'
+
+//  RetroLambda
+apply plugin: 'me.tatarka.retrolambda'
 
 def dbflow_version = "4.0.0-beta1"
 dependencies {
@@ -45,6 +54,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
 
 //  Database dependencies
     apt "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
@@ -68,6 +78,7 @@ dependencies {
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
     compile 'com.dinuscxj:recyclerrefreshlayout:2.0.3'
     compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
+    compile 'com.github.chrisbanes.actionbarpulltorefresh:library:+'
 
 //  Unknows dependencies
     compile 'com.google.android.gms:play-services-appindexing:9.8.0'
