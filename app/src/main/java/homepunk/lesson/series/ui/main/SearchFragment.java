@@ -68,6 +68,13 @@ public class SearchFragment extends Fragment implements SearchFragmentView {
         setUpSearchView(searchView);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        searchFragmentPresenter.unsuscribeFromObservable();
+    }
+
     private void initUI(ViewGroup root){
         ButterKnife.bind(this, root);
         App.getAppComponent(getContext()).plus(this);

@@ -51,6 +51,13 @@ public class PopularFragment extends Fragment implements PopularFragmentView {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        fragmentPresenter.unsuscribeFromObservable();
+    }
+
+    @Override
     public void onPopularSeriesRecieved(List<Series> seriesList) {
         this.seriesList.clear();
         this.seriesList.addAll(seriesList);

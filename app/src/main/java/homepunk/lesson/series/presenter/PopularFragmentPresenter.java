@@ -7,12 +7,14 @@ import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.interfaces.View;
 import homepunk.lesson.series.model.Series;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class PopularFragmentPresenter implements Presenter.PopularFragmentPresenter {
     private final Model.DataManagerModel model;
     private View.PopularFragmentView view;
+    private Subscription subscription;
 
     public PopularFragmentPresenter(Model.DataManagerModel maodel) {
         this.model = maodel;
@@ -28,23 +30,36 @@ public class PopularFragmentPresenter implements Presenter.PopularFragmentPresen
         model.fetchPopularSeries()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<Series>>() {
-                    @Override
-                    public void onCompleted() {
+                .subscribe(getSubscription());
+    }
 
-                    }
+    @Override
+    public void unsuscribeFromObservable() {
+        if(subscription != null && !subscription.isUnsubscribed())
+            subscription.unsubscribe();
+    }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        if(PopularFragmentPresenter.this.view != null)
-                            PopularFragmentPresenter.this.view.onError(e.getLocalizedMessage());
-                    }
+    public Subscriber getSubscription() {
+        if (this.subscription == null)
+           this.subscription = new Subscriber<List<Series>>() {
+                @Override
+                public void onCompleted() {
 
-                    @Override
-                    public void onNext(List<Series> series) {
-                        if(PopularFragmentPresenter.this.view != null)
-                            PopularFragmentPresenter.this.view.onPopularSeriesRecieved(series);
-                    }
-                });
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    if(PopularFragmentPresenter.this.view != null)
+                        PopularFragmentPresenter.this.view.onError(e.getLocalizedMessage());
+                }
+
+                @Override
+                public void onNext(List<Series> series) {
+                    if(PopularFragmentPresenter.this.view != null)
+                        PopularFragmentPresenter.this.view.onPopularSeriesRecieved(series);
+                }
+            };
+
+        return (Subscriber) subscription;
     }
 }

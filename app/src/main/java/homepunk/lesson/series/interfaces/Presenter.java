@@ -1,10 +1,7 @@
 package homepunk.lesson.series.interfaces;
 
 import android.support.annotation.IdRes;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-
-import homepunk.lesson.series.model.Series;
 
 public interface Presenter {
 
@@ -24,6 +21,8 @@ public interface Presenter {
         void getOnAirSeries();
 
         void onSeriesSelected(int id);
+
+        void unsuscribeFromObservable();
     }
 
     interface SearchFragmentPresenter {
@@ -35,23 +34,22 @@ public interface Presenter {
 
         void onSearchViewClicked();
 
+        void unsuscribeFromObservable();
     }
 
     interface DetailedFragmentPresenter {
         void setView(View.DetailedFragmentView view);
 
         void getDetailedDescription(int id);
+
+        void unsuscribeFromObservable();
     }
 
     interface PopularFragmentPresenter {
         void setView(View.PopularFragmentView view);
 
         void getPopularSeries();
+
+        void unsuscribeFromObservable();
     }
-
-    interface Observer {
-
-        void update(Series tvSeries);
-    }
-
 }

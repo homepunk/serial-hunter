@@ -45,6 +45,5 @@ public class RetrofitRepository {
 
     public Observable<Series> fetchDetailedDescriptionById(int id) {
         return seriesService.loadTVSeriesDetails(id, LANGUAGE_EN, KEY_API);
-
     }
 }

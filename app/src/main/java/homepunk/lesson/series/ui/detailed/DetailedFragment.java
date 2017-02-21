@@ -58,6 +58,13 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.series
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        detailedFragmentPresenter.unsuscribeFromObservable();
+    }
+
+    @Override
     public void onDetailedDescriptionRecieved(Series series) {
         setUpPoster(series);
         setUpOverview(series);

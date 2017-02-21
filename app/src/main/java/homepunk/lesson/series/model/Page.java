@@ -10,7 +10,7 @@ public class Page {
     private int page;
 
     @SerializedName("total_results")
-    private int totalSereies;
+    private int totalResults;
 
     @SerializedName("total_pages")
     private int totalPages;
@@ -30,8 +30,8 @@ public class Page {
         this.results = results;
     }
 
-    public void setTotalSereies(int totalSereies) {
-        this.totalSereies = totalSereies;
+    public void setTotalResults(int totalResults) {
+        this.totalResults = totalResults;
     }
 
     public void setPage(int page) {
@@ -46,8 +46,8 @@ public class Page {
         return results;
     }
 
-    public int getTotalSereies() {
-        return totalSereies;
+    public int getTotalResults() {
+        return totalResults;
     }
 
     public int getPage() {

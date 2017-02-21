@@ -92,10 +92,7 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
     public void onDestroy() {
         super.onDestroy();
 
-//      Protecting from a memory leak
-        if(subscription != null && !subscription.isUnsubscribed())
-            subscription.unsubscribe();
-
+        fragmentPresenter.unsuscribeFromObservable();
     }
 
     private void initUI(ViewGroup root){
