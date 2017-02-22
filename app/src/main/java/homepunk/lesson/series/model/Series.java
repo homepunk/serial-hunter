@@ -18,8 +18,6 @@ public class Series extends BaseModel implements Serializable, Comparable<Series
     public static final int BACKDROP_TYPE = 1;
     public static final int NULL_TYPE = -1;
 
-    private int viewType;
-
     public static final String WIDTH_154 = "w154";
     public static final String WIDTH_342 = "w342";
     public static final String WIDTH_500 = "w500";
@@ -70,6 +68,9 @@ public class Series extends BaseModel implements Serializable, Comparable<Series
     @SerializedName(KEY_BACKDROP_PATH)
     @Expose
     private String backdropPath;
+
+    @Column
+    private int viewType;
 
     @SerializedName(KEY_GENRE_IDS)
     private List<Integer> genreIds = new ArrayList<>();

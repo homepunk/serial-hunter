@@ -4,10 +4,9 @@ import homepunk.lesson.series.interfaces.Model;
 import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.interfaces.View;
 import homepunk.lesson.series.model.Series;
+import homepunk.lesson.series.utils.RxUtils;
 import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class DetailedFragmentPresenter implements Presenter.DetailedFragmentPresenter {
 
@@ -27,8 +26,7 @@ public class DetailedFragmentPresenter implements Presenter.DetailedFragmentPres
     @Override
     public void getDetailedDescription(int id) {
         model.fetchDetailedDescriptionById(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxUtils.applySchedulers())
                 .subscribe(getSubscription());
     }
 

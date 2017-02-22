@@ -11,6 +11,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import homepunk.lesson.series.data.DataManager;
+import homepunk.lesson.series.data.database.DbFlowRepository;
 import homepunk.lesson.series.data.database.DbFlowService;
 import homepunk.lesson.series.data.rest.RetrofitRepository;
 import homepunk.lesson.series.data.rest.RetrofitService;
@@ -27,8 +28,8 @@ import static homepunk.lesson.series.data.Constants.WITH_EXPOSE;
 public class NetworkModule {
     @Provides
     @Singleton
-    public Model.DataManagerModel provideDataManager(Context context){
-        return new DataManager(context);
+    public Model.DataManagerModel provideDataManager(RetrofitRepository retrofitRepository, DbFlowRepository dbFlowRepository){
+        return new DataManager(retrofitRepository, dbFlowRepository);
     }
 
     @Provides
@@ -73,5 +74,11 @@ public class NetworkModule {
     @Singleton
     public RetrofitRepository provideRetrofitNetworkRepository(Context context){
         return new RetrofitRepository(context);
+    }
+
+    @Provides
+    @Singleton
+    public DbFlowRepository provieDbFlowRepository(Context context){
+        return new DbFlowRepository(context);
     }
 }

@@ -36,17 +36,14 @@ import homepunk.lesson.series.model.Series;
 import homepunk.lesson.series.ui.RecyclerClickListener;
 import homepunk.lesson.series.ui.detailed.DetailedActivity;
 import homepunk.lesson.series.utils.ScreenUtils;
-import rx.Subscription;
 
 public class MainFragment extends Fragment implements homepunk.lesson.series.interfaces.View.MainFragmentView {
     @Inject Presenter.MainFragmentPresenter fragmentPresenter;
 
     @Bind(R.id.movies_rv) RecyclerView recycler;
 
-    private Subscription subscription;
     private List<Series> onAirSeries;
     private SeriesRecyclerAdapter adapter;
-    private boolean favorite;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,6 +59,13 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
         super.onResume();
         fragmentPresenter.setView(this);
         fragmentPresenter.getOnAirSeries();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        fragmentPresenter.unsuscribeFromObservable();
     }
 
     @Override
@@ -86,13 +90,6 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
     public void onError(String error) {
         Toast.makeText(getContext(), "Error: " + error,
                 Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        fragmentPresenter.unsuscribeFromObservable();
     }
 
     private void initUI(ViewGroup root){
@@ -127,6 +124,26 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
         }));
     }
 
+    private void setUpSpinner(Spinner spinner) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.list_item_spinner, Constants.data);
+        adapter.setDropDownViewResource(R.layout.list_item_spinner_dpordown);
+
+        spinner.setAdapter(adapter);
+        spinner.getBackground().setColorFilter(getResources().getColor(R.color.colorText), PorterDuff.Mode.SRC_ATOP);
+        spinner.setDropDownWidth(ScreenUtils.getDisplayContentWidth(getContext()));
+        spinner.setSelection(2);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+    }
+
     private void startDetailedActivity(int id){
         Intent intent = new Intent(getContext(), DetailedActivity.class);
 
@@ -150,30 +167,5 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
         GridViewHolder holder = new GridViewHolder(view);
         return holder.isFavorite() ? true : false;
     }
-
-    private void setUpSpinner(Spinner spinner) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.list_item_spinner, Constants.data);
-        adapter.setDropDownViewResource(R.layout.list_item_spinner_dpordown);
-
-        spinner.setAdapter(adapter);
-        spinner.getBackground().setColorFilter(getResources().getColor(R.color.colorText), PorterDuff.Mode.SRC_ATOP);
-        spinner.setDropDownWidth(ScreenUtils.getDisplayContentWidth(getContext()));
-        spinner.setSelection(2);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
-    }
-
-    public List<Series> getSerieslist(){
-        return this.onAirSeries;
-    }
-
 }
 

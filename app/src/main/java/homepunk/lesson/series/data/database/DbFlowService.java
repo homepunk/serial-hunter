@@ -12,13 +12,14 @@ import homepunk.lesson.series.interfaces.Model;
 import homepunk.lesson.series.model.Series;
 
 public class DbFlowService implements Model.SeriesDAO<Series>{
-    public static final String LOG_TAG = "DatabaseApi";
+    public static final String LOG_TAG = DbFlowService.class.getCanonicalName();
 
     @Override
     public void saveAll(List<Series> seriesList){
        for(int i = 0; i < seriesList.size(); i++){
            Series series = new Series();
            series.setId(seriesList.get(i).getId());
+           series.setViewType(seriesList.get(i).getViewType());
            series.setTitle(seriesList.get(i).getTitle());
            series.setPosterPath(seriesList.get(i).getPosterPath());
            series.save();
@@ -62,6 +63,9 @@ public class DbFlowService implements Model.SeriesDAO<Series>{
         int equalsNumber = 0;
         List<Series> dbSeries = new ArrayList<>(series.size());
         dbSeries.addAll(getAll());
+
+        if(dbSeries == null || dbSeries.size() == 0)
+            return false;
 
         for (int i = 0; i < series.size(); i++) {
             int id = series.get(i).getId();

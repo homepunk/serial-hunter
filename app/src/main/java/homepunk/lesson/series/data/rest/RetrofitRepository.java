@@ -15,6 +15,9 @@ import static homepunk.lesson.series.data.Constants.KEY_API;
 import static homepunk.lesson.series.data.Constants.LANGUAGE_EN;
 import static homepunk.lesson.series.data.Constants.WITHOUT_EXPOSE;
 import static homepunk.lesson.series.data.Constants.WITH_EXPOSE;
+import static homepunk.lesson.series.model.Series.BACKDROP_TYPE;
+import static homepunk.lesson.series.model.Series.GRID_TYPE;
+import static homepunk.lesson.series.utils.RxUtils.getSeriesWithViewType;
 
 public class RetrofitRepository {
     @Inject
@@ -30,17 +33,17 @@ public class RetrofitRepository {
 
     public Observable<List<Series>> fetchOnAirSeries() {
         return listService.loadOnAirSeries(1, LANGUAGE_EN, KEY_API)
-                .map(page -> page.setViewType(Series.GRID_TYPE));
+                .compose(getSeriesWithViewType(GRID_TYPE));
     }
 
     public Observable<List<Series>> fetchPopularSeries() {
         return listService.loadPopularSeries(1, LANGUAGE_EN, KEY_API)
-                .map(page -> page.setViewType(Series.GRID_TYPE));
+                .compose(getSeriesWithViewType(BACKDROP_TYPE));
     }
 
     public Observable<List<Series>> fetchSearchResults(String searchQuery) {
         return listService.loadSearchResults(1, searchQuery, LANGUAGE_EN, KEY_API)
-                .map(page -> page.setViewType(Series.BACKDROP_TYPE));
+                .compose(getSeriesWithViewType(GRID_TYPE));
     }
 
     public Observable<Series> fetchDetailedDescriptionById(int id) {

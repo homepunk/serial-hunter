@@ -6,10 +6,9 @@ import homepunk.lesson.series.interfaces.Model;
 import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.interfaces.View;
 import homepunk.lesson.series.model.Series;
+import homepunk.lesson.series.utils.RxUtils;
 import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class PopularFragmentPresenter implements Presenter.PopularFragmentPresenter {
     private final Model.DataManagerModel model;
@@ -28,8 +27,7 @@ public class PopularFragmentPresenter implements Presenter.PopularFragmentPresen
     @Override
     public void getPopularSeries() {
         model.fetchPopularSeries()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxUtils.applySchedulers())
                 .subscribe(getSubscription());
     }
 

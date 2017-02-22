@@ -6,10 +6,9 @@ import homepunk.lesson.series.interfaces.Model;
 import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.interfaces.View;
 import homepunk.lesson.series.model.Series;
+import homepunk.lesson.series.utils.RxUtils;
 import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 
 public class MainFragmentPresenter implements Presenter.MainFragmentPresenter {
@@ -29,8 +28,7 @@ public class MainFragmentPresenter implements Presenter.MainFragmentPresenter {
     @Override
     public void getOnAirSeries() {
         model.fetchOnAirSeries()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxUtils.applySchedulers())
                 .subscribe(getSubscription());
     }
 
