@@ -9,3 +9,4 @@ Serial Hunter gives you an easy way to search for particular series or to select
  * Network: Retrofit, OkHttp, Gson
  * Database: Realm
  * Dependency injections: Butterknife, Dagger 2
+ * Logging: Timber
