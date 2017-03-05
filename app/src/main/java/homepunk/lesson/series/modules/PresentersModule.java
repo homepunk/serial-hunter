@@ -6,33 +6,34 @@ import dagger.Module;
 import dagger.Provides;
 import homepunk.lesson.series.interfaces.Model;
 import homepunk.lesson.series.interfaces.Presenter;
-import homepunk.lesson.series.presenter.DetailedFragmentPresenter;
-import homepunk.lesson.series.presenter.MainFragmentPresenter;
-import homepunk.lesson.series.presenter.SearchFragmentPresenter;
+import homepunk.lesson.series.presenter.DetailedViewPresenter;
+import homepunk.lesson.series.presenter.MainViewPresenter;
+import homepunk.lesson.series.presenter.PopularViewPresenter;
+import homepunk.lesson.series.presenter.SearchViewPresenter;
 
 @Module
 public class PresentersModule {
     @Provides
     @Singleton
-    Presenter.MainFragmentPresenter provideMainFragmentPresenter(Model.DataManagerModel model) {
-        return new MainFragmentPresenter(model);
+    Presenter.MainPresenter provideMainFragmentPresenter(Model.DataManagerModel model) {
+        return new MainViewPresenter(model);
     }
 
     @Provides
     @Singleton
-    Presenter.SearchFragmentPresenter provideSearchFragmentPresenter(Model.DataManagerModel model){
-        return new SearchFragmentPresenter(model);
+    Presenter.SearchPresenter provideSearchFragmentPresenter(Model.DataManagerModel model){
+        return new SearchViewPresenter(model);
     }
 
     @Provides
     @Singleton
-    Presenter.DetailedFragmentPresenter provideDetailedFragmentPresenter(Model.DataManagerModel model){
-        return new DetailedFragmentPresenter(model);
+    Presenter.DetailedPresenter provideDetailedFragmentPresenter(Model.DataManagerModel model){
+        return new DetailedViewPresenter(model);
     }
 
     @Provides
     @Singleton
-    Presenter.PopularFragmentPresenter provideTopRatedFragmentPresenter(Model.DataManagerModel model){
-        return new homepunk.lesson.series.presenter.PopularFragmentPresenter(model);
+    Presenter.PopularPresenter provideTopRatedFragmentPresenter(Model.DataManagerModel model){
+        return new PopularViewPresenter(model);
     }
 }

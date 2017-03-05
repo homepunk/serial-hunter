@@ -9,27 +9,27 @@ public interface View {
     }
 
     interface MainFragmentView {
-        void onTVSeriesReceived(List<Series> seriesList);
+        void onResult(List<Series> seriesList);
 
         void onError(String error);
     }
 
     interface SearchFragmentView {
-        void onRecommendedSeriesRecieved(List<Series> seriesList);
+        void onResult(List<Series> seriesList);
 
-        void onSearchResultsRecieved(List<Series> seriesList);
+        void onSearchResult(List<Series> seriesList);
 
         void onError(String error);
     }
 
     interface DetailedFragmentView {
-        void onDetailedDescriptionRecieved(Series series);
+        void onResult(Series series);
 
         void onError(String error);
     }
 
     interface PopularFragmentView {
-        void onPopularSeriesRecieved(List<Series> seriesList);
+        void onResult(List<Series> seriesList);
 
         void onError(String error);
     }

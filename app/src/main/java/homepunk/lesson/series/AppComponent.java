@@ -3,11 +3,10 @@ package homepunk.lesson.series;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import homepunk.lesson.series.data.DataManager;
-import homepunk.lesson.series.data.database.DbFlowRepository;
-import homepunk.lesson.series.data.rest.RetrofitRepository;
+import homepunk.lesson.series.data.database.RealmRepository;
+import homepunk.lesson.series.data.rest.TmdbRepository;
 import homepunk.lesson.series.modules.AppModule;
-import homepunk.lesson.series.modules.NetworkModule;
+import homepunk.lesson.series.modules.DataModule;
 import homepunk.lesson.series.modules.PresentersModule;
 import homepunk.lesson.series.ui.detailed.DetailedFragment;
 import homepunk.lesson.series.ui.main.MainFragment;
@@ -15,7 +14,7 @@ import homepunk.lesson.series.ui.main.PopularFragment;
 import homepunk.lesson.series.ui.main.SearchFragment;
 
 @Singleton
-@Component(modules = {AppModule.class, PresentersModule.class, NetworkModule.class})
+@Component(modules = {AppModule.class, PresentersModule.class, DataModule.class})
 public interface AppComponent{
     MainFragment plus(MainFragment fragment);
 
@@ -23,11 +22,9 @@ public interface AppComponent{
 
     DetailedFragment plus(DetailedFragment fragment);
 
-    DataManager plus(DataManager repository);
-
     PopularFragment plus(PopularFragment fragment);
 
-    RetrofitRepository plus(RetrofitRepository repository);
+    TmdbRepository plus(TmdbRepository repository);
 
-    DbFlowRepository plus(DbFlowRepository repository);
+    RealmRepository plus(RealmRepository repository);
 }

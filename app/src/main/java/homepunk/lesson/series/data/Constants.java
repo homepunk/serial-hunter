@@ -9,6 +9,7 @@ public class Constants {
     public static final String BASE_URL = "https://api.themoviedb.org/3/";
     public static final String LANGUAGE_RU = "ru-RU";
     public static final String LANGUAGE_EN = "en-US";
+    public static final int PAGE_ONE = 1;
 
     public static final String SHARED_PREF_NAME = "SharedPref";
     public static final String SHARED_PREF_KEY_ID = "id";

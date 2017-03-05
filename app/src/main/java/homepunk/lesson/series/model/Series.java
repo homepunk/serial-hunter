@@ -3,17 +3,11 @@ package homepunk.lesson.series.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.raizlabs.android.dbflow.annotation.Column;
-import com.raizlabs.android.dbflow.annotation.PrimaryKey;
-import com.raizlabs.android.dbflow.annotation.Table;
-import com.raizlabs.android.dbflow.structure.BaseModel;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-@Table(database = SeriesDatabase.class)
-public class Series extends BaseModel implements Serializable, Comparable<Series>{
+public class Series extends RealmObject implements Comparable<Series>{
     public static final int GRID_TYPE = 0;
     public static final int BACKDROP_TYPE = 1;
     public static final int NULL_TYPE = -1;
@@ -49,11 +43,11 @@ public class Series extends BaseModel implements Serializable, Comparable<Series
     private int id;
 
     @SerializedName(KEY_TITLE)
-    @Column
     @Expose
     private String title;
 
     @SerializedName(KEY_OVERVIEW)
+    @Expose
     private String overview;
 
     @SerializedName(KEY_RATE)
@@ -61,7 +55,6 @@ public class Series extends BaseModel implements Serializable, Comparable<Series
     private String rate;
 
     @SerializedName(KEY_POSTER_PATH)
-    @Column
     @Expose
     private String posterPath;
 
@@ -69,15 +62,7 @@ public class Series extends BaseModel implements Serializable, Comparable<Series
     @Expose
     private String backdropPath;
 
-    @Column
     private int viewType;
-
-    @SerializedName(KEY_GENRE_IDS)
-    private List<Integer> genreIds = new ArrayList<>();
-
-    @SerializedName(KEY_ORIGINAL_COUNTRY)
-    private List<String> countrys = new ArrayList<>();
-
 
     private boolean favorite;
 
@@ -95,22 +80,6 @@ public class Series extends BaseModel implements Serializable, Comparable<Series
 
     public void setViewType(int viewType) {
         this.viewType = viewType;
-    }
-
-    public List<String> getCountrys() {
-        return countrys;
-    }
-
-    public void setCountrys(List<String> countrys) {
-        this.countrys = countrys;
-    }
-
-    public List<Integer> getGenreIds() {
-        return genreIds;
-    }
-
-    public void setGenreIds(List<Integer> genreIds) {
-        this.genreIds = genreIds;
     }
 
     public boolean isFavorite() {

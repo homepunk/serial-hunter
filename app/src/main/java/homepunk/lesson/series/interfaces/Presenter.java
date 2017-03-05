@@ -1,21 +1,8 @@
 package homepunk.lesson.series.interfaces;
 
-import android.support.annotation.IdRes;
-import android.support.v4.app.Fragment;
-
 public interface Presenter {
 
-    interface MainActivityPresenter {
-        void setView(View.MainActivityView view);
-
-        void onSpinnerItemClicked();
-
-        Fragment onTabSelected(@IdRes int tabId);
-
-        void onNavigationItemSelected(int id);
-    }
-
-    interface MainFragmentPresenter {
+    interface MainPresenter {
         void setView(View.MainFragmentView view);
 
         void getOnAirSeries();
@@ -25,7 +12,7 @@ public interface Presenter {
         void unsuscribeFromObservable();
     }
 
-    interface SearchFragmentPresenter {
+    interface SearchPresenter {
         void setView(View.SearchFragmentView view);
 
         void getSearchRecommendationResults();
@@ -37,7 +24,7 @@ public interface Presenter {
         void unsuscribeFromObservable();
     }
 
-    interface DetailedFragmentPresenter {
+    interface DetailedPresenter {
         void setView(View.DetailedFragmentView view);
 
         void getDetailedDescription(int id);
@@ -45,7 +32,7 @@ public interface Presenter {
         void unsuscribeFromObservable();
     }
 
-    interface PopularFragmentPresenter {
+    interface PopularPresenter {
         void setView(View.PopularFragmentView view);
 
         void getPopularSeries();

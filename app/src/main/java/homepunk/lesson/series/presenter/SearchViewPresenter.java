@@ -12,12 +12,12 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class SearchFragmentPresenter implements Presenter.SearchFragmentPresenter {
+public class SearchViewPresenter implements Presenter.SearchPresenter {
     private final Model.DataManagerModel model;
     private View.SearchFragmentView view;
     private Subscription subscription;
 
-    public SearchFragmentPresenter(Model.DataManagerModel model) {
+    public SearchViewPresenter(Model.DataManagerModel model) {
         this.model = model;
     }
 
@@ -45,14 +45,14 @@ public class SearchFragmentPresenter implements Presenter.SearchFragmentPresente
 
                     @Override
                     public void onError(Throwable e) {
-                        if (SearchFragmentPresenter.this.view != null)
-                            SearchFragmentPresenter.this.view.onError(e.getLocalizedMessage());
+                        if (SearchViewPresenter.this.view != null)
+                            SearchViewPresenter.this.view.onError(e.getLocalizedMessage());
                     }
 
                     @Override
                     public void onNext(List<Series> series) {
-                        if (SearchFragmentPresenter.this.view != null)
-                            SearchFragmentPresenter.this.view.onSearchResultsRecieved(series);
+                        if (SearchViewPresenter.this.view != null)
+                            SearchViewPresenter.this.view.onSearchResult(series);
                     }
                 });
     }
@@ -65,12 +65,12 @@ public class SearchFragmentPresenter implements Presenter.SearchFragmentPresente
 
     @Override
     public void unsuscribeFromObservable() {
-        if(subscription != null && !subscription.isUnsubscribed())
+        if(RxUtils.isSubsribed(subscription))
             subscription.unsubscribe();
     }
 
     public Subscriber getSubscription() {
-        if(this.subscription == null)
+        if(!RxUtils.isSubsribed(subscription))
             this.subscription = new Subscriber<List<Series>>() {
                 @Override
                 public void onCompleted() {
@@ -79,14 +79,14 @@ public class SearchFragmentPresenter implements Presenter.SearchFragmentPresente
 
                 @Override
                 public void onError(Throwable e) {
-                    if(SearchFragmentPresenter.this.view != null)
-                        SearchFragmentPresenter.this.view.onError(e.getLocalizedMessage());
+                    if(SearchViewPresenter.this.view != null)
+                        SearchViewPresenter.this.view.onError(e.getLocalizedMessage());
                 }
 
                 @Override
                 public void onNext(List<Series> series) {
-                    if(SearchFragmentPresenter.this.view != null)
-                        SearchFragmentPresenter.this.view.onRecommendedSeriesRecieved(series);
+                    if(SearchViewPresenter.this.view != null)
+                        SearchViewPresenter.this.view.onResult(series);
                 }
             };
 

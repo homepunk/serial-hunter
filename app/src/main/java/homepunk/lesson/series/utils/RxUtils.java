@@ -5,6 +5,7 @@ import java.util.List;
 import homepunk.lesson.series.model.Page;
 import homepunk.lesson.series.model.Series;
 import rx.Observable;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -19,5 +20,9 @@ public class RxUtils {
             page.setViewType(viewType);
             return page.getResults();
         });
+    }
+
+    public static boolean isSubsribed(Subscription subscription){
+        return subscription == null || subscription.isUnsubscribed() ? false : true;
     }
 }

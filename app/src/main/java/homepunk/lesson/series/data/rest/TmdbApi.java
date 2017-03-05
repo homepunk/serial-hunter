@@ -7,7 +7,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
-public interface RetrofitService {
+public interface TmdbApi {
         @GET("tv/{id}")
         Observable<Series> loadTVSeriesDetails(@Path("id") int id,
                                          @Query("language") String language,

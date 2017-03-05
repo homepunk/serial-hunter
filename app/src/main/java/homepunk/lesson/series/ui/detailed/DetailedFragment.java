@@ -36,7 +36,9 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.series
     @Bind(R.id.id_detailed_overview) TextView tvOverview;
     @Bind(R.id.fragment_main_id) RelativeLayout rLayout;
     @Bind(R.id.viewpagertab) SmartTabLayout tabLayout;
-    @Inject Presenter.DetailedFragmentPresenter detailedFragmentPresenter;
+
+    @Inject
+    Presenter.DetailedPresenter detailedFragmentPresenter;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -52,9 +54,8 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.series
     public void onResume() {
         super.onResume();
 
-        int id = getIdFromBundle();
         detailedFragmentPresenter.setView(this);
-        detailedFragmentPresenter.getDetailedDescription(id);
+        detailedFragmentPresenter.getDetailedDescription(getIdFromBundle());
     }
 
     @Override
@@ -65,7 +66,7 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.series
     }
 
     @Override
-    public void onDetailedDescriptionRecieved(Series series) {
+    public void onResult(Series series) {
         setUpPoster(series);
         setUpOverview(series);
     }

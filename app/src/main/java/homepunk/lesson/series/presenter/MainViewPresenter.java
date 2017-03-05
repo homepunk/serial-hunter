@@ -10,36 +10,42 @@ import homepunk.lesson.series.utils.RxUtils;
 import rx.Subscriber;
 import rx.Subscription;
 
-public class PopularFragmentPresenter implements Presenter.PopularFragmentPresenter {
+
+public class MainViewPresenter implements Presenter.MainPresenter {
     private final Model.DataManagerModel model;
-    private View.PopularFragmentView view;
+    private View.MainFragmentView view;
     private Subscription subscription;
 
-    public PopularFragmentPresenter(Model.DataManagerModel maodel) {
-        this.model = maodel;
+    // nucles
+    public MainViewPresenter(Model.DataManagerModel model) {
+        this.model = model;
     }
 
     @Override
-    public void setView(View.PopularFragmentView view) {
+    public void setView(View.MainFragmentView view) {
         this.view = view;
     }
 
     @Override
-    public void getPopularSeries() {
-        model.fetchPopularSeries()
+    public void getOnAirSeries() {
+        model.fetchOnAirSeries()
                 .compose(RxUtils.applySchedulers())
                 .subscribe(getSubscription());
     }
 
     @Override
+    public void onSeriesSelected(int id) {
+    }
+
+    @Override
     public void unsuscribeFromObservable() {
-        if(subscription != null && !subscription.isUnsubscribed())
+        if(RxUtils.isSubsribed(subscription))
             subscription.unsubscribe();
     }
 
-    public Subscriber getSubscription() {
-        if (this.subscription == null)
-           this.subscription = new Subscriber<List<Series>>() {
+    private Subscriber getSubscription() {
+        if (!RxUtils.isSubsribed(subscription))
+            this.subscription = new Subscriber<List<Series>>() {
                 @Override
                 public void onCompleted() {
 
@@ -47,17 +53,17 @@ public class PopularFragmentPresenter implements Presenter.PopularFragmentPresen
 
                 @Override
                 public void onError(Throwable e) {
-                    if(PopularFragmentPresenter.this.view != null)
-                        PopularFragmentPresenter.this.view.onError(e.getLocalizedMessage());
+                    if (MainViewPresenter.this.view != null)
+                        MainViewPresenter.this.view.onError(e.getLocalizedMessage());
                 }
 
                 @Override
                 public void onNext(List<Series> series) {
-                    if(PopularFragmentPresenter.this.view != null)
-                        PopularFragmentPresenter.this.view.onPopularSeriesRecieved(series);
+                    if (MainViewPresenter.this.view != null)
+                        MainViewPresenter.this.view.onResult(series);
                 }
             };
 
-        return (Subscriber) subscription;
+        return (Subscriber) this.subscription;
     }
 }

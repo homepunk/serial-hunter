@@ -1,6 +1,5 @@
 package homepunk.lesson.series.ui.main;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -34,11 +33,12 @@ import homepunk.lesson.series.data.Constants;
 import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.model.Series;
 import homepunk.lesson.series.ui.RecyclerClickListener;
-import homepunk.lesson.series.ui.detailed.DetailedActivity;
 import homepunk.lesson.series.utils.ScreenUtils;
 
+import static homepunk.lesson.series.utils.NavigationUtils.navigateToDetailed;
+
 public class MainFragment extends Fragment implements homepunk.lesson.series.interfaces.View.MainFragmentView {
-    @Inject Presenter.MainFragmentPresenter fragmentPresenter;
+    @Inject Presenter.MainPresenter fragmentPresenter;
 
     @Bind(R.id.movies_rv) RecyclerView recycler;
 
@@ -48,7 +48,8 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_main, container, false);
+        View root = inflater.inflate(R.layout.fragment_main, container, false);
+        setHasOptionsMenu(true);
         initUI(root);
 
         return root;
@@ -57,6 +58,7 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
     @Override
     public void onResume() {
         super.onResume();
+
         fragmentPresenter.setView(this);
         fragmentPresenter.getOnAirSeries();
     }
@@ -79,11 +81,13 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
     }
 
     @Override
-    public void onTVSeriesReceived(List<Series> seriesList) {
+    public void onResult(List<Series> seriesList) {
         this.onAirSeries.clear();
         this.onAirSeries.addAll(seriesList);
-        Toast.makeText(getContext(), "Сериалы обновлены", Toast.LENGTH_SHORT).show();
         adapter.notifyDataSetChanged();
+
+        Toast.makeText(getContext(), "Сериалы обновлены", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -92,10 +96,9 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
                 Toast.LENGTH_SHORT).show();
     }
 
-    private void initUI(ViewGroup root){
+    private void initUI(View root){
         App.getAppComponent(getContext()).plus(this);
         ButterKnife.bind(this, root);
-        setHasOptionsMenu(true);
 
         setUpRecycleView();
     }
@@ -111,7 +114,8 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
         recycler.addOnItemTouchListener(new RecyclerClickListener(getContext(), new RecyclerClickListener.OnItemMotionEventListener() {
             @Override
             public void onItemClick(View view, int position) {
-                startDetailedActivity(onAirSeries.get(position).getId());
+                int id = onAirSeries.get(position).getId();
+                navigateToDetailed(getContext(), id);
             }
 
             @Override
@@ -142,13 +146,6 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
-    }
-
-    private void startDetailedActivity(int id){
-        Intent intent = new Intent(getContext(), DetailedActivity.class);
-
-        intent.putExtra(Constants.KEY_ID, id);
-        startActivity(intent);
     }
 
     private void setFavorite(View view){

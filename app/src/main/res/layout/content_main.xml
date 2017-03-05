@@ -14,7 +14,7 @@
         app:layout_collapseMode="pin"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:titleMarginTop="15dp"></android.support.v7.widget.Toolbar>
+        app:titleMarginTop="15dp" />
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"

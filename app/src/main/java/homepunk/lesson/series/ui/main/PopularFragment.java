@@ -26,7 +26,7 @@ import homepunk.lesson.series.model.Series;
 
 public class PopularFragment extends Fragment implements PopularFragmentView {
     @Inject
-    Presenter.PopularFragmentPresenter fragmentPresenter;
+    Presenter.PopularPresenter fragmentPresenter;
 
     @Bind(R.id.rv_top_rated) RecyclerView rvTopRated;
 
@@ -58,7 +58,7 @@ public class PopularFragment extends Fragment implements PopularFragmentView {
     }
 
     @Override
-    public void onPopularSeriesRecieved(List<Series> seriesList) {
+    public void onResult(List<Series> seriesList) {
         this.seriesList.clear();
         this.seriesList.addAll(seriesList);
         adapter.notifyDataSetChanged();
