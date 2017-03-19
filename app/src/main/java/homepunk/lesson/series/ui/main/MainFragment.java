@@ -49,7 +49,7 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
-        setHasOptionsMenu(true);
+//        setHasOptionsMenu(true);
         initUI(root);
 
         return root;
@@ -77,7 +77,7 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
         MenuItem item = menu.findItem(R.id.menu_spinner);
         Spinner spinner = (Spinner) MenuItemCompat.getActionView(item);
 
-        setUpSpinner(spinner);
+//        setupSpinner(spinner);
     }
 
     @Override
@@ -100,10 +100,10 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
         App.getAppComponent(getContext()).plus(this);
         ButterKnife.bind(this, root);
 
-        setUpRecycleView();
+        setupRecycleView();
     }
 
-    private void setUpRecycleView(){
+    private void setupRecycleView(){
         onAirSeries = new ArrayList<>(Constants.FILM_COUNT);
 
         adapter = new SeriesRecyclerAdapter(getContext(), onAirSeries);
@@ -128,8 +128,8 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
         }));
     }
 
-    private void setUpSpinner(Spinner spinner) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.list_item_spinner, Constants.data);
+    private void setupSpinner(Spinner spinner) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.list_item_spinner_title, Constants.data);
         adapter.setDropDownViewResource(R.layout.list_item_spinner_dpordown);
 
         spinner.setAdapter(adapter);
@@ -156,7 +156,7 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
 
     private void setUnfavorite(View view){
         GridViewHolder holder = new GridViewHolder(view);
-        holder.getFavorite().setImageResource(R.drawable.ic_star_full);
+        holder.getFavorite().setImageResource(R.drawable.ic_star);
         holder.setFavorite(false);
     }
 

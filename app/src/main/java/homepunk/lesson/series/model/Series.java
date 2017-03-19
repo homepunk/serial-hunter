@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Series extends RealmObject implements Comparable<Series>{
+public class Series extends RealmObject implements Comparable<Series> {
     public static final int GRID_TYPE = 0;
     public static final int BACKDROP_TYPE = 1;
     public static final int NULL_TYPE = -1;
@@ -23,6 +23,7 @@ public class Series extends RealmObject implements Comparable<Series>{
     public static final String KEY_POSTER_PATH = "poster_path";
     public static final String KEY_BACKDROP_PATH = "backdrop_path";
     public static final String KEY_OVERVIEW = "overview";
+    public static final String KEY_FIRST_AIR_DATE = "first_air_date";
     public static final String KEY_RATE = "vote_average";
     public static final String KEY_RELEASE_DATE = "release_date";
     public static final String KEY_SERIES_ID = "SeriesId";
@@ -41,6 +42,10 @@ public class Series extends RealmObject implements Comparable<Series>{
     @PrimaryKey
     @Expose
     private int id;
+
+    @SerializedName(KEY_FIRST_AIR_DATE)
+    @Expose
+    private String firstAirDate;
 
     @SerializedName(KEY_TITLE)
     @Expose
@@ -128,6 +133,14 @@ public class Series extends RealmObject implements Comparable<Series>{
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getFirstAirDate() {
+        return firstAirDate;
+    }
+
+    public void setFirstAirDate(String firstAirDate) {
+        this.firstAirDate = firstAirDate;
     }
 
     public String getFullPosterPath(String preferedWidth) {

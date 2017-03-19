@@ -12,8 +12,8 @@ import java.util.List;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.series.model.Series;
 
-import static homepunk.lesson.series.utils.RecyclerUtils.loadImage;
-import static homepunk.lesson.series.utils.RecyclerUtils.loadText;
+import static homepunk.lesson.series.utils.AdaptersUtils.loadImage;
+import static homepunk.lesson.series.utils.AdaptersUtils.loadText;
 
 public class SeriesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected List<Series> seriesList;
@@ -50,6 +50,7 @@ public class SeriesRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 vh = new BackdropViewHolder(root);
                 break;
         }
+
         return vh;
     }
 

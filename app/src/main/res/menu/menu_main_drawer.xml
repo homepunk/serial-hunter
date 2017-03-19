@@ -8,7 +8,7 @@
             android:title="Profile" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_film_1"
+            android:icon="@drawable/ic_all_films"
             android:title="All films" />
         <item
             android:id="@+id/nav_slideshow"

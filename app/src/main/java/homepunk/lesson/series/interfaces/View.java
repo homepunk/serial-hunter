@@ -15,8 +15,6 @@ public interface View {
     }
 
     interface SearchFragmentView {
-        void onResult(List<Series> seriesList);
-
         void onSearchResult(List<Series> seriesList);
 
         void onError(String error);

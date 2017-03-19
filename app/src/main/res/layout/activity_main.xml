@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
-    android:background="@color/colorAccentTwo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
+
     <include
         layout="@layout/content_main"
         android:layout_width="wrap_content"
@@ -18,10 +19,9 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
         android:background="@color/colorBackgroundLightTwo"
-        app:itemIconTint="@color/colorTextSelected"
+        android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_drawer_header"
+        app:itemIconTint="@color/colorTextSelected"
         app:menu="@menu/menu_main_drawer" />
-
 </android.support.v4.widget.DrawerLayout>

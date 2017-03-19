@@ -21,9 +21,9 @@ public class DataManager implements DataManagerModel {
 
     @Override
     public Observable<List<Series>> fetchOnAirSeries() {
-        return Observable.defer(() -> db.getOnAirSeries()
-                        .switchIfEmpty(rest.fetchOnAirSeries()
-                        .doOnNext(series -> db.saveOnAirSeries(series))));
+        return Observable.defer(() -> /*db.getOnAirSeries()
+                        .switchIfEmpty(*/rest.fetchOnAirSeries()/*
+                        .doOnNext(series -> db.saveOnAirSeries(series))*/);
     }
 
     @Override
@@ -40,6 +40,4 @@ public class DataManager implements DataManagerModel {
     public Observable<Series> fetchDetailedDescriptionById(int id) {
         return Observable.defer(() -> rest.fetchDetailedDescriptionById(id));
     }
-
-
 }

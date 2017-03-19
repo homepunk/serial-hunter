@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_detailed_poster"
-            android:textColor="@color/colorAccentTwo"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
     </RelativeLayout>
 

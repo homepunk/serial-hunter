@@ -9,6 +9,6 @@
         app:actionViewClass="android.widget.Spinner"
         android:gravity="center"
         android:textAlignment="center"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimary"
         app:showAsAction="always"/>
 </menu>

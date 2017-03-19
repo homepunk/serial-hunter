@@ -15,8 +15,6 @@ public interface Presenter {
     interface SearchPresenter {
         void setView(View.SearchFragmentView view);
 
-        void getSearchRecommendationResults();
-
         void getSearchResults(String searchString);
 
         void onSearchViewClicked();

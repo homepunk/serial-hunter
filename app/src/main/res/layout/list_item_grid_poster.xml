@@ -40,8 +40,8 @@
                     android:layout_height="56dp"
                     android:layout_gravity="bottom"
                     android:alpha="0.92"
-                    android:background="@xml/linear_layout_corners"
-                    android:backgroundTint="@color/colorAccent"
+                    android:background="@xml/rounded_corners_linear_layout"
+                    android:backgroundTint="@color/colorPrimary"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -78,9 +78,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="0.5"
-                        android:background="@color/colorAccent"
+                        android:background="@color/colorPrimary"
                         android:paddingRight="8dp"
-                        android:src="@drawable/ic_star_full" />
+                        android:src="@drawable/ic_star" />
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>

@@ -15,4 +15,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!--HINT-->
+    <string name="hint_search">Поиск...</string>
+    <string name="search">Search</string>
+
 </resources>

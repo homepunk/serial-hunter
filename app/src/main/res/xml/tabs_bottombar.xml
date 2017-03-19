@@ -9,7 +9,7 @@
         title="Обновления" />
     <tab
         id="@+id/tab_watchlist"
-        icon="@drawable/ic_popcorn"
+        icon="@drawable/ic_top_twenty"
         showAsAction="always"
         textAlignment="center"
         title="Смотрю" />

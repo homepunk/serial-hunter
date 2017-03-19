@@ -20,4 +20,6 @@ public class Constants {
 
     public static final String WITH_EXPOSE = "with expose";
     public static final String WITHOUT_EXPOSE = "without expose";
+
+    public static final String[] CURSOR_SEARCH_COLUMNS = new String[]{"_id", "SERIES_POSTER", "SERIES_TITLE"};
 }

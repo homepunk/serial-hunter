@@ -27,13 +27,6 @@ public class SearchViewPresenter implements Presenter.SearchPresenter {
     }
 
     @Override
-    public void getSearchRecommendationResults() {
-        model.fetchOnAirSeries()
-                .compose(RxUtils.applySchedulers())
-                .subscribe(getSubscription());
-    }
-
-    @Override
     public void getSearchResults(String searchString) {
         model.fetchSearchResults(searchString).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -67,29 +60,5 @@ public class SearchViewPresenter implements Presenter.SearchPresenter {
     public void unsuscribeFromObservable() {
         if(RxUtils.isSubsribed(subscription))
             subscription.unsubscribe();
-    }
-
-    public Subscriber getSubscription() {
-        if(!RxUtils.isSubsribed(subscription))
-            this.subscription = new Subscriber<List<Series>>() {
-                @Override
-                public void onCompleted() {
-
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    if(SearchViewPresenter.this.view != null)
-                        SearchViewPresenter.this.view.onError(e.getLocalizedMessage());
-                }
-
-                @Override
-                public void onNext(List<Series> series) {
-                    if(SearchViewPresenter.this.view != null)
-                        SearchViewPresenter.this.view.onResult(series);
-                }
-            };
-
-        return (Subscriber) subscription;
     }
 }

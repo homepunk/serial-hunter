@@ -1,25 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_relative_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/main_toolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
-        app:layout_collapseMode="pin"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:titleMarginTop="15dp" />
 
+    <br.com.mauker.materialsearchview.MaterialSearchView
+        android:id="@+id/searchview"
+        android:layout_width="wrap_content"
+        android:layout_height="51dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/colorHintText"
+        android:textColorHint="@color/colorHint"
+        app:searchCloseIcon="@drawable/ic_close_gray"
+        app:searchBackIcon="@drawable/ic_arrow_back_gray"
+        app:searchVoiceIcon="@drawable/ic_keyboard_voice_gray"
+        app:searchBackground="@color/colorBackgroundDark"
+        app:searchBarHeight="51dp" />
+
+    <View
+        android:id="@+id/popup_anchor"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_below="@+id/toolbar"/>
+
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/main_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/main_toolbar"
+        android:layout_below="@+id/toolbar"
         android:background="@color/colorBackgroundLight">
 
         <FrameLayout
@@ -33,16 +57,15 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_gravity="bottom"
-            android:background="@color/colorAccent"
-            app:bb_activeTabColor="@color/colorPrimary"
+            android:background="@color/colorPrimary"
+            app:bb_activeTabColor="@color/colorAccent"
             app:bb_behavior="shy|shifting"
             app:bb_inActiveTabColor="@color/colorBackgroundLightTwo"
             app:bb_showShadow="false"
-            app:bb_tabXmlResource="@xml/bottombar_tabs"
-            app:bb_titleTextAppearance="@color/colorPrimary" />
+            app:bb_tabXmlResource="@xml/tabs_bottombar"
+            app:bb_titleTextAppearance="@color/colorAccent" />
 
-        <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+        <android.support.v4.view.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
