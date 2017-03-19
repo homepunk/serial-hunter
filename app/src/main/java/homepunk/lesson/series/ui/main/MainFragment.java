@@ -33,7 +33,7 @@ import homepunk.lesson.series.data.Constants;
 import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.model.Series;
 import homepunk.lesson.series.ui.RecyclerClickListener;
-import homepunk.lesson.series.utils.ScreenUtils;
+import homepunk.lesson.series.utils.DisplayUtils;
 
 import static homepunk.lesson.series.utils.NavigationUtils.navigateToDetailed;
 
@@ -134,7 +134,7 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
 
         spinner.setAdapter(adapter);
         spinner.getBackground().setColorFilter(getResources().getColor(R.color.colorText), PorterDuff.Mode.SRC_ATOP);
-        spinner.setDropDownWidth(ScreenUtils.getDisplayContentWidth(getContext()));
+        spinner.setDropDownWidth(DisplayUtils.getDisplayContentWidth(getContext()));
         spinner.setSelection(2);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

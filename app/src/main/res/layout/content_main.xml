@@ -14,30 +14,93 @@
         android:minHeight="?attr/actionBarSize"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:titleMarginTop="15dp" />
+        app:titleMarginTop="15dp">
 
-    <br.com.mauker.materialsearchview.MaterialSearchView
-        android:id="@+id/searchview"
-        android:layout_width="wrap_content"
-        android:layout_height="51dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/colorHintText"
-        android:textColorHint="@color/colorHint"
-        app:searchCloseIcon="@drawable/ic_close_gray"
-        app:searchBackIcon="@drawable/ic_arrow_back_gray"
-        app:searchVoiceIcon="@drawable/ic_keyboard_voice_gray"
-        app:searchBackground="@color/colorBackgroundDark"
-        app:searchBarHeight="51dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+
+
+            <homepunk.lesson.series.ui.custom.MaterialSearchToLine
+                android:id="@+id/material_search_to_line"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/profile_image"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:paddingBottom="16dp"
+                android:paddingTop="10dp"
+                app:breadth="5"
+                app:search_color="@color/colorHint" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:src="@drawable/ic_person_gray"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp"
+                app:civ_fill_color="@android:color/black" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/material_edit_text_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:paddingBottom="6dp"
+                    android:hint="@string/hint_search"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/material_clear_button"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="68dp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginTop="22dp"
+                    android:animateLayoutChanges="true"
+                    android:visibility="gone"
+                    android:background="@drawable/ic_close_gray" />
+            </FrameLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <!--<br.com.mauker.materialsearchview.MaterialSearchView-->
+    <!--android:id="@+id/searchview"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="51dp"-->
+    <!--android:layout_marginLeft="12dp"-->
+    <!--android:layout_marginRight="12dp"-->
+    <!--android:layout_marginTop="5dp"-->
+    <!--android:textColor="@color/colorHintText"-->
+    <!--android:textColorHint="@color/colorHint"-->
+    <!--app:searchBackIcon="@drawable/ic_arrow_back_gray"-->
+    <!--app:searchBackground="@color/colorBackgroundDark"-->
+    <!--app:searchBarHeight="51dp"-->
+    <!--app:searchCloseIcon="@drawable/ic_close_gray"-->
+    <!--app:searchVoiceIcon="@drawable/ic_keyboard_voice_gray" />-->
 
     <View
         android:id="@+id/popup_anchor"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_below="@+id/toolbar"/>
+        android:layout_below="@+id/toolbar"
+        android:layout_marginLeft="64dp"
+        android:layout_marginRight="64dp" />
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/main_container"

@@ -12,7 +12,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 
-public class ScreenUtils {
+public class DisplayUtils {
 
     public static int getDisplayContentHeight(Context context) {
         int statusBarHeight;
@@ -54,4 +54,5 @@ public class ScreenUtils {
         }
         return drawable;
     }
+
 }

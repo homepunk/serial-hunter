@@ -76,6 +76,8 @@ dependencies {
     compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:library:+'
     compile 'br.com.mauker.materialsearchview:materialsearchview:1.2.0'
+    compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.1'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 
     // Unknows dependencies
     compile 'com.google.android.gms:play-services-appindexing:9.8.0'

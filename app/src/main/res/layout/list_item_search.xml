@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="86dp"
+    android:layout_height="72dp"
     android:background="@color/colorBackgroundDark"
     android:textAlignment="gravity">
 
     <ImageView
         android:id="@+id/item_search_poster"
-        android:layout_width="57dp"
-        android:layout_height="92dp" />
+        android:layout_width="53dp"
+        android:layout_height="72dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="92dp"
+        android:layout_height="72dp"
         android:layout_toRightOf="@+id/item_search_poster"
         android:orientation="vertical">
 

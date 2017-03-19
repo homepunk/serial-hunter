@@ -6,12 +6,12 @@ import android.util.TypedValue;
 
 public class CustomViewUtils {
     public static int getTopMargin(Context context, int fabWidth, double lineAngleKoef, double xOffsetCoef) {
-        return (int) Math.round((ScreenUtils.getDisplayContentHeight(context) * lineAngleKoef - convertToPx(context, fabWidth)) * xOffsetCoef);
+        return (int) Math.round((DisplayUtils.getDisplayContentHeight(context) * lineAngleKoef - convertToPx(context, fabWidth)) * xOffsetCoef);
     }
 
     public static int getLeftMargin(Context context, int fabWidth, double lineAngleKoef, double xOffsetCoef){
-        float leftX = 0, rightX = ScreenUtils.getDisplayContentWidth(context);
-        float height  = ScreenUtils.getDisplayContentHeight(context);
+        float leftX = 0, rightX = DisplayUtils.getDisplayContentWidth(context);
+        float height  = DisplayUtils.getDisplayContentHeight(context);
         float bottomEndX = height;
         float lineStartY = (float) (height * lineAngleKoef);
         float lineEndY = (float) (height * (1 - lineAngleKoef));

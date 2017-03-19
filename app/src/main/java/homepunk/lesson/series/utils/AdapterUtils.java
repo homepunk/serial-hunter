@@ -14,7 +14,7 @@ import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.series.model.Series;
 import timber.log.Timber;
 
-public class AdaptersUtils {
+public class AdapterUtils {
     public static void loadImage(Context context, String posterPath, ImageView view){
         if (!TextUtils.isEmpty(posterPath))
             Picasso.with(context)

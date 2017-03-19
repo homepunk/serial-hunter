@@ -16,7 +16,7 @@ import java.util.List;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.series.model.Series;
 
-import static homepunk.lesson.series.utils.AdaptersUtils.loadImage;
+import static homepunk.lesson.series.utils.AdapterUtils.loadImage;
 
 public class ListPopupAdapter extends ArrayAdapter<Series> {
     List<Series> seriesList;

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.series.utils.AdaptersUtils;
+import homepunk.lesson.series.utils.AdapterUtils;
 
 public class SearchResultsAdapter extends android.support.v4.widget.SimpleCursorAdapter {
     private Context context;
@@ -57,11 +57,11 @@ public class SearchResultsAdapter extends android.support.v4.widget.SimpleCursor
         }
 
         public void setPoster(String path){
-            AdaptersUtils.loadImage(context, path, imageView);
+            AdapterUtils.loadImage(context, path, imageView);
         }
 
         public void setTitle(String title) {
-            AdaptersUtils.loadText(textView, title);
+            AdapterUtils.loadText(textView, title);
         }
     }
 }

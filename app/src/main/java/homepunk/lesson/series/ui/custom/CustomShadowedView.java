@@ -8,7 +8,7 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.View;
 
-import homepunk.lesson.series.utils.ScreenUtils;
+import homepunk.lesson.series.utils.DisplayUtils;
 
 public class CustomShadowedView extends View {
     private final int height, width;
@@ -20,20 +20,20 @@ public class CustomShadowedView extends View {
 
     public CustomShadowedView(Context context) {
         super(context);
-        width = ScreenUtils.getDisplayContentWidth(context);
-        height = ScreenUtils.getDisplayContentHeight(context);
+        width = DisplayUtils.getDisplayContentWidth(context);
+        height = DisplayUtils.getDisplayContentHeight(context);
     }
 
     public CustomShadowedView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        width = ScreenUtils.getDisplayContentWidth(context);
-        height = ScreenUtils.getDisplayContentHeight(context);
+        width = DisplayUtils.getDisplayContentWidth(context);
+        height = DisplayUtils.getDisplayContentHeight(context);
     }
 
     public CustomShadowedView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        width = ScreenUtils.getDisplayContentWidth(context);
-        height = ScreenUtils.getDisplayContentHeight(context);
+        width = DisplayUtils.getDisplayContentWidth(context);
+        height = DisplayUtils.getDisplayContentHeight(context);
     }
 
     @Override

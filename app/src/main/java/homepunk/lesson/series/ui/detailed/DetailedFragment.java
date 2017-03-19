@@ -26,7 +26,7 @@ import homepunk.lesson.series.App;
 import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.model.Series;
 import homepunk.lesson.series.ui.custom.CustomShadowedView;
-import homepunk.lesson.series.utils.ScreenUtils;
+import homepunk.lesson.series.utils.DisplayUtils;
 
 import static homepunk.lesson.series.data.Constants.KEY_ID;
 
@@ -101,8 +101,8 @@ public class DetailedFragment extends Fragment implements homepunk.lesson.series
             Picasso.with(getContext()).
                     load(tvSeries.getFullPosterPath(tvSeries.WIDTH_780))
                     .placeholder(R.drawable.placeholder_image)
-                    .resize(ScreenUtils.getDisplayContentWidth(getContext()),
-                            ScreenUtils.getDisplayContentHeight(getContext()))
+                    .resize(DisplayUtils.getDisplayContentWidth(getContext()),
+                            DisplayUtils.getDisplayContentHeight(getContext()))
                     .into(ivPoster);
     }
 
