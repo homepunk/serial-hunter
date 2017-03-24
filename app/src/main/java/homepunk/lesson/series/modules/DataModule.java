@@ -9,7 +9,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import homepunk.lesson.series.data.DataManager;
 import homepunk.lesson.series.data.database.RealmRepository;
 import homepunk.lesson.series.data.database.RealmService;
 import homepunk.lesson.series.data.rest.TmdbApi;
@@ -50,9 +49,10 @@ public class DataModule {
 
     @Provides
     @Singleton
-    public Model.DataManagerModel provideDataManager(TmdbRepository retrofitRepository, RealmRepository realmRepository) {
-        return new DataManager(retrofitRepository, realmRepository);
+    public Model.DataManager provideDataManager(TmdbRepository retrofitRepository, RealmRepository realmRepository) {
+        return new homepunk.lesson.series.data.DataManager(retrofitRepository, realmRepository);
     }
+
 
     @Provides
     @Singleton

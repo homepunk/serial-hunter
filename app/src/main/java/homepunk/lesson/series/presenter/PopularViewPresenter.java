@@ -11,11 +11,11 @@ import rx.Subscriber;
 import rx.Subscription;
 
 public class PopularViewPresenter implements Presenter.PopularPresenter {
-    private final Model.DataManagerModel model;
+    private final Model.DataManager model;
     private View.PopularFragmentView view;
     private Subscription subscription;
 
-    public PopularViewPresenter(Model.DataManagerModel maodel) {
+    public PopularViewPresenter(Model.DataManager maodel) {
         this.model = maodel;
     }
 

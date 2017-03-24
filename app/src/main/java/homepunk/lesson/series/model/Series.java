@@ -33,11 +33,6 @@ public class Series extends RealmObject implements Comparable<Series> {
     public static final String KEY_ORIGINAL_COUNTRY = "origin_country";
     public static final String KEY_RESULTS = "results";
 
-    public static String[] projection = {
-            KEY_ID,
-            KEY_POSTER_PATH
-    };
-
     @SerializedName(KEY_ID)
     @PrimaryKey
     @Expose

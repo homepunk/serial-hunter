@@ -37,4 +37,12 @@ public interface Presenter {
 
         void unsuscribeFromObservable();
     }
+
+    interface UpdatesPresenter {
+        void setView(View.UpdatesView view);
+
+        void getUpdates();
+
+        void unsuscribeFromObservable();
+    }
 }

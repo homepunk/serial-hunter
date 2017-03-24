@@ -12,12 +12,12 @@ import rx.Subscription;
 
 
 public class MainViewPresenter implements Presenter.MainPresenter {
-    private final Model.DataManagerModel model;
+    private final Model.DataManager model;
     private View.MainFragmentView view;
     private Subscription subscription;
 
     // nucles
-    public MainViewPresenter(Model.DataManagerModel model) {
+    public MainViewPresenter(Model.DataManager model) {
         this.model = model;
     }
 

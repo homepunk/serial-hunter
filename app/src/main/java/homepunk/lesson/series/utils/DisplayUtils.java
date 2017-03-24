@@ -38,7 +38,7 @@ public class DisplayUtils {
         return display.getWidth();
     }
 
-    public static int convertToPx(Context context, int dp) {
+    public static int dpToPixels(Context context, int dp) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }

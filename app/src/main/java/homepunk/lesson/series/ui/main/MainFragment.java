@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,7 +28,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.series.App;
-import homepunk.lesson.series.adapter.GridViewHolder;
 import homepunk.lesson.series.adapter.SeriesRecyclerAdapter;
 import homepunk.lesson.series.data.Constants;
 import homepunk.lesson.series.interfaces.Presenter;
@@ -100,29 +100,26 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
         App.getAppComponent(getContext()).plus(this);
         ButterKnife.bind(this, root);
 
-        setupRecycleView();
+        setupRecycleView(root);
     }
 
-    private void setupRecycleView(){
+    private void setupRecycleView(View root){
         onAirSeries = new ArrayList<>(Constants.FILM_COUNT);
-
         adapter = new SeriesRecyclerAdapter(getContext(), onAirSeries);
+
         recycler.setAdapter(adapter);
         recycler.setLayoutManager(new GridLayoutManager(getContext(), getResources().getConfiguration().orientation ==
                 Configuration.ORIENTATION_LANDSCAPE ? 3 : 2));
-
+        ImageView poster = (ImageView) root.findViewById(R.id.item_backdrop_poster);
         recycler.addOnItemTouchListener(new RecyclerClickListener(getContext(), new RecyclerClickListener.OnItemMotionEventListener() {
             @Override
             public void onItemClick(View view, int position) {
                 int id = onAirSeries.get(position).getId();
-                navigateToDetailed(getContext(), id);
+                navigateToDetailed(getActivity(), id);
             }
 
             @Override
             public void onItemLongClick(View view, int position) {
-                if(!isFavorite(view))
-                    setFavorite(view);
-                else setUnfavorite(view);
                 Toast.makeText(getContext(), "Long click", Toast.LENGTH_SHORT).show();
             }
         }));
@@ -146,23 +143,6 @@ public class MainFragment extends Fragment implements homepunk.lesson.series.int
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
-    }
-
-    private void setFavorite(View view){
-        GridViewHolder holder = new GridViewHolder(view);
-        holder.getFavorite().setImageResource(R.drawable.ic_star_selected);
-        holder.setFavorite(true);
-    }
-
-    private void setUnfavorite(View view){
-        GridViewHolder holder = new GridViewHolder(view);
-        holder.getFavorite().setImageResource(R.drawable.ic_star);
-        holder.setFavorite(false);
-    }
-
-    private boolean isFavorite(View view){
-        GridViewHolder holder = new GridViewHolder(view);
-        return holder.isFavorite() ? true : false;
     }
 }
 

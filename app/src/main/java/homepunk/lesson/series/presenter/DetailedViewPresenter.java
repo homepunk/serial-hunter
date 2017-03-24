@@ -13,10 +13,10 @@ import static homepunk.lesson.series.utils.RxUtils.isSubsribed;
 public class DetailedViewPresenter implements Presenter.DetailedPresenter {
 
     private View.DetailedFragmentView view;
-    private final Model.DataManagerModel model;
+    private final Model.DataManager model;
     private Subscription subscription;
 
-    public DetailedViewPresenter(Model.DataManagerModel model) {
+    public DetailedViewPresenter(Model.DataManager model) {
         this.model = model;
     }
 

@@ -4,40 +4,44 @@ import java.util.List;
 
 import homepunk.lesson.series.data.database.RealmRepository;
 import homepunk.lesson.series.data.rest.TmdbRepository;
+import homepunk.lesson.series.interfaces.Model;
 import homepunk.lesson.series.model.Series;
 import rx.Observable;
 
-import static homepunk.lesson.series.interfaces.Model.DataManagerModel;
-
-public class DataManager implements DataManagerModel {
+public class DataManager implements Model.DataManager {
     public static final String LOG_TAG = DataManager.class.getCanonicalName();
-    private TmdbRepository rest;
+    private TmdbRepository tmdbRepository;
     private RealmRepository db;
 
     public DataManager(TmdbRepository rest, RealmRepository db) {
-        this.rest = rest;
+        this.tmdbRepository = rest;
         this.db = db;
     }
 
     @Override
     public Observable<List<Series>> fetchOnAirSeries() {
         return Observable.defer(() -> /*db.getOnAirSeries()
-                        .switchIfEmpty(*/rest.fetchOnAirSeries()/*
+                        .switchIfEmpty(*/tmdbRepository.fetchOnAirSeries()/*
                         .doOnNext(series -> db.saveOnAirSeries(series))*/);
     }
 
     @Override
     public Observable<List<Series>> fetchPopularSeries() {
-        return rest.fetchPopularSeries();
+        return tmdbRepository.fetchPopularSeries();
     }
 
     @Override
     public Observable<List<Series>> fetchSearchResults(String searchQuery) {
-        return rest.fetchSearchResults(searchQuery);
+        return tmdbRepository.fetchSearchResults(searchQuery);
     }
 
     @Override
     public Observable<Series> fetchDetailedDescriptionById(int id) {
-        return Observable.defer(() -> rest.fetchDetailedDescriptionById(id));
+        return Observable.defer(() -> tmdbRepository.fetchDetailedDescriptionById(id));
+    }
+
+    @Override
+    public Observable<Series> fetchSeriesByTitle(String title) {
+        return Observable.defer(() -> tmdbRepository.fetchSeriesByTitle(title));
     }
 }

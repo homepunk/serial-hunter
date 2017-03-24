@@ -1,10 +1,11 @@
 package homepunk.lesson.series.ui.main;
 
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -26,10 +27,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
 import homepunk.lesson.series.App;
-import homepunk.lesson.series.adapter.SeriesPagerAdapter;
+import homepunk.lesson.series.adapter.FragmentPagerAdapter;
 import homepunk.lesson.series.interfaces.Presenter;
 import homepunk.lesson.series.interfaces.View;
 import homepunk.lesson.series.model.Series;
+import homepunk.lesson.series.ui.anim.ZoomOutPageTransformer;
 import homepunk.lesson.series.ui.base.BaseActivity;
 
 import static android.view.View.GONE;
@@ -48,12 +50,11 @@ public class MainActivity extends BaseActivity
     @Bind(R.id.pager)
     ViewPager pager;
 
-
     @Inject
     Presenter.SearchPresenter searchPresenter;
 
     private ActionBarDrawerToggle drawerToggle;
-    private PagerAdapter pagerAdapter;
+    private android.support.v4.view.PagerAdapter pagerAdapter;
 
 
     @Override
@@ -67,13 +68,13 @@ public class MainActivity extends BaseActivity
         setupBottomNavigationTabs();
         setupViewPager();
         setupNavigationDrawer();
-//        setupSearchView();
-//        setupSearchViewListeners();
+        setupAnimations();
         setupPopupWindow();
         setupAnimatedSearch();
         setupSearchToLineListeners();
-        setupOpenCloseAnimation();
         setupHamburgerIconListener();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
     }
 
     @Override
@@ -147,8 +148,45 @@ public class MainActivity extends BaseActivity
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 
+    private AnimationDrawable getProgressBarAnimation(){
+
+        GradientDrawable rainbow1 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[] {Color.RED, Color.MAGENTA, Color.BLUE, Color.CYAN, Color.GREEN, Color.YELLOW});
+
+        GradientDrawable rainbow2 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[] { Color.YELLOW, Color.RED, Color.MAGENTA, Color.BLUE, Color.CYAN, Color.GREEN});
+
+        GradientDrawable rainbow3 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[] { Color.GREEN, Color.YELLOW, Color.RED, Color.MAGENTA, Color.BLUE, Color.CYAN });
+
+        GradientDrawable rainbow4 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[] { Color.CYAN, Color.GREEN, Color.YELLOW, Color.RED, Color.MAGENTA, Color.BLUE });
+
+        GradientDrawable rainbow5 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[] { Color.BLUE, Color.CYAN, Color.GREEN, Color.YELLOW, Color.RED, Color.MAGENTA });
+
+        GradientDrawable rainbow6 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[] {Color.MAGENTA, Color.BLUE, Color.CYAN, Color.GREEN, Color.YELLOW, Color.RED });
+
+
+        GradientDrawable[]  gds = new GradientDrawable[] {rainbow1, rainbow2, rainbow3, rainbow4, rainbow5, rainbow6};
+
+        AnimationDrawable animation = new AnimationDrawable();
+
+        for (GradientDrawable gd : gds){
+            animation.addFrame(gd, 100);
+
+        }
+
+        animation.setOneShot(false);
+
+        return animation;
+
+
+    }
+
     private void setupViewPager() {
-        pagerAdapter = new SeriesPagerAdapter(getSupportFragmentManager());
+        pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager());
 
         pager.setAdapter(pagerAdapter);
         pager.setCurrentItem(bottomNavgiationTabs.getCurrentTabPosition());
@@ -156,15 +194,17 @@ public class MainActivity extends BaseActivity
             @Override
             public void onPageSelected(int position) {
                 closeAnimatedSearch(quickCloseAnim, false);
-                bottomNavgiationTabs.selectTabAtPosition(position);
+                bottomNavgiationTabs.selectTabAtPosition(position, true);
             }
         });
+
+        pager.setPageTransformer(false, new ZoomOutPageTransformer());
     }
 
     private void setupBottomNavigationTabs() {
-        bottomNavgiationTabs.setBackgroundColor(Color.BLACK);
-        bottomNavgiationTabs.setDrawingCacheBackgroundColor(Color.BLACK);
+        bottomNavgiationTabs.setScrollBarFadeDuration(5000);
         bottomNavgiationTabs.setDefaultTab(R.id.tab_watchlist);
+
         bottomNavgiationTabs.setOnTabSelectListener(tabId -> {
             closeAnimatedSearch(quickCloseAnim, false);
 
@@ -221,8 +261,9 @@ public class MainActivity extends BaseActivity
         toolbar.setNavigationOnClickListener(v -> {
             if (mEditText != null && mEditText.getVisibility() == VISIBLE) {
                 closeAnimatedSearch(closeAnim, true);
-            } else if (mEditText.getVisibility() == GONE)
+            } else if (mEditText.getVisibility() == GONE) {
                 drawerLayout.openDrawer(GravityCompat.START);
+            }
         });
     }
 

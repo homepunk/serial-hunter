@@ -23,11 +23,11 @@ import android.view.View;
 
 import homepunk.lesson.first.contollers.R;
 
-import static homepunk.lesson.series.ui.custom.MaterialSearchToLine.State.LINE;
-import static homepunk.lesson.series.ui.custom.MaterialSearchToLine.State.RUNNING;
-import static homepunk.lesson.series.ui.custom.MaterialSearchToLine.State.SEARCH;
+import static homepunk.lesson.series.ui.custom.MaterialSearchBar.State.LINE;
+import static homepunk.lesson.series.ui.custom.MaterialSearchBar.State.RUNNING;
+import static homepunk.lesson.series.ui.custom.MaterialSearchBar.State.SEARCH;
 
-public class MaterialSearchToLine extends View implements ValueAnimator.AnimatorUpdateListener {
+public class MaterialSearchBar extends View implements ValueAnimator.AnimatorUpdateListener {
 
     private static final float DEFAULT_ALPHA = 0.8f;
     private static final int DEFAULT_COLOR = Color.WHITE;
@@ -44,29 +44,34 @@ public class MaterialSearchToLine extends View implements ValueAnimator.Animator
     private int mBreadth = 2;
     private int mSearchColor = DEFAULT_COLOR;
 
-    public MaterialSearchToLine(Context context) {
+    public MaterialSearchBar(Context context) {
         this(context, null);
     }
 
-    public MaterialSearchToLine(Context context, AttributeSet attrs) {
+    public MaterialSearchBar(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public MaterialSearchToLine(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MaterialSearchBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MaterialSearchToLine);
-        mBreadth = a.getInteger(R.styleable.MaterialSearchToLine_breadth, 2);
-        mSearchColor = a.getColor(R.styleable.MaterialSearchToLine_search_color, Color.WHITE);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MaterialSearchBar);
+        mBreadth = a.getInteger(R.styleable.MaterialSearchBar_breadth, 2);
+        mSearchColor = a.getColor(R.styleable.MaterialSearchBar_search_color, Color.WHITE);
         a.recycle();
         initView();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public MaterialSearchToLine(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public MaterialSearchBar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initView();
 
+    }
+
+    public void setmSearchColor(int id){
+        mSearchColor = id;
+        mSearchPaint.setColor(mSearchColor);
     }
 
     void initView() {
@@ -291,54 +296,54 @@ public class MaterialSearchToLine extends View implements ValueAnimator.Animator
         animatorSet.start();
     }
 
-    private Property<MaterialSearchToLine, Float> joinAngleProperty
-            = new Property<MaterialSearchToLine, Float>(Float.class, "joinAngle") {
+    private Property<MaterialSearchBar, Float> joinAngleProperty
+            = new Property<MaterialSearchBar, Float>(Float.class, "joinAngle") {
         @Override
-        public Float get(MaterialSearchToLine object) {
+        public Float get(MaterialSearchBar object) {
             return object.getJoinAngle();
         }
 
         @Override
-        public void set(MaterialSearchToLine object, Float value) {
+        public void set(MaterialSearchBar object, Float value) {
             object.setJoinAngle(value);
         }
     };
 
-    private Property<MaterialSearchToLine, Float> joinXProperty
-            = new Property<MaterialSearchToLine, Float>(Float.class, "joinx") {
+    private Property<MaterialSearchBar, Float> joinXProperty
+            = new Property<MaterialSearchBar, Float>(Float.class, "joinx") {
         @Override
-        public Float get(MaterialSearchToLine object) {
+        public Float get(MaterialSearchBar object) {
             return object.getJoinx();
         }
 
         @Override
-        public void set(MaterialSearchToLine object, Float value) {
+        public void set(MaterialSearchBar object, Float value) {
             object.setJoinx(value);
         }
     };
 
-    private Property<MaterialSearchToLine, Float> joinYProperty
-            = new Property<MaterialSearchToLine, Float>(Float.class, "joiny") {
+    private Property<MaterialSearchBar, Float> joinYProperty
+            = new Property<MaterialSearchBar, Float>(Float.class, "joiny") {
         @Override
-        public Float get(MaterialSearchToLine object) {
+        public Float get(MaterialSearchBar object) {
             return object.getJoiny();
         }
 
         @Override
-        public void set(MaterialSearchToLine object, Float value) {
+        public void set(MaterialSearchBar object, Float value) {
             object.setJoiny(value);
         }
     };
 
-    private Property<MaterialSearchToLine, Float> lineDelxProperty
-            = new Property<MaterialSearchToLine, Float>(Float.class, "lineDelx") {
+    private Property<MaterialSearchBar, Float> lineDelxProperty
+            = new Property<MaterialSearchBar, Float>(Float.class, "lineDelx") {
         @Override
-        public Float get(MaterialSearchToLine object) {
+        public Float get(MaterialSearchBar object) {
             return object.getLineDelx();
         }
 
         @Override
-        public void set(MaterialSearchToLine object, Float value) {
+        public void set(MaterialSearchBar object, Float value) {
             object.setLineDelx(value);
         }
     };

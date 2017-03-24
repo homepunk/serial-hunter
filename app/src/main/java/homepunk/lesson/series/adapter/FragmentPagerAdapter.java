@@ -6,10 +6,10 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import homepunk.lesson.series.ui.main.MainFragment;
 import homepunk.lesson.series.ui.main.PopularFragment;
-import homepunk.lesson.series.ui.main.SearchFragment;
+import homepunk.lesson.series.ui.main.UpdatesFragment;
 
-public class SeriesPagerAdapter extends FragmentStatePagerAdapter {
-    public SeriesPagerAdapter(FragmentManager fm) {
+public class FragmentPagerAdapter extends FragmentStatePagerAdapter {
+    public FragmentPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -24,7 +24,7 @@ public class SeriesPagerAdapter extends FragmentStatePagerAdapter {
                 fragment = new MainFragment();
                 break;
             case 2:
-                fragment = new SearchFragment();
+                fragment = new UpdatesFragment();
                 break;
         }
         return fragment;

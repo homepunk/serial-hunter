@@ -22,4 +22,8 @@ public class Constants {
     public static final String WITHOUT_EXPOSE = "without expose";
 
     public static final String[] CURSOR_SEARCH_COLUMNS = new String[]{"_id", "SERIES_POSTER", "SERIES_TITLE"};
+
+//    Modules
+    public static final String HDREZKA_API = "hdrezka";
+    public static final String TMDB_API = "tmdb";
 }

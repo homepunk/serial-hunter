@@ -21,9 +21,9 @@ import java.util.List;
 import br.com.mauker.materialsearchview.MaterialSearchView;
 import butterknife.ButterKnife;
 import homepunk.lesson.first.contollers.R;
-import homepunk.lesson.series.adapter.ListPopupAdapter;
+import homepunk.lesson.series.adapter.PopupListAdapter;
 import homepunk.lesson.series.model.Series;
-import homepunk.lesson.series.ui.custom.MaterialSearchToLine;
+import homepunk.lesson.series.ui.custom.MaterialSearchBar;
 import homepunk.lesson.series.utils.DisplayUtils;
 import homepunk.lesson.series.utils.KeyboardUtils;
 import homepunk.lesson.series.utils.NavigationUtils;
@@ -32,7 +32,7 @@ import timber.log.Timber;
 import static android.graphics.Color.parseColor;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static homepunk.lesson.series.utils.DisplayUtils.convertToPx;
+import static homepunk.lesson.series.utils.DisplayUtils.dpToPixels;
 import static homepunk.lesson.series.utils.DisplayUtils.getDisplayContentHeight;
 import static homepunk.lesson.series.utils.DisplayUtils.getDisplayContentWidth;
 import static homepunk.lesson.series.utils.DisplayUtils.getDrawableFromXml;
@@ -41,15 +41,15 @@ public class BaseActivity extends AppCompatActivity {
     private final int[] keyBoardHeight = new int[1];
     private ListView listView;
     protected MaterialSearchView searchView;
-    protected ListPopupAdapter listPopupAdapter;
+    protected PopupListAdapter listPopupAdapter;
     protected PopupWindow popupWindow;
     protected List<Series> searchList;
     protected View popupAnchor;
     protected MaterialMenuDrawable materialMenu;
-    protected MaterialSearchToLine mSearchView;
+    protected MaterialSearchBar mSearchView;
     protected EditText mEditText;
     protected CoordinatorLayout coordinatorLayout;
-    protected AlphaAnimation openAnim, closeAnim, quickCloseAnim, showClearBtnAnim, showEditTextHintAnim;
+    protected AlphaAnimation openAnim, closeAnim, quickCloseAnim, showClearBtnAnim, showEditTextHintAnim, tabSelectedAnim;
     protected Button mClearButton;
     private int minHeight;
 
@@ -70,7 +70,7 @@ public class BaseActivity extends AppCompatActivity {
     private void setupListView() {
         listView = new ListView(this);
         searchList = new ArrayList<>();
-        listPopupAdapter = new ListPopupAdapter(this, searchList);
+        listPopupAdapter = new PopupListAdapter(this, searchList);
 
         listView.setAdapter(listPopupAdapter);
         listView.setDividerHeight(0);
@@ -79,37 +79,21 @@ public class BaseActivity extends AppCompatActivity {
                 NavigationUtils.navigateToDetailed(this, searchList.get(position).getId()));
     }
 
-    protected void setupSearchView() {
-//        searchView = ButterKnife.findById(this, R.id.searchview);
-        searchView.setScrollBarFadeDuration(5000);
-        searchView.setSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewOpened() {
-                if (openAnim != null)
-                    coordinatorLayout.startAnimation(openAnim);
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-                if (closeAnim != null)
-                    coordinatorLayout.startAnimation(closeAnim);
-
-                dismissDropDown();
-            }
-        });
-
-        searchView.setHint(getString(R.string.hint_search));
-        searchView.setShouldAnimate(true);
-        searchView.setTintColor((Color.rgb(255, 255, 255)));
-        searchView.setTintAlpha(20);
-    }
-
     protected void setupAnimatedSearch() {
         mEditText = (EditText) findViewById(R.id.material_edit_text_line);
         mSearchView = ButterKnife.findById(this, R.id.material_search_to_line);
         mClearButton = ButterKnife.findById(this, R.id.material_clear_button);
 
-        mSearchView.setOnClickSearchListener(() -> openAnimatedSearch());
+        mClearButton.setOnClickListener(v -> {
+            if (mEditText.getText().length() >= 1) {
+                mEditText.getText().clear();
+
+                dismissDropDown();
+            }
+        });
+
+        mSearchView.setOnClickSearchListener(() ->
+                openAnimatedSearch());
 
         mSearchView.setOnChangeListener(state -> {
             switch (state) {
@@ -124,6 +108,7 @@ public class BaseActivity extends AppCompatActivity {
                     break;
                 case SEARCH:
                     mEditText.setVisibility(GONE);
+                    mClearButton.setVisibility(GONE);
                     break;
             }
         });
@@ -133,9 +118,13 @@ public class BaseActivity extends AppCompatActivity {
         if (coordinatorLayout != null && openAnim != null)
             coordinatorLayout.startAnimation(openAnim);
 
+        mSearchView.setmSearchColor(Color.parseColor("#f39e0a"));
+        materialMenu.setTransformationDuration(1600);
+        materialMenu.setColor(Color.parseColor("#f39e0a"));
         mSearchView.transformToLine();
         materialMenu.animateIconState(MaterialMenuDrawable.IconState.ARROW, true);
-        mEditText.setHintTextColor(parseColor("#a4a4a4"));
+        mEditText.setHintTextColor(Color.parseColor("#a4a4a4"));
+
         KeyboardUtils.showSoftKeyboard(this, mEditText);
     }
 
@@ -144,11 +133,13 @@ public class BaseActivity extends AppCompatActivity {
             if (mEditText.getText().length() > 0) {
                 mEditText.getText().clear();
             }
+            mSearchView.setmSearchColor(Color.parseColor("#a4a4a4"));
 
             mClearButton.setBackgroundColor(Color.TRANSPARENT);
             mClearButton.setVisibility(GONE);
             mEditText.setHintTextColor(Color.TRANSPARENT);
             mEditText.setCursorVisible(false);
+            materialMenu.setColor(Color.parseColor("#a4a4a4"));
 
             mSearchView.transformToSearch();
             materialMenu.animateIconState(MaterialMenuDrawable.IconState.BURGER, drawTouch);
@@ -160,16 +151,15 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected void setupOpenCloseAnimation() {
+    protected void setupAnimations() {
         coordinatorLayout = ButterKnife.findById(this, R.id.main_container);
-
         openAnim = new AlphaAnimation(1f, 0.2f);
-        openAnim.setDuration(600);
+        openAnim.setDuration(1000);
         openAnim.setStartOffset(0);
         openAnim.setFillAfter(true);
 
         closeAnim = new AlphaAnimation(0.2f, 1.0f);
-        closeAnim.setDuration(600);
+        closeAnim.setDuration(1000);
         closeAnim.setStartOffset(0);
         closeAnim.setFillAfter(true);
 
@@ -177,6 +167,11 @@ public class BaseActivity extends AppCompatActivity {
         quickCloseAnim.setDuration(100);
         quickCloseAnim.setStartOffset(0);
         quickCloseAnim.setFillAfter(true);
+
+        tabSelectedAnim = new AlphaAnimation(0.87f, 1.0f);
+        tabSelectedAnim.setDuration(300);
+        tabSelectedAnim.setStartOffset(0);
+        tabSelectedAnim.setFillAfter(true);
 
         showClearBtnAnim = new AlphaAnimation(0.0f, 1f);
         showClearBtnAnim.setDuration(300);
@@ -241,9 +236,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected int getPopupHeight() {
-        minHeight = convertToPx(this, 86);
+        minHeight = dpToPixels(this, 86);
         int actualHeight = searchList.size() * minHeight;
-        int margin = convertToPx(this, 8);
+        int margin = dpToPixels(this, 8);
         int maxHeight;
 
         KeyboardUtils.recalculateKeyboardHeight(this, keyBoardHeight);
@@ -267,7 +262,7 @@ public class BaseActivity extends AppCompatActivity {
 
     protected int getPopupWidth() {
         int margin = 64;
-        return getDisplayContentWidth(this) - convertToPx(this, margin * 2);
+        return getDisplayContentWidth(this) - dpToPixels(this, margin * 2);
     }
 
     private boolean isPopupSizeChanged() {

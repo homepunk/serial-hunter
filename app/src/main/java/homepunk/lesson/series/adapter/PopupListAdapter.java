@@ -18,11 +18,11 @@ import homepunk.lesson.series.model.Series;
 
 import static homepunk.lesson.series.utils.AdapterUtils.loadImage;
 
-public class ListPopupAdapter extends ArrayAdapter<Series> {
+public class PopupListAdapter extends ArrayAdapter<Series> {
     List<Series> seriesList;
     Context context;
 
-    public ListPopupAdapter(@NonNull Context context, List<Series> seriesList) {
+    public PopupListAdapter(@NonNull Context context, List<Series> seriesList) {
         super(context, R.layout.list_item_search);
         this.seriesList = seriesList;
         this.context = context;

@@ -13,11 +13,11 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class SearchViewPresenter implements Presenter.SearchPresenter {
-    private final Model.DataManagerModel model;
+    private final Model.DataManager model;
     private View.SearchFragmentView view;
     private Subscription subscription;
 
-    public SearchViewPresenter(Model.DataManagerModel model) {
+    public SearchViewPresenter(Model.DataManager model) {
         this.model = model;
     }
 

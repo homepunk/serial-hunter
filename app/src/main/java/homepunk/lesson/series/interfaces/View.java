@@ -2,6 +2,7 @@ package homepunk.lesson.series.interfaces;
 
 import java.util.List;
 
+import homepunk.lesson.series.model.HdrezkaSeries;
 import homepunk.lesson.series.model.Series;
 
 public interface View {
@@ -32,4 +33,9 @@ public interface View {
         void onError(String error);
     }
 
+    interface UpdatesView {
+        void onResult(Series series, HdrezkaSeries updateInfo);
+
+        void onError(String error);
+    }
 }
